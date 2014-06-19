@@ -1,15 +1,16 @@
 body{ padding: 70px 0px; }
-
 a {
   color: #17b292;
   text-decoration: none;
 }
-
+a:hover, a:focus {
+  color: #0e6e5a;
+  text-decoration: underline;
+}
 h1 {
 	color: #17b292;
 	margin-top: 1em;
 }
-
 .btn-primary {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -44,9 +45,27 @@ h1 {
 .btn-primary.active {
   background-color: #11856d \9;
 }
+/* NAV
+-------------------------------------------------- */
 .navbar-inverse .navbar-brand {
   color: #17B292;
   padding: 8px 20px 8px;
+}
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+  background-color: transparent;
+}
+.nav>li>a:hover, .nav>li>a:focus {
+  background-color: transparent;
+}
+.nav .caret {
+  border-top-color: #17b292;
+  border-bottom-color: #17b292;
+}
+form.nav-login{
+  padding: 15px;
+}
+form.nav-login .btn {
+  margin-top:10px;
 }
 /* LANDING PAGE
 -------------------------------------------------- */
@@ -58,7 +77,6 @@ h1 {
   padding-bottom: 5%;
   white-space: normal;
 }
-
 .round_link:hover {
 	background-color: rgba(23,178,146, .3);
 	color: #555;
