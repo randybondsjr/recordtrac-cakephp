@@ -32,6 +32,7 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
   public function beforeFilter(){
-   $this->layout = 'bootstrap';
+    $this->layout = 'bootstrap';
+    $this->set('agencyName', Configure::read('Agency.name'));
   }
 }
