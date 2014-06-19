@@ -102,7 +102,11 @@ p.text-center.text-body {
 #request-count {
   background-color: #17b292;
 }
-
+/* Glyphicon additional styles
+-------------------------------------------------- */
+.glyphicon-lg{font-size: 30px;}
+.glyphicon-muted{color:#999;}
+.glyphicon-margin-lg{margin:0 30px;}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
