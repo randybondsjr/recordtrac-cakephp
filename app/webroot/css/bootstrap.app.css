@@ -48,9 +48,8 @@ h1 {
   color: #17B292;
   padding: 8px 20px 8px;
 }
-
-/*****LANDING PAGE *****/
-
+/* LANDING PAGE
+-------------------------------------------------- */
 /*hover states for images on the landing page */
 .round_link {
   border-radius: 20px;
@@ -81,6 +80,9 @@ p.text-center.text-body {
 #seedata {
   margin-top: 1em;
   margin-bottom: 3em;
+}
+#request-count {
+  background-color: #17b292;
 }
 
 /* Sticky footer styles
