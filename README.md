@@ -7,6 +7,7 @@ Although this project is called a "port," it does not follow the same convention
 ##Installation 
 In your /Config/routes.php add this line (replacing the default) if you want RecordTrac as your default view, otherwise, you can ignore this
 >Router::connect('/', array('controller' => 'users', 'action' => 'signup'));
+>Router::connect('/about', array('controller' => 'pages', 'action' => 'display', 'about')); //make sure this is before pages route
 
 
 ###Technologies Used
