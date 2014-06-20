@@ -1,13 +1,13 @@
-<div class="row-fluid">
-	<div class="span10 offset1">
-		<div class="row-fluid">
-			<div id="about_image" class="span10">
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+		<div class="row">
+			<div id="about_image" class="col-sm-10">
 				<?php echo $this->Html->image('/img/recordtrac/logo.png', array('alt' => $agencyName));?>
 				<span class="glyphicon glyphicon-plus glyphicon-lg glyphicon-muted glyphicon-margin-lg"></span>
 				<?php echo $this->Html->image('/img/recordtrac/CfA_logo.png', array('alt' => 'Code for America','width'=>'20%'));?>
 			</div>
 		</div>
-		<div class="row-fluid">
+		<div class="row">
 			<div class="bottombreathe">
 			<h2 id="about">About RecordTrac</h2>
 			<ul style="list-style: none;">
@@ -36,39 +36,39 @@
 
 
 				<h4 id="all request table">Where can I find all the requests submitted through RecordTrac?</h4>
-				<p>RecordTrac displays all current and past records requests at <a href="{{config['APPLICATION_URL']}}requests">{{config['APPLICATION_URL']}}requests</a>. A description of what RecordTrac displays on this page can be found below:</p> 
+				<p>RecordTrac displays all current and past records requests at <?php echo $this->Html->link($appUrl . '/requests', '/requests'); ?>. A description of what RecordTrac displays on this page can be found below:</p> 
 
-				<div class="row-fluid">
-					<div class="span1 offset1">
+				<div class="row">
+					<div class="col-sm-1 col-sm-offset-1">
 						<p class="table-legend">'#'</p>
 					</div>
-					<div class="span8">
-						<p class="table-legend-explanation">Each request is assigned a unique number. You can easily track your request with this number by visiting <a href="{{config['APPLICATION_URL']}}track">{{config['APPLICATION_URL']}}track</a>.</p>
+					<div class="col-sm-8">
+						<p class="table-legend-explanation">Each request is assigned a unique number. You can easily track your request with this number by visiting <?php echo $this->Html->link($appUrl . '/track', '/track'); ?>.</p>
 					</div>
 				</div>
-				<div class="row-fluid">
-					<div class="span1 offset1">
+				<div class="row">
+					<div class="col-sm-1 col-sm-offset-1">
 						<p class="table-legend">'Received'</p>
 					</div>
-					<div class="span8">
+					<div class="col-sm-8">
 						<p class="table-legend-explanation">This column displays the date when the request was entered in RecordTrac.</p>
 						<p class="table-legend-explanation">You are allowed to submit a public records request any way, including by mail, fax, and over the phone. If a request wasn't originally submitted through RecordTrac, it may take agency employees a day or two to enter it into the system.</p>
 					</div>
 				</div>
-				<div class="row-fluid">
-					<div class="span1 offset1">
+				<div class="row">
+					<div class="col-sm-1 col-sm-offset-1">
 						<p class="table-legend">'Point of Contact'</p>
 					</div>
-					<div class="span8">
+					<div class="col-sm-8">
 						<p class="table-legend-explanation">The 'Point of Contact' is a <?php echo $agencyName; ?> employee responsible for providing you with the information you need about your public records request.</p>
 						<p class="table-legend-explanation">Sometimes <?php echo $agencyName; ?> employees from several departments will be needed to respond to one public records request. They will be added as Helpers.  In that case, if you have any questions about your request send a message to the Point of Contact through RecordTrac.</p>
 					</div>
 				</div>
-				<div class="row-fluid">
-					<div class="span1 offset1">
+				<div class="row">
+					<div class="col-sm-1 col-sm-offset-1">
 						<p class="table-legend">'Department'</p>
 					</div>
-					<div class="span8">
+					<div class="col-sm-8">
 						<p class="table-legend-explanation">The agency department where the point of contact works. Multiple departments may be involved in one request, but the Point of Contact's department will only be displayed.</p>
 					</div>
 				</div>
@@ -86,11 +86,11 @@
 				</ul>
 				<p>The <?php echo $agencyName; ?> may ask for a 14-day extension if they have to sort through a large number of documents, retrieve the document from a facility outside of City Hall, consult with another agency, or write a computer program to get data.</p> 
 				<p>
-					For more information on the Public Records Act and the Sunshine Ordinance, check out these resources:
+					For more information on the Public Records Act, check out these resources:
 				</p>
 				<ul>
-					<li><a href="http://www2.oaklandnet.com/Government/o/CityAdministration/d/PublicEthics/s/OpenGovernment/OAK040723">Public Ethics Commission's website</a></li>
-					<li><a href="http://www.oaklandcityattorney.org/resources/PubInfoRequest.html">City Attorney's website</a></li>
+					<li><a href="http://apps.leg.wa.gov/rcw/default.aspx?cite=42.56">Washington State Public Records Act</a></li>
+					<li><a href="<?php echo $agencyUrl; ?>"><?php echo $agencyName; ?> Homepage</a></li>
 				</ul>
 				<br>
 				<h4 id="documents">Why aren't all documents uploaded on RecordTrac?</h4>
