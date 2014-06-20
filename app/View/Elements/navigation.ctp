@@ -6,13 +6,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><?php echo $this->Html->image('/img/recordtrac/logo.png', array('alt' => $agencyName, 'width' => '35px', 'height' => '35px'));?> RecordTrac</a>
-    </div>
+      <?php
+        echo $this->Html->link(
+          $this->Html->image("/img/recordtrac/logo.png", array('alt' => $agencyName, 'width' => '35px', 'height' => '35px')) . ' ' . __('RecordTrac'),
+          $appUrl,
+          array('escape' => false, 'class' => 'navbar-brand')
+        );
+      ?>
+      </div>
     <div class="collapse navbar-collapse pull-left">
       <ul class="nav navbar-nav">
-        <li><a href="/new">New request</a></li>
-        <li><a href="/requests">Explore requests</a></li>
-        <li><a href="/about">About</a></li>
+        <li><?php echo $this->Html->link('New Request', '/requests/new'); ?></li>
+        <li><?php echo $this->Html->link('Explore Requests', '/requests'); ?></li>
+        <li><?php echo $this->Html->link('About', '/about'); ?></li>
       </ul>
       
     </div><!--/.nav-collapse -->
