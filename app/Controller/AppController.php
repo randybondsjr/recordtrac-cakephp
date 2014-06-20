@@ -34,5 +34,8 @@ class AppController extends Controller {
   public function beforeFilter(){
     $this->layout = 'bootstrap';
     $this->set('agencyName', Configure::read('Agency.name'));
+    $this->set('agencyTag', Configure::read('Agency.tagline'));
+    $this->set('agencyUrl', Configure::read('Agency.url'));
+    $this->set('appUrl', Configure::read('App.url'));
   }
 }
