@@ -5,10 +5,10 @@ Although this project is called a "port," it does not follow the same convention
 
 
 ##Installation 
-In your /Config/routes.php add this line (replacing the default) if you want RecordTrac as your default view, otherwise, you can ignore this
+In your /Config/routes.php add this line (replacing the default) if you want RecordTrac, to install it as a module, you'll need to adjust the setup.
 >Router::connect('/', array('controller' => 'users', 'action' => 'signup'));
 >Router::connect('/about', array('controller' => 'pages', 'action' => 'display', 'about')); //make sure this is before pages route
-
+>Router::connect('/track', array('controller' => 'requests', 'action' => 'track', 'track'));//make sure this is before pages route
 
 ###Technologies Used
 http://www.ekoim.com/blog/bootstrap-cakephp-bootstrapcake/ - CakePHP Bootstrap Layout Addition
