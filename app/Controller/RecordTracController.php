@@ -8,6 +8,7 @@ class RecordTracController extends AppController {
 	public $uses = array();
 	
   public function index() {
-    
+    $this->loadModel('Requests');
+    $this->set('totalRequests', $this->Requests->find('count'));
   }
 }

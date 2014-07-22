@@ -21,8 +21,7 @@
 		    <a href="/requests" class="btn btn-link round_link">
 		      <?php echo $this->Html->image('/img/recordtrac/explore.png', array('alt' => 'explore', 'class' => 'center-image', 'width' => '75px'));?>
 					<h4 class="text-center text-title">EXPLORE</h4>
-					<p class="text-center text-body">View <span id="request-count" class="badge badge-info">
-						20000</span> past requests and counting.
+					<p class="text-center text-body">View <span id="request-count" class="badge badge-info"><?php echo $totalRequests; ?></span> past requests and counting.
 					</p>
 				</a>
       </div>
