@@ -11,6 +11,7 @@ class RequestsController extends AppController {
   }
   public function view($id = null){
     $this->Request->id = $id;
+    $this->set("title_for_layout","Request " . $id . " - View a Request - City of Yakima");
     $this->set('request', $this->Request->read());
   }
   public function create(){
