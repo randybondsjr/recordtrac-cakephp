@@ -7,9 +7,12 @@ a:hover, a:focus {
   color: #0e6e5a;
   text-decoration: underline;
 }
-h1 {
+h1#landing_brand {
 	color: #17b292;
 	margin-top: 1em;
+}
+.muted {
+color: #999999;
 }
 .btn-primary {
   color: #ffffff;
