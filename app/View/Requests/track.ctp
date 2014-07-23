@@ -6,7 +6,10 @@
     <?php
       echo $this->Form->create('Track', array('url'=>array('controller'=>'requests', 'action'=>'index')));
       echo $this->Form->input('request_id',array('type' => 'text', 'placeholder' => 'Enter Your Tracking Number', 'label' => '', 'class' => 'form-control'));
-    	echo $this->Form->end('Find My Request');
+      echo $this->Form->submit(
+          'Find My Request', 
+          array('class' => 'btn btn-primary', 'title' => 'Custom Title')
+      );
     ?>
   </div>
 </div>
