@@ -1,10 +1,9 @@
 <?php
 class RequestsController extends AppController {
   public function index($query = null) {
-    pr($this->data);
-        if (!$query && $this->data) {
-            $this->redirect(array('action' => 'view', $this->data['Track']['request_id']));
-        }
+    if (!$query && $this->data) {
+        $this->redirect(array('action' => 'view', $this->data['Track']['request_id']));
+    }
     
   }
   public function track(){
@@ -13,5 +12,8 @@ class RequestsController extends AppController {
   public function view($id = null){
     pr($this->data);
     echo $id;
+  }
+  public function create(){
+    
   }
 }
