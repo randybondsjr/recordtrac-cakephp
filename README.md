@@ -6,9 +6,11 @@ Although this project is called a "port," it does not follow the same convention
 
 ##Installation 
 In your /Config/routes.php add this line (replacing the default) if you want RecordTrac, to install it as a module, you'll need to adjust the setup.
->Router::connect('/', array('controller' => 'users', 'action' => 'signup'));
->Router::connect('/about', array('controller' => 'pages', 'action' => 'display', 'about')); //make sure this is before pages route
->Router::connect('/track', array('controller' => 'requests', 'action' => 'track', 'track'));//make sure this is before pages route
+//make sure this is before pages route
+>Router::connect('/', array('controller' => 'recordtrac', 'action' => 'index')); //sets recordtrac as default index for whole CakePHP insall
+>Router::connect('/about', array('controller' => 'pages', 'action' => 'display', 'about'));  //just a prettier for /about
+>Router::connect('/track', array('controller' => 'requests', 'action' => 'track', 'track')); // track is really part of requests, not a seperate controller
+>Router::connect('/track/:id', array('controller' => 'requests', 'action' => 'view'),array('pass' => array('id'))); //This routes /track/REQUESTID
 
 ###Technologies Used
 http://www.ekoim.com/blog/bootstrap-cakephp-bootstrapcake/ - CakePHP Bootstrap Layout Addition
