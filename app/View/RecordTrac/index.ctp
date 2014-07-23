@@ -26,7 +26,7 @@
 				</a>
       </div>
 		  <div class="col-sm-4">
-        <a href="requests/new" class="btn btn-link round_link">
+        <a href="requests/create" class="btn btn-link round_link">
           <?php echo $this->Html->image('/img/recordtrac/create.png', array('alt' => 'explore', 'class' => 'center-image', 'width' => '100px'));?>
           <h4 class="text-center text-title">REQUEST</h4>
           <p class="text-center text-body">Create a new public records request.</p>

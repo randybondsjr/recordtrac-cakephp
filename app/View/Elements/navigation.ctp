@@ -16,7 +16,7 @@
       </div>
     <div class="collapse navbar-collapse pull-left">
       <ul class="nav navbar-nav">
-        <li><?php echo $this->Html->link('New Request', '/requests/new'); ?></li>
+        <li><?php echo $this->Html->link('New Request', '/requests/create'); ?></li>
         <li><?php echo $this->Html->link('Explore Requests', '/requests'); ?></li>
         <li><?php echo $this->Html->link('About', '/about'); ?></li>
       </ul>
