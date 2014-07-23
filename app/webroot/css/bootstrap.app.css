@@ -12,8 +12,16 @@ h1#landing_brand {
 	margin-top: 1em;
 }
 .muted {
-color: #999999;
+  color: #999999;
 }
+/* Form
+-------------------------------------------------- */
+.input {
+  margin-bottom: 15px;
+}
+
+/* Buttons
+-------------------------------------------------- */
 .btn-primary {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
