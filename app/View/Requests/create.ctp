@@ -7,10 +7,24 @@
 	<div class="col-sm-7">
 	  <h1>Request a new record</h1>
 	  <p>Use RecordTrac to request copies of specific documents, photos, emails, texts, audio recordings, electronic information and data in the <?php echo $agencyName; ?>'s databases.</p>
-	  <p class="lead">What are you trying to find?</p>
+	  
     <?php
       echo $this->Form->create('Request');
-      echo $this->Form->input('request_id',array('type' => 'textarea', 'placeholder' => 'Describe your request. Be as specific as possible.', 'label' => '<span class="glyphicon glyphicon-exclamation-sign"></span> Everything in this request box will be displayed publicly. <a href="/about#why">Why?</a>', 'class' => 'form-control'));
+      echo $this->Form->input('text',
+                              array('type' => 'textarea', 
+                                    'placeholder' => 'Describe your request. Be as specific as possible.',
+                                    'before' => '<p class="lead">What are you trying to find?</p>', 
+                                    'label' => '<span class="glyphicon glyphicon-exclamation-sign"></span> Everything in this request box will be displayed publicly. <a href="/about#why">Why?</a>', 
+                                    'class' => 'form-control'));
+    ?>
+    
+    <?php
+      echo $this->Form->input('doctype',
+                              array('options' => array(1, 2, 3, 4, 5),
+                                    'between' => '<p class="lead">Select a department or document type <small class="department_optional">(optional)</small></p>',
+                                    'empty' => '(choose one)', 
+                                    'label' => '', 
+                                    'class' => 'form-control combobox'));
       echo $this->Form->submit(
           'Submit My Request', 
           array('class' => 'btn btn-primary', 'title' => 'Custom Title')

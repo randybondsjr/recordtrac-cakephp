@@ -17,6 +17,9 @@ h1#landing_brand {
 p.intro-text {
   font-size: 16px;
 }
+form p.lead {
+  margin-bottom: 5px;
+}
 /* Form
 -------------------------------------------------- */
 .input {
