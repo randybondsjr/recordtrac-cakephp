@@ -10,6 +10,7 @@ class RequestsController extends AppController {
 		);
 		$records = $this->paginate('Request');
 		$this->set('total',$total = $this->Request->find('count'));
+		
 		if( ! empty($records)){
 			$this->set('results', $records);
 		}else{
@@ -17,14 +18,17 @@ class RequestsController extends AppController {
 			$this->set('results', $records);
 		}
   }
+  
   public function track(){
     $this->set("title_for_layout","Track a Request - City of Yakima");
   }
+  
   public function view($id = null){
     $this->Request->id = $id;
     $this->set("title_for_layout","Request " . $id . " - View a Request - City of Yakima");
     $this->set('request', $this->Request->read());
   }
+  
   public function create(){
     
   }
