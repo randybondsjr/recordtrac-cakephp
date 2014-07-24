@@ -30,6 +30,13 @@ class RequestsController extends AppController {
   }
   
   public function create(){
-    
+    //query doctypes for dropdowm
+    $this->loadModel('DocType');
+    $doctypes = $this->DocType->find('all');
+    $doctypeList = array();
+    foreach ($doctypes AS $doctype){
+      $doctypeList[] = array('value' => $doctype["DocType"]["department_id"], 'name' => $doctype["DocType"]["prettyDocName"]);
+    }
+    $this->set('doctypes',$doctypeList);
   }
 }

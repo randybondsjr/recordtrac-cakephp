@@ -20,7 +20,7 @@
     
     <?php
       echo $this->Form->input('doctype',
-                              array('options' => array(1, 2, 3, 4, 5),
+                              array(
                                     'between' => '<p class="lead">Select a department or document type <small class="department_optional">(optional)</small></p>',
                                     'empty' => '(choose one)', 
                                     'label' => '', 
