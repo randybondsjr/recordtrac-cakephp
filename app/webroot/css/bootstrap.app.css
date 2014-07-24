@@ -14,6 +14,9 @@ h1#landing_brand {
 .muted {
   color: #999999;
 }
+p.intro-text {
+  font-size: 16px;
+}
 /* Form
 -------------------------------------------------- */
 .input {

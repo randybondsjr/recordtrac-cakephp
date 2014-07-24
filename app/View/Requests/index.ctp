@@ -7,6 +7,11 @@
   </div>
 </div>
 <div class="row">
+  <div class="col-sm-10">
+    <p class="intro-text">RecordTrac makes every public records request available to the public, including messages or documents uploaded by agency staff. Search through current and past requests. You may find what you need!</p>
+  </div>
+</div>
+<div class="row">
 	<div class="col-sm-4">
 	  <div class="well">
       Filter Form Here
@@ -19,7 +24,7 @@
               <th class="col-sm-1"><?php echo $this->Paginator->sort('id', '#');?></th>
               <th class="col-sm-2"><?php echo $this->Paginator->sort('date_received', 'Received');?></th>
               <th><?php echo $this->Paginator->sort('text', 'Request');?></th>
-              <th><?php echo $this->Paginator->sort('department_id', 'Department');?></th>
+              <th><?php echo $this->Paginator->sort('Department.name', 'Department');?></th>
               <th><?php echo $this->Paginator->sort('', 'Point of Contact');?></th>
           </tr>
       </thead>
@@ -34,7 +39,7 @@
                                                             'ellipsis' => '...',
                                                             'exact' => false
                                                         )));
-            printf("<td>%d</td>",$result["Request"]["department_id"]);
+            printf("<td>%s</td>",$result["Department"]["name"]);
             printf("<td>POC</td>");
             echo "</tr>";
           }
