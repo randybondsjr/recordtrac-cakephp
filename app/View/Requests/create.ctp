@@ -16,15 +16,34 @@
                                     'before' => '<p class="lead">What are you trying to find?</p>', 
                                     'label' => '<span class="glyphicon glyphicon-exclamation-sign"></span> Everything in this request box will be displayed publicly. <a href="/about#why">Why?</a>', 
                                     'class' => 'form-control'));
-    ?>
-    
-    <?php
       echo $this->Form->input('doctype',
                               array(
                                     'between' => '<p class="lead">Select a department or document type <small class="department_optional">(optional)</small></p>',
                                     'empty' => '(choose one)', 
                                     'label' => '', 
                                     'class' => 'form-control combobox'));
+      /* @TO create UserHelper to check login
+      if($this->User->isLoggedIn()){
+        echo "<p class=\"lead\">Format Received</p>";
+        echo "<p class=\"lead\">Date Received</p>";
+      }
+      */
+      echo "<p class=\"lead\">Contact Information</p>";
+      echo $this->Form->input('User.email',
+                              array('type' => 'email', 
+                                    'placeholder' => 'yourname@example.com',
+                                    'label' => 'Your email', 
+                                    'class' => 'form-control'));
+      echo $this->Form->input('User.alias',
+                              array('type' => 'text', 
+                                    'placeholder' => 'Your Name',
+                                    'label' => 'Your Name <small>(optional)</small>', 
+                                    'class' => 'form-control'));
+      echo $this->Form->input('User.phone',
+                              array('type' => 'text', 
+                                    'placeholder' => '(509) 555-1234',
+                                    'label' => 'Your Phone Number <small>(optional)</small>', 
+                                    'class' => 'form-control'));
       echo $this->Form->submit(
           'Submit My Request', 
           array('class' => 'btn btn-primary', 'title' => 'Custom Title')

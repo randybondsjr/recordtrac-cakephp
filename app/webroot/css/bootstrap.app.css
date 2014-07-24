@@ -1,4 +1,5 @@
 body{ padding: 70px 0px; }
+p.lead small {font-size: 60%;}
 a {
   color: #17b292;
   text-decoration: none;
