@@ -19,6 +19,13 @@ h1#landing_brand {
 .input {
   margin-bottom: 15px;
 }
+/* Badges
+-------------------------------------------------- */
+.badge-lg{
+  font-size: inherit;
+  padding: 3px 15px;
+  border-radius: 25px;
+}
 
 /* Buttons
 -------------------------------------------------- */
@@ -55,6 +62,14 @@ h1#landing_brand {
 .btn-primary:active,
 .btn-primary.active {
   background-color: #11856d \9;
+}
+/* Tables
+-------------------------------------------------- */
+th a.asc:after {
+	content: ' ▼';
+}
+th a.desc:after {
+	content: ' ▲';
 }
 /* NAV
 -------------------------------------------------- */
