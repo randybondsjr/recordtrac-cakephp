@@ -1,3 +1,8 @@
+<?php
+  $this->Html->script('bootstrap-combobox', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->script('create-request', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->css('bootstrap-combobox', array('inline' => false));
+?>
 <div class="row">
 	<div class="col-sm-7">
 	  <h1>Request a new record</h1>
@@ -7,7 +12,7 @@
       echo $this->Form->create('Request');
       echo $this->Form->input('request_id',array('type' => 'textarea', 'placeholder' => 'Describe your request. Be as specific as possible.', 'label' => '<span class="glyphicon glyphicon-exclamation-sign"></span> Everything in this request box will be displayed publicly. <a href="/about#why">Why?</a>', 'class' => 'form-control'));
       echo $this->Form->submit(
-          'Find My Request', 
+          'Submit My Request', 
           array('class' => 'btn btn-primary', 'title' => 'Custom Title')
       );
     ?>
