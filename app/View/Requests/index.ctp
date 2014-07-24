@@ -16,14 +16,29 @@
 	  <table class="table table-striped">
       <thead>
           <tr>
-              <th><?php echo $this->Paginator->sort('id', '#');?></th>
-              <th><?php echo $this->Paginator->sort('date_received', 'Received');?></th>
+              <th class="col-sm-1"><?php echo $this->Paginator->sort('id', '#');?></th>
+              <th class="col-sm-2"><?php echo $this->Paginator->sort('date_received', 'Received');?></th>
               <th><?php echo $this->Paginator->sort('text', 'Request');?></th>
               <th><?php echo $this->Paginator->sort('department_id', 'Department');?></th>
               <th><?php echo $this->Paginator->sort('', 'Point of Contact');?></th>
           </tr>
       </thead>
       <tbody>
+        <?php 
+          foreach ($results as $result){
+            echo "<tr>";
+            printf("<td>%d</td>",$result["Request"]["id"]);
+            printf("<td>%s</td>",$this->Time->format('M jS, Y',$result["Request"]["date_received"]));
+            printf("<td>%s</td>",$this->Text->truncate($result["Request"]["text"],100,
+                                                        array(
+                                                            'ellipsis' => '...',
+                                                            'exact' => false
+                                                        )));
+            printf("<td>%d</td>",$result["Request"]["department_id"]);
+            printf("<td>POC</td>");
+            echo "</tr>";
+          }
+        ?>
       </tbody>
 	  </table>
 	  <p><?php echo $this->Paginator->counter('Page {:page} of {:pages}, showing {:current} records out of {:count} total');?></p>
