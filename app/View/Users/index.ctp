@@ -1,14 +1,27 @@
 <div class="row">
-  <div class="col-sm-8">
-    <h1>RecordTrac - Administration - Users</h1>
+  <div class="col-sm-7">
+    <h1>Administration <small>Users</small> <?php echo $this->Html->link('<span class="glyphicon glyphicon-plus"></span>', array('action' => 'add'),array('class' => 'btn btn-primary', 'escape' => false)); ?></h1>
   </div>
-  <div class="col-sm-4">
-    <p><?php echo $this->Html->link('Add User', array('action' => 'add'),array('class' => 'btn btn-lg btn-primary')); ?> </p>
+  <div class="col-sm-5">
+    <ul class="pagination pull-right">
+      <li><?php echo $this->Paginator->first('< First '); ?> </li>
+      <?php 	echo $this->Paginator->numbers(array(
+        'before' => '',
+        'separator' => '',
+        'currentClass' => 'active',
+        'currentTag' => 'a',
+        'tag' => 'li',
+        'after' => ''
+        )); 
+      ?> 
+      <li><?php echo $this->Paginator->last(' Last >'); ?></li>
+    </ul>
   </div>
 </div>
 
 <div class="row">
 	<div class="col-sm-12">
+	  <p class="pull-right"><?php echo $this->Paginator->counter('Page {:page} of {:pages}, showing {:current} user(s) of {:count} total');?></p>
 	  <table class="table table-striped">
       <thead>
           <tr>
@@ -45,6 +58,19 @@
         ?>
       </tbody>
 	  </table>
-	  <p><?php echo $this->Paginator->counter('Page {:page} of {:pages}, showing {:current} records out of {:count} total');?></p>
+	  <ul class="pagination pull-right">
+      <li><?php echo $this->Paginator->first('< First '); ?> </li>
+      <?php 	echo $this->Paginator->numbers(array(
+        'before' => '',
+        'separator' => '',
+        'currentClass' => 'active',
+        'currentTag' => 'a',
+        'tag' => 'li',
+        'after' => ''
+        )); 
+      ?> 
+      <li><?php echo $this->Paginator->last(' Last >'); ?></li>
+    </ul>
+	  
 	</div>
 </div>

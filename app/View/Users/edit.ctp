@@ -1,6 +1,6 @@
  <div class="row">
 			<div class="col-sm-8">
-				<h1 id="landing_brand">RecordTrac - Administration</h1>
+				<h1>Administration</h1>
 			</div>
 		</div>
     <div class="row">

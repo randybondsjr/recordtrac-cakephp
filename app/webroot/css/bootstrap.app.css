@@ -33,6 +33,13 @@ form p.lead {
   border: 1px solid transparent;
   border-radius: 4px;
 }
+.error-message {
+  color: #a94442;
+  background-color: #f2dede;
+  padding: 15px;
+  border: 1px solid #ebccd1;
+  border-radius: 4px;
+}
 /* Form
 -------------------------------------------------- */
 .input {

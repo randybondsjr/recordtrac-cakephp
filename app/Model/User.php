@@ -6,22 +6,20 @@ App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 class User extends AppModel {
     public $validate = array(
         'email' => array(
-            'required' => array(
-                'rule' => array('notEmpty'),
-                'message' => 'An email is required'
-            )
+          'rule1' => array(
+            'rule'    => 'email',
+            'message' => 'This should be an email address',
+            'last'    => false
+           ),
+          'rule2' => array(
+              'rule'    => 'isUnique',
+              'message' => 'This email address is already taken, please choose another'
+          )
         ),
         'password' => array(
             'required' => array(
-                'rule' => array('notEmpty'),
-                'message' => 'A password is required'
-            )
-        ),
-        'role' => array(
-            'valid' => array(
-                'rule' => array('inList', array('admin', 'author')),
-                'message' => 'Please enter a valid role',
-                'allowEmpty' => false
+                'rule' => array('minLength', 8),
+                'message' => 'Password must be at least 8 characters'
             )
         )
     );
