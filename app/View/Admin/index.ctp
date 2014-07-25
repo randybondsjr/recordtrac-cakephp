@@ -10,7 +10,18 @@
 		<div class="row">
 		  <div class="col-sm-4">
 		    <h2>Users</h2>
-
+        <?php echo $this->Html->link(
+                "<span class=\"glyphicon glyphicon-plus\"></span> Add User",
+        	      "adduser",
+                array('escape' => false, 'class' => 'btn btn-success')
+          )
+        ?>
+        <?php echo $this->Html->link(
+                "<span class=\"glyphicon glyphicon-search\"></span> Manage Users",
+        	      "/requests",
+                array('escape' => false, 'class' => 'btn btn-warning')
+          )
+        ?>
       </div>
 		  <div class="col-sm-4">
         <h2>Departments</h2>
