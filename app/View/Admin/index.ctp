@@ -12,7 +12,7 @@
 		    <h2>Users</h2>
         <?php echo $this->Html->link(
                 "<span class=\"glyphicon glyphicon-plus\"></span> Add User",
-        	      "adduser",
+        	      "useradd",
                 array('escape' => false, 'class' => 'btn btn-success')
           )
         ?>

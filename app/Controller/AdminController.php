@@ -14,7 +14,7 @@ class AdminController extends AppController {
 
   }
   
-  public function addUser() {
+  public function userAdd() {
       if ($this->request->is('post')) {
           $this->User->create();
           if ($this->User->save($this->request->data)) {
