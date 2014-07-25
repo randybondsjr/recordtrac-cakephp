@@ -50,7 +50,8 @@ class AppController extends Controller {
       'logoutRedirect' => array(
         'controller' => 'recordtrac',
         'action' => 'index'
-      )
+      ),
+      'authorize' => array('Controller')
     )
   );
   public function beforeFilter(){
@@ -60,5 +61,14 @@ class AppController extends Controller {
     $this->set('agencyUrl', Configure::read('Agency.url'));
     $this->set('appUrl', Configure::read('App.url'));
     $this->Auth->allow();
+  }
+  public function isAuthorized($user) {
+    // Admin can access every action
+    if (isset($user['is_admin']) && $user['is_admin'] == 1) {
+      return true;
+    }
+
+    // Default deny
+    return false;
   }
 }
