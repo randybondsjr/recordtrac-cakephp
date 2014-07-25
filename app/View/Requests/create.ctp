@@ -55,6 +55,13 @@
 	    <h4>Example</h4>
 	    <p class="lead">I need a copy of all of Mayor Jean Deux’s emails sent to City Manager Kenobi between July 30, 2013-August 8, 2013.</p>
 	    <p class="lead">The emails should contain the words "Art+Soul festival" or "Art + Soul <?php echo $agencyName; ?>."</p>
+	    <h4>Tips</h4>
+	    <ul>
+        <li>Don't reveal personal information, like your social security number or home address.</li>
+        <li>Limit your request by a date range.</li>
+        <li>Provide the name of the record or take a guess.</li>
+        <li>If you don't know the name of the record, describe the information you believe is contained in it.</li>
+      </ul>
 	  </div>
 	</div>
 </div>
