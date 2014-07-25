@@ -18,32 +18,45 @@
 		</div>
 		<div class="row">
 		  <div class="col-sm-4">
-		    <a href="/requests" class="btn btn-link round_link">
-		      <?php echo $this->Html->image('/img/recordtrac/explore.png', array('alt' => 'explore', 'class' => 'center-image', 'width' => '75px'));?>
-					<h4 class="text-center text-title">EXPLORE</h4>
-					<p class="text-center text-body">View <span id="request-count" class="badge badge-info"><?php echo $totalRequests; ?></span> past requests and counting.
-					</p>
-				</a>
+		    <?php echo $this->Html->link(
+        		        $this->Html->image('/img/recordtrac/explore.png', array('alt' => 'explore', 'class' => 'center-image', 'width' => '75px'))
+          		      . "<h4 class=\"text-center text-title\">EXPLORE</h4>"
+          		      . "<p class=\"text-center text-body\">View <span id=\"request-count\" class=\"badge badge-info\">$totalRequests</span> past requests and counting.</p>",
+          		      "/requests",
+                    array('escape' => false, 'class' => 'btn btn-link round_link')
+		      )
+		    ?>
       </div>
 		  <div class="col-sm-4">
-        <a href="requests/create" class="btn btn-link round_link">
-          <?php echo $this->Html->image('/img/recordtrac/create.png', array('alt' => 'explore', 'class' => 'center-image', 'width' => '100px'));?>
-          <h4 class="text-center text-title">REQUEST</h4>
-          <p class="text-center text-body">Create a new public records request.</p>
-        </a>
+		    <?php echo $this->Html->link(
+        		        $this->Html->image('/img/recordtrac/create.png', array('alt' => 'explore', 'class' => 'center-image', 'width' => '100px'))
+          		      . "<h4 class=\"text-center text-title\">REQUEST</h4>"
+          		      . "<p class=\"text-center text-body\">Create a new public records request.</p>",
+          		      "/requests/create",
+                    array('escape' => false, 'class' => 'btn btn-link round_link')
+		      )
+		    ?>
 		  </div>
 		  <div class="col-sm-4">
-        <a href="/track" class="btn btn-link round_link">
-          <?php echo $this->Html->image('/img/recordtrac/track.png', array('alt' => 'explore', 'class' => 'center-image', 'width' => '150px'));?>
-          <h4 class="text-center text-title">TRACK</h4>
-          <p class="span10 offset1 text-center text-body">Get real-time updates as we process your request.</p>
-        </a>
+		    <?php echo $this->Html->link(
+        		        $this->Html->image('/img/recordtrac/track.png', array('alt' => 'explore', 'class' => 'center-image', 'width' => '150px'))
+          		      . "<h4 class=\"text-center text-title\">TRACK</h4>"
+          		      . "<p class=\"text-center text-body\">Get real-time updates as we process your request.</p>",
+          		      "/track",
+                    array('escape' => false, 'class' => 'btn btn-link round_link')
+		      )
+		    ?>
 		  </div>
 		</div>
 		
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-4">
-				<a href="#recent-requests" id="seedata" class="btn btn-lg btn-block btn-primary">See how <?php echo $agencyName; ?>'s doing <span class="glyphicon glyphicon-arrow-down"> </span></a>
+			  <?php echo $this->Html->link(
+        		        "See how $agencyName's doing <span class=\"glyphicon glyphicon-arrow-down\"></span>",
+          		      "#recent-requests",
+                    array('escape' => false, 'class' => 'btn btn-lg btn-block btn-primary', 'id' => 'seedata')
+		      )
+		    ?>
 			</div>
 		</div>
 	
@@ -74,7 +87,12 @@
 				</div>
 				<div class="row-fluid">
 					<div class="col-sm-4 col-sm-offset-4">
-						<a href="/requests" id="startmeup" class="btn btn-lg btn-block btn-primary"><span class="glyphicon glyphicon-search"></span> Start exploring now </a>
+					  <?php echo $this->Html->link(
+        		        "<span class=\"glyphicon glyphicon-search\"></span> Start exploring now",
+          		      "/requests",
+                    array('escape' => false, 'class' => 'btn btn-lg btn-block btn-primary', 'id' => 'startmeup')
+    		      )
+    		    ?>
 					</div>
 				</div>
 			</div>
