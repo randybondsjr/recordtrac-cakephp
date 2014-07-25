@@ -49,7 +49,7 @@
     </div><!-- /.container -->
     <div id="footer" class="footer">
       <p class="text-center">Made by <!-- <a href="http://codeforamerica.org/2013-partners/oakland/"> -->Code for America 2013 Fellows<!-- </a> --></p>
-      <p class="text-center"><a href="/signup">Get the app</a> for your city or <a href="https://github.com/postcode/recordtrac#recordtrac"> view project info <i class="icon-github"></i></a>.</p>
+      <p class="text-center"><a href="/signup">Get the app</a> for your city or <a href="https://github.com/postcode/recordtrac#recordtrac"> view project info</a>.</p>
     </div>
   </body>
 </html>
