@@ -21,6 +21,9 @@ p.intro-text {
 form p.lead {
   margin-bottom: 5px;
 }
+.logout {
+  margin: 0 10px 0 10px;
+}
 /* Form
 -------------------------------------------------- */
 .input {

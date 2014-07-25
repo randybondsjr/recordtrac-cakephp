@@ -24,14 +24,34 @@
     </div><!--/.nav-collapse -->
     <ul class="nav pull-right">
       <li class="dropdown">
-        <a class="dropdown-toggle" href="#" data-toggle="dropdown"><?php echo $agencyName; ?> Login <strong class="caret"></strong></a>
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+        <?php 
+          if ($this->Session->read('Auth.User')){
+            $user = $this->Session->read('Auth.User');
+            echo "Logged in as: ". $user["alias"];
+          }else{
+            echo $agencyName . " Login";
+          }
+        ?>
+        <strong class="caret"></strong></a>
         <div class="dropdown-menu">
           <?php
-            echo $this->Form->create('User', array('action'=>'search_results','class'=>'nav-login'));
-            echo $this->Form->input('email',array('type' => 'email', 'label' => 'Email','placeholder'=>'you@email.com'));
-            echo $this->Form->input('password',array('type' => 'password', 'label' => 'Password','placeholder'=>'password'));
-            echo $this->Form->submit(__('Login',true), array('class'=>'btn'));
-            echo $this->Form->end();
+            if ($this->Session->read('Auth.User')){
+              echo $this->Html->link(
+                                      'Logout <span class="glyphicon glyphicon-chevron-right"></span>',
+                                      array(
+                                          'controller' => 'Users',
+                                          'action' => 'logout'
+                                      ),
+                                      array('class' => 'btn btn-danger pull-right logout', 'escape' => false)
+                                    );
+            }else{
+              echo $this->Form->create('User', array('controller' => 'Users', 'action'=>'login','class'=>'nav-login'));
+              echo $this->Form->input('email',array('type' => 'email', 'label' => 'Email','placeholder'=>'you@email.com'));
+              echo $this->Form->input('password',array('type' => 'password', 'label' => 'Password','placeholder'=>'password'));
+              echo $this->Form->submit(__('Login',true), array('class'=>'btn btn-primary'));
+              echo $this->Form->end();
+            }
           ?>
         </div>
       </li>

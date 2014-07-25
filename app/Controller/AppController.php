@@ -31,11 +31,30 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+  public $components = array(
+        'Session',
+        'Auth' => array(
+            'authenticate' => array(
+              'Form' => array(
+                  'fields' => array('username' => 'email')
+              )
+            ),
+            'loginRedirect' => array(
+                'controller' => 'recordtrac',
+                'action' => 'index'
+            ),
+            'logoutRedirect' => array(
+                'controller' => 'recordtrac',
+                'action' => 'index'
+            )
+        )
+    );
   public function beforeFilter(){
     $this->layout = 'bootstrap';
     $this->set('agencyName', Configure::read('Agency.name'));
     $this->set('agencyTag', Configure::read('Agency.tagline'));
     $this->set('agencyUrl', Configure::read('Agency.url'));
     $this->set('appUrl', Configure::read('App.url'));
+    $this->Auth->allow();
   }
 }
