@@ -32,23 +32,27 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
   public $components = array(
-        'Session',
-        'Auth' => array(
-            'authenticate' => array(
-              'Form' => array(
-                  'fields' => array('username' => 'email')
-              )
-            ),
-            'loginRedirect' => array(
-                'controller' => 'recordtrac',
-                'action' => 'index'
-            ),
-            'logoutRedirect' => array(
-                'controller' => 'recordtrac',
-                'action' => 'index'
-            )
+    'Session',
+    'Auth' => array(
+      'authenticate' => array(
+        'Form' => array(
+          'fields' => array('username' => 'email')
         )
-    );
+      ),
+      'loginAction' => array(
+        'controller' => 'recordtrac',
+        'action' => 'index'
+      ),
+      'loginRedirect' => array(
+        'controller' => 'recordtrac',
+        'action' => 'index'
+      ),
+      'logoutRedirect' => array(
+        'controller' => 'recordtrac',
+        'action' => 'index'
+      )
+    )
+  );
   public function beforeFilter(){
     $this->layout = 'bootstrap';
     $this->set('agencyName', Configure::read('Agency.name'));
