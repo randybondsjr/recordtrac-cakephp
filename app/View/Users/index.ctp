@@ -28,6 +28,17 @@
             printf("<td>%s</td>",$user["Department"]["name"]);
             printf("<td>%s</td>",$this->Time->format('M jS, Y',$user["User"]["created"]));
             echo "<td>";
+            echo	$this->Html->link(
+								'<span class="glyphicon glyphicon-pencil"></span>',
+								array('action' => 'edit', $user['User']['id']),
+								array('class' => 'btn btn-success btn-small', 'escape' => false, 'title' => 'Edit User')
+                );
+            echo " ";
+            echo	$this->Html->link(
+								'<span class="glyphicon glyphicon-refresh"></span>',
+								array('action' => 'resetpassword', $user['User']['id']),
+								array('class' => 'btn btn-warning btn-small', 'escape' => false, 'title' => 'Reset User Password')
+							  );
             echo "</td>";
             echo "</tr>";
           }
