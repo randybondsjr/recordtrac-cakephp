@@ -7,8 +7,8 @@ class User extends AppModel {
     public $validate = array(
         'email' => array(
             'required' => array(
-                'rule' => array('notEmpty', 'email'),
-                'message' => 'A username is required'
+                'rule' => array('notEmpty'),
+                'message' => 'An email is required'
             )
         ),
         'password' => array(
@@ -24,6 +24,13 @@ class User extends AppModel {
                 'allowEmpty' => false
             )
         )
+    );
+    
+    public $belongsTo = array(
+      'Department' => array(
+        'className' => 'Department',
+        'foreignKey' => 'department_id'
+      )  
     );
     
     public function beforeSave($options = array()) {

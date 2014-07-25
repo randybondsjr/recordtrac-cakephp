@@ -41,7 +41,6 @@
 
     <div class="container">
     
-      <!-- @todo add more from layout here -->
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
