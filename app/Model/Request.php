@@ -18,10 +18,6 @@ class Request extends AppModel {
           'className' => 'Status',
           'foreignKey' => 'status_id'
         )/*,
-        'OsVersion' => array(
-          'className' => 'OsVersion',
-          'foreignKey' => 'os_installed_id'
-        ),
         'OsSticker' => array(
           'className' => 'OsVersion',
           'foreignKey' => 'os_sticker_id'
