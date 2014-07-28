@@ -1,6 +1,9 @@
 <?php
   $this->Html->script('bootstrap-combobox', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
   $this->Html->script('create-request', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->script('datepicker', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js', array('inline' => false));
+  $this->Html->css('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css', array('inline' => false));
   $this->Html->css('bootstrap-combobox', array('inline' => false));
 ?>
 <div class="row">
@@ -9,6 +12,7 @@
 	  <p>Use RecordTrac to request copies of specific documents, photos, emails, texts, audio recordings, electronic information and data in the <?php echo $agencyName; ?>'s databases.</p>
 	  
     <?php
+
       echo $this->Form->create('Request');
       echo $this->Form->input('text',
                               array('type' => 'textarea', 
@@ -16,18 +20,28 @@
                                     'before' => '<p class="lead">What are you trying to find?</p>', 
                                     'label' => '<span class="glyphicon glyphicon-exclamation-sign"></span> Everything in this request box will be displayed publicly. <a href="/about#why">Why?</a>', 
                                     'class' => 'form-control'));
-      echo $this->Form->input('doctype',
+      echo $this->Form->input('department_id',
                               array(
                                     'between' => '<p class="lead">Select a department or document type <small class="department_optional">(optional)</small></p>',
                                     'empty' => '(choose one)', 
                                     'label' => '', 
                                     'class' => 'form-control combobox'));
-      /* @TO create UserHelper to check login
-      if($this->User->isLoggedIn()){
-        echo "<p class=\"lead\">Format Received</p>";
-        echo "<p class=\"lead\">Date Received</p>";
+      if ($this->Session->read('Auth.User')){
+        echo $this->Form->input('offline_submission_id',
+                              array('between' => '<p class="lead">Format Received</p>',
+                                    'empty' => '(choose one)',
+                                    'label' => '', 
+                                    'class' => 'form-control'));
+        //default date is today
+        $defaultDate = date('m/d/Y');
+        echo $this->Form->input('date_received',
+                              array('between' => '<p class="lead">Date Received</p>',
+                                    'type' => 'text',
+                                    'label' => '', 
+                                    'class' => 'form-control date-picker',
+                                    'value' => $defaultDate));
       }
-      */
+      
       echo "<p class=\"lead\">Contact Information</p>";
       echo $this->Form->input('User.email',
                               array('type' => 'email', 
@@ -48,6 +62,7 @@
           'Submit My Request', 
           array('class' => 'btn btn-primary', 'title' => 'Custom Title')
       );
+      
     ?>
 	</div>
 	<div class="col-sm-4 col-sm-offset-1">
