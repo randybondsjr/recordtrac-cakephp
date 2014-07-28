@@ -1,5 +1,6 @@
 <?php
 class RequestsController extends AppController {
+  
   public $components = array('BusinessDays');
   public function index($query = null) {
     if (!$query && $this->data) {
@@ -31,6 +32,7 @@ class RequestsController extends AppController {
   }
 
   public function create(){
+    $agencyName = Configure::read('Agency.name');
     //query doctypes for dropdowm
     $this->loadModel('DocType');
     $doctypes = $this->DocType->find('all');
@@ -60,7 +62,7 @@ class RequestsController extends AppController {
      // pr($this->request->data); exit;
       if($this->Request->saveAll($this->request->data)){
         //@todo add an email to requester, POC, etc. 
-        $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the Your agency name in the next 5 days. Requester will be automatically contacted with any updates.</p>');
+        $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the '. $agencyName .' in the next 5 days. Requester will be automatically contacted with any updates.</p>');
         $this->redirect(array('action' => 'view', $this->Request->id));
       }
     }
