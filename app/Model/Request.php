@@ -5,16 +5,19 @@ class Request extends AppModel {
         'Department' => array(
           'className' => 'Department',
           'foreignKey' => 'department_id'
-        )
-        /*,
-        'Person' => array(
-          'className' => 'Person',
-          'foreignKey' => 'person_id'
         ),
-        'OfficeLicensesVersion' => array(
-          'className' => 'OfficeLicensesVersion',
-          'foreignKey' => 'office_version_id'
+        'OfflineSubmission' => array(
+          'className' => 'OfflineSubmission',
+          'foreignKey' => 'offline_submission_id'
         ),
+        'User' => array(
+          'className' => 'User',
+          'foreignKey' => 'creator_id'
+        ),
+        'Status' => array(
+          'className' => 'Status',
+          'foreignKey' => 'status_id'
+        )/*,
         'OsVersion' => array(
           'className' => 'OsVersion',
           'foreignKey' => 'os_installed_id'
