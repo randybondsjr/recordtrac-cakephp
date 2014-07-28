@@ -34,11 +34,11 @@
             echo "<tr>";
             printf("<td>%d</td>",$result["Request"]["id"]);
             printf("<td>%s</td>",$this->Time->format('M jS, Y',$result["Request"]["date_received"]));
-            printf("<td>%s</td>",$this->Text->truncate($result["Request"]["text"],100,
+            printf("<td>%s</td>",$this->Html->link($this->Text->truncate($result["Request"]["text"],100,
                                                         array(
                                                             'ellipsis' => '...',
                                                             'exact' => false
-                                                        )));
+                                                        )), array('action' => 'view', $result["Request"]["id"])));
             printf("<td>%s</td>",$result["Department"]["name"]);
             printf("<td>POC</td>");
             echo "</tr>";
