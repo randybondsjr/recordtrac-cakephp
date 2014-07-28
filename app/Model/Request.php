@@ -28,11 +28,22 @@ class Request extends AppModel {
         )*/
         
   );
-  /*
+
  	public $validate = array(
- 	 'pc_name_dp_tag' => array(
-            'rule' => 'notEmpty'
-        )
+    'department_id' => array(
+      'rule' => 'notEmpty'
+    ),
+    'text' => array(
+      'rule1' => array(
+        'rule'    => 'notEmpty',
+        'last'    => false
+       ),
+      'rule2' => array(
+          'rule'    => array('minLength', 50),
+          'message' => 'Please provide more details so that we may complete your request quickly.'
+      )
+    )
+
   );
-	*/
+	
 }
