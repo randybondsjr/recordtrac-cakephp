@@ -17,6 +17,7 @@
       Filter Form Here
 	  </div>
 	</div>
+	<!-- @todo ADD STATUS TO TABLE -->
 	<div class="col-sm-8">
 	  <table class="table table-striped">
       <thead>
