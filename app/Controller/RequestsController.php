@@ -62,6 +62,7 @@ class RequestsController extends AppController {
      // pr($this->request->data); exit;
       if($this->Request->saveAll($this->request->data)){
         //@todo add an email to requester, POC, etc. 
+        //@todo write to ownders table
         $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the '. $agencyName .' in the next 5 days. Requester will be automatically contacted with any updates.</p>');
         $this->redirect(array('action' => 'view', $this->Request->id));
       }
