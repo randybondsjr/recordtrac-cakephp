@@ -7,7 +7,6 @@
 	  </div>
 	</div>
 	<div class="col-sm-4">
-	  
     <?php
       if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] == 4){
         $statusText =  "Due Soon";
@@ -27,7 +26,7 @@
         $statusGlyph = "glyphicon-folder-open";
       }
     ?>
-	  <div class="well <?php echo $statusClass; ?>">
+	  <div class="well status status-<?php echo $statusClass; ?>">
 	    <span class="glyphicon <?php echo $statusGlyph; ?>"></span>&nbsp; <?php echo $statusText; ?>
 	  </div>
 	</div>
