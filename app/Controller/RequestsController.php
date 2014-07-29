@@ -3,16 +3,86 @@ class RequestsController extends AppController {
   
   public $components = array('BusinessDays');
   public function index($query = null) {
-    if (!$query && $this->data) {
-        $this->redirect(array('action' => 'view', $this->data['Track']['request_id']));
+    //variables
+    $conditions = '';
+    $status = '';
+    $dateQuery = '';
+    $dept = '';
+    
+    //if there is a filter submitted (GET), adjust query
+    if(!empty($this->request->query)){
+      //sanitize variables
+      $term = filter_var($this->request->query["term"], FILTER_SANITIZE_STRING);
+      $dept = filter_var($this->request->query["department_id"], FILTER_VALIDATE_INT);
+      
+      //@todo ADD My Requests filtering
+      
+      
+      //iterate through statuses
+      if(!empty($this->request->query["status"])){
+        foreach($this->request->query["status"] as $statusID){
+          $status[] =  filter_var($statusID, FILTER_VALIDATE_INT);
+        }
+        $status = implode(",", $status);
+        $status = "AND Request.Status_id IN ($status)";
+      }
+      //change dates so that we can use em
+      if(isset($this->request->query["min_date"]) && $this->request->query["min_date"] != ''){
+        $minDate = filter_var($this->request->query["min_date"], FILTER_SANITIZE_STRING);
+        $cleanMinDate = explode("/",$minDate);
+        $cleanMinDate = $cleanMinDate[2]."-".$cleanMinDate[0]."-".$cleanMinDate[1]." 00:00:00";
+        $dateQuery = "AND Request.date_received > '$cleanMinDate'";
+      }
+      if(isset($this->request->query["max_date"]) && $this->request->query["max_date"] != ''){
+        $maxDate = filter_var($this->request->query["max_date"], FILTER_SANITIZE_STRING);
+        $cleanMaxDate = explode("/",$maxDate);
+        $cleanMaxDate = $cleanMaxDate[2]."-".$cleanMaxDate[0]."-".$cleanMaxDate[1]." 00:00:00";
+        $dateQuery = "AND Request.date_received < '$cleanMaxDate'";
+      }
+      if(isset($cleanMaxDate) && isset($cleanMinDate)){
+        $dateQuery = "AND (Request.date_received BETWEEN '$cleanMinDate' AND '$cleanMaxDate')";
+      }
+      
+      if(isset($dept) && $dept != ''){
+        $dept = "AND Request.Department_id = $dept";
+      }
+      
+      $conditions = array("Request.Text LIKE '%$term%' $status $dateQuery $dept");
     }
+    //if there is POST data, that's a direct link to a request
+    if (!$query && $this->data) {
+      $this->redirect(array('action' => 'view', $this->data['Track']['request_id']));
+    }
+    
+    //auto-populates form based on query
+    $this->params->data = array('Request' => $this->params->query);
+    
+    //for form advanced filter department dropdown
+    $this->loadModel('Department');
+    $this->set('departments',$this->Department->find('list'));
+    
+    //statuses for form
+    $this->loadModel('Status');
+    if ($this->Session->read('Auth.User')){
+      $this->set('statuses',$this->Status->find('list'));
+    }else{
+      $this->set('statuses',$this->Status->find('list', array(
+        'conditions' => array('Status.type' => 'public')
+      )));
+    }
+
+    //total results for title
+    $this->set('total',$total = $this->Request->find('count'));
+    
+    //paginate results
     $this->paginate = array(
 				'limit' => 15,
+				'conditions' => $conditions,
         'order' => array('Request.id' => 'desc')
 		);
 		$records = $this->paginate('Request');
-		$this->set('total',$total = $this->Request->find('count'));
 		
+		//error handling in case there are no requests found
 		if( ! empty($records)){
 			$this->set('results', $records);
 		}else{
