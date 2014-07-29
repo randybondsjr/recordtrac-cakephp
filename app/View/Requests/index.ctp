@@ -1,3 +1,9 @@
+<?php 
+  $this->Html->script('datepicker', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->script('requests', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js', array('inline' => false));
+  $this->Html->css('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css', array('inline' => false));
+?>
 <div class="row">
   <div class="col-sm-8">
     <h1>Explore <span id="request-count" class="badge badge-info badge-lg"><?php echo $total; ?></span> requests and counting</h1>
@@ -14,7 +20,48 @@
 <div class="row">
 	<div class="col-sm-3">
 	  <div class="well">
-      Filter Form Here
+	  <?php
+      echo $this->Form->create('Request', array('action' => 'index', 'type' => 'get', 'novalidate' => true));
+      echo $this->Form->input('term',
+                              array('type' => 'text', 
+                                    'placeholder' => 'I\'d like to find...',
+                                    'label' => 'Search', 
+                                    'class' => 'form-control'));   
+      echo "<h5 class=\"underline\">ADVANCED FILTER</h5>";
+      if ($this->Session->read('Auth.User')){
+        echo $this->Form->input('my_filter',
+                              array('label' => 'My Requests',
+                                    'multiple' => 'checkbox',
+                                    'class' => 'checkbox autocomplete',
+                                    'options' => array('as Point of Contact', 'as Helper')));
+      }                  
+      echo $this->Form->input('status',
+                              array('type' => 'select',
+                                    'multiple' => 'checkbox', 
+                                    'label' => 'Status',
+                                    'class' => 'checkbox autocomplete'));
+      echo $this->Form->input('min_date',
+                              array('before' => '<p class="lead">Date Received</p>',
+                                    'type' => 'text',
+                                    'label' => 'Start', 
+                                    'class' => 'form-control date-picker autocomplete'));
+      echo $this->Form->input('max_date',
+                              array('type' => 'text',
+                                    'label' => 'End', 
+                                    'class' => 'form-control date-picker autocomplete'));
+
+      echo $this->Form->input('department_id',
+                              array(
+                                    'empty' => '(choose one)', 
+                                    'label' => 'Department', 
+                                    'class' => 'form-control autocomplete'));    
+      
+      echo $this->Form->submit(
+          'Search', 
+          array('class' => 'hidden')
+      );
+      
+    ?>
 	  </div>
 	</div>
 	<!-- @todo ADD STATUS TO TABLE -->

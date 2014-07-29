@@ -17,12 +17,7 @@ class Request extends AppModel {
         'Status' => array(
           'className' => 'Status',
           'foreignKey' => 'status_id'
-        )/*,
-        'OsSticker' => array(
-          'className' => 'OsVersion',
-          'foreignKey' => 'os_sticker_id'
-        )*/
-        
+        )
   );
 
  	public $validate = array(
