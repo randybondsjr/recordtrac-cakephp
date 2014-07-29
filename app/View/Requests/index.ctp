@@ -49,7 +49,12 @@
                               array('type' => 'text',
                                     'label' => 'End', 
                                     'class' => 'form-control date-picker autocomplete'));
-
+      if ($this->Session->read('Auth.User')){
+        echo $this->Form->input('requester',
+                              array('label' => 'Requester Name',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Requester Name'));
+      }
       echo $this->Form->input('department_id',
                               array(
                                     'empty' => '(choose one)', 
@@ -75,6 +80,11 @@
             <th class="col-sm-4"><?php echo $this->Paginator->sort('text', 'Request');?></th>
             <th><?php echo $this->Paginator->sort('Department.name', 'Department');?></th>
             <th><?php echo $this->Paginator->sort('', 'Point of Contact');?></th>
+            <?php if ($this->Session->read('Auth.User')): ?>
+            <th><?php echo $this->Paginator->sort('due_date', 'Due');?></th>
+            <th><?php echo $this->Paginator->sort('User.Alias', 'Requester Name');?></th>
+            <?php endif;?>
+
           </tr>
       </thead>
       <tbody>
@@ -100,6 +110,10 @@
                                                         )), array('action' => 'view', $result["Request"]["id"])));
             printf("<td>%s</td>\n",$result["Department"]["name"]);
             printf("<td>POC</td>\n");
+            if ($this->Session->read('Auth.User')){
+              printf("<td>%s</td>\n",$this->Time->format('M jS, Y',  $result["Request"]["due_date"]));
+              printf("<td>%s</td>\n",$result["User"]["alias"]); 
+            }
             echo "</tr>\n";
           }
         ?>

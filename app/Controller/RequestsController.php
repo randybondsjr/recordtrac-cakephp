@@ -8,12 +8,18 @@ class RequestsController extends AppController {
     $status = '';
     $dateQuery = '';
     $dept = '';
+    $requester = '';
     
     //if there is a filter submitted (GET), adjust query
     if(!empty($this->request->query)){
       //sanitize variables
       $term = filter_var($this->request->query["term"], FILTER_SANITIZE_STRING);
       $dept = filter_var($this->request->query["department_id"], FILTER_VALIDATE_INT);
+      
+      if(isset($this->request->query["requester"]) && $this->request->query["requester"]!=''){
+        $requester = filter_var($this->request->query["requester"], FILTER_SANITIZE_STRING);
+        $requester = "AND User.Alias LIKE '%$requester%'";
+      }
       
       //@todo ADD My Requests filtering
       
@@ -47,7 +53,7 @@ class RequestsController extends AppController {
         $dept = "AND Request.Department_id = $dept";
       }
       
-      $conditions = array("Request.Text LIKE '%$term%' $status $dateQuery $dept");
+      $conditions = array("Request.Text LIKE '%$term%' $status $dateQuery $dept $requester");
     }
     //if there is POST data, that's a direct link to a request
     if (!$query && $this->data) {
