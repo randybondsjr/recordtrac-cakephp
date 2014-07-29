@@ -1,8 +1,12 @@
+<?php 
+  $this->Html->script('readmore.min.js', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->script('view-request', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+?>
 <div class="row">
 	<div class="col-sm-8">
 	  <div class="well">
 	    <h1>Request <span class="muted">#<?php  echo $request["Request"]["id"]; ?></span></h1>
-	    <p class="lead"><?php echo $request["Request"]["text"]; ?></p>
+	    <p class="lead"><?php echo nl2br($request["Request"]["text"]); ?></p>
 	    <?php pr($request); ?>
 	  </div>
 	</div>
