@@ -7,7 +7,7 @@ class RequestsController extends AppController {
         $this->redirect(array('action' => 'view', $this->data['Track']['request_id']));
     }
     $this->paginate = array(
-				'limit' => 25,
+				'limit' => 15,
         'order' => array('Request.id' => 'desc')
 		);
 		$records = $this->paginate('Request');
