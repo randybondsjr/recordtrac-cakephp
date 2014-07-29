@@ -26,7 +26,7 @@
         $statusGlyph = "glyphicon-folder-open";
       }
     ?>
-	  <div class="well status status-<?php echo $statusClass; ?>">
+	  <div class="well status status-<?php echo $statusClass; ?> ">
 	    <span class="glyphicon <?php echo $statusGlyph; ?>"></span>&nbsp; <?php echo $statusText; ?>
 	  </div>
 	</div>
