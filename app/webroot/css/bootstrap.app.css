@@ -40,6 +40,10 @@ form p.lead {
   border: 1px solid #ebccd1;
   border-radius: 4px;
 }
+.underline {
+  border-bottom: 1px solid gray;
+  padding-bottom: 7px;
+}
 /* Status
 -------------------------------------------------- */
 .status {
