@@ -46,21 +46,22 @@ form p.lead {
   text-align: center;
   font-size: 24px;
 }
-.status-success {
+.status-success, .table-striped>tbody>tr:nth-child(odd)>td.status-success {
   background-color: #dff0d8;
   color: #3c763d;
   border-color: #d6e9c6;
 }
-.status-warning {
+.status-warning, .table-striped>tbody>tr:nth-child(odd)>td.status-warning {
   color: #8a6d3b;
   background-color: #fcf8e3;
   border-color: #faebcc;
 }
-.status-danger {
+.status-danger, .table-striped>tbody>tr:nth-child(odd)>td.status-danger {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;
 }
+
 /* Form
 -------------------------------------------------- */
 .input {

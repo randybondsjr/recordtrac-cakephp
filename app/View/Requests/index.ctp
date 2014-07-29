@@ -12,37 +12,48 @@
   </div>
 </div>
 <div class="row">
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 	  <div class="well">
       Filter Form Here
 	  </div>
 	</div>
 	<!-- @todo ADD STATUS TO TABLE -->
-	<div class="col-sm-8">
+	<div class="col-sm-9">
 	  <table class="table table-striped">
       <thead>
           <tr>
-              <th class="col-sm-1"><?php echo $this->Paginator->sort('id', '#');?></th>
-              <th class="col-sm-2"><?php echo $this->Paginator->sort('date_received', 'Received');?></th>
-              <th><?php echo $this->Paginator->sort('text', 'Request');?></th>
-              <th><?php echo $this->Paginator->sort('Department.name', 'Department');?></th>
-              <th><?php echo $this->Paginator->sort('', 'Point of Contact');?></th>
+            <th style="width: 15px;"></th>
+            <th class="col-sm-1"><?php echo $this->Paginator->sort('id', '#');?></th>
+            <th class="col-sm-2"><?php echo $this->Paginator->sort('date_received', 'Received');?></th>
+            <th class="col-sm-4"><?php echo $this->Paginator->sort('text', 'Request');?></th>
+            <th><?php echo $this->Paginator->sort('Department.name', 'Department');?></th>
+            <th><?php echo $this->Paginator->sort('', 'Point of Contact');?></th>
           </tr>
       </thead>
       <tbody>
         <?php 
           foreach ($results as $result){
-            echo "<tr>";
-            printf("<td>%d</td>",$result["Request"]["id"]);
-            printf("<td>%s</td>",$this->Time->format('M jS, Y',$result["Request"]["date_received"]));
-            printf("<td>%s</td>",$this->Html->link($this->Text->truncate($result["Request"]["text"],100,
+            echo "<tr>\n";
+            if ($this->Session->read('Auth.User') && $result["Request"]["status_id"] == 4){
+              $statusClass = "warning"; 
+            }elseif($this->Session->read('Auth.User') && $result["Request"]["status_id"] == 3){
+              $statusClass = "danger"; 
+            }elseif($result["Request"]["status_id"] == 2){
+              $statusClass = "danger"; 
+            }else{
+              $statusClass = "success"; 
+            }
+            printf("<td class=\"status status-%s\"></td>\n",$statusClass);
+            printf("<td>%d</td>\n",$result["Request"]["id"]);
+            printf("<td>%s</td>\n",$this->Time->format('M jS, Y',$result["Request"]["date_received"]));
+            printf("<td>%s</td>\n",$this->Html->link($this->Text->truncate($result["Request"]["text"],100,
                                                         array(
                                                             'ellipsis' => '...',
                                                             'exact' => false
                                                         )), array('action' => 'view', $result["Request"]["id"])));
-            printf("<td>%s</td>",$result["Department"]["name"]);
-            printf("<td>POC</td>");
-            echo "</tr>";
+            printf("<td>%s</td>\n",$result["Department"]["name"]);
+            printf("<td>POC</td>\n");
+            echo "</tr>\n";
           }
         ?>
       </tbody>
