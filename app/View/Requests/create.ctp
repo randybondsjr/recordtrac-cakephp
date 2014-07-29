@@ -60,7 +60,7 @@
                                     'class' => 'form-control'));
       echo $this->Form->submit(
           'Submit My Request', 
-          array('class' => 'btn btn-primary', 'title' => 'Custom Title')
+          array('class' => 'btn btn-primary', 'title' => 'Submit My Request')
       );
       
     ?>
