@@ -71,4 +71,9 @@ class AppController extends Controller {
     // Default deny
     return false;
   }
+  private $agencyName = ""; 
+  public function getAgencyName() { 
+    $this->agencyName = Configure::read('Agency.name');;
+    return $this->agencyName; 
+  }
 }
