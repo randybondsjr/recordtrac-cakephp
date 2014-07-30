@@ -18,7 +18,7 @@ class RequestsController extends AppController {
       
       if(isset($this->request->query["requester"]) && $this->request->query["requester"]!=''){
         $requester = filter_var($this->request->query["requester"], FILTER_SANITIZE_STRING);
-        $requester = "AND User.Alias LIKE '%$requester%'";
+        $requester = "AND Requester.Alias LIKE '%$requester%'";
       }
       
       //@todo ADD My Requests filtering
@@ -122,6 +122,8 @@ class RequestsController extends AppController {
     $this->loadModel('OfflineSubmission');
     $submissions = $this->OfflineSubmission->find('list');
     $this->set('offlineSubmissions',$submissions);
+    
+    //save data
     if (!empty($this->request->data)) {
       //clean up the date if this is a manual 
       if(isset($this->data["Request"]["date_received"])){
@@ -135,7 +137,11 @@ class RequestsController extends AppController {
       }
       //due date in 5 business days
       $this->request->data["Request"]["due_date"] = $this->BusinessDays->add_business_days($days=5, $date=$this->request->data["Request"]["date_received"], $format="Y-m-d h:i:s");
-     // pr($this->request->data); exit;
+      if(isset($this->data["Request"]["date_received"])){
+        //echo "hey";
+      }
+      //pr($this->Session->read('Auth.User'));
+      //pr($this->request->data); exit;
       if($this->Request->saveAll($this->request->data)){
         //@todo add an email to requester, POC, etc. 
         //@todo write to ownders table
