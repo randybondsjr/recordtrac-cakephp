@@ -106,9 +106,15 @@ class RequestsController extends AppController {
     $this->set("title_for_layout","Request " . $id . " - View a Request - " . $this->getAgencyName());
     $this->set('request', $this->Request->read());
     
+    //the active staff Point of Contact for the Request
     $this->loadModel('Owner');
-    $this->set('poc',$this->Owner->find('all', array(
+    $this->set('poc',$this->Owner->find('first', array(
       'conditions' => array('Owner.active = 1 AND Owner.is_point_person = 1')
+    )));
+    
+    //the active staff Helpers for the Request
+    $this->set('helpers',$this->Owner->find('all', array(
+      'conditions' => array('Owner.active = 1 AND Owner.is_point_person != 1')
     )));
   }
 
