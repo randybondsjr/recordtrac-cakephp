@@ -4,7 +4,7 @@ class UsersController extends AppController {
     public function beforeFilter(){
   	  parent::beforeFilter();
       $this->Auth->deny();
-      $this->Auth->allow('login','logout');
+      $this->Auth->allow('login','logout','view');
   	}
 
     public function login() {
@@ -42,6 +42,15 @@ class UsersController extends AppController {
               __('The user could not be saved. Please, try again.')
           );
       }
+    }
+    
+    public function view($id = null){
+      $this->User->id = $id;
+      if (!$this->User->exists()) {
+          throw new NotFoundException(__('Invalid user'));
+      }
+      $this->set("title_for_layout","View Staff - RecordTrac - ". $this->getAgencyName());
+      $this->set('record', $this->User->read());
     }
     
     public function resetPassword($id=null){
