@@ -43,17 +43,17 @@
       }
       
       echo "<p class=\"lead\">Contact Information</p>";
-      echo $this->Form->input('User.email',
+      echo $this->Form->input('Requester.email',
                               array('type' => 'email', 
                                     'placeholder' => 'yourname@example.com',
                                     'label' => 'Your email', 
                                     'class' => 'form-control'));
-      echo $this->Form->input('User.alias',
+      echo $this->Form->input('Requester.alias',
                               array('type' => 'text', 
                                     'placeholder' => 'Your Name',
                                     'label' => 'Your Name <small>(optional)</small>', 
                                     'class' => 'form-control'));
-      echo $this->Form->input('User.phone',
+      echo $this->Form->input('Requester.phone',
                               array('type' => 'text', 
                                     'placeholder' => '(509) 555-1234',
                                     'label' => 'Your Phone Number <small>(optional)</small>', 
