@@ -1,23 +1,37 @@
 <?php 
 class Request extends AppModel {
   public $belongsTo = array(
-
-        'Department' => array(
-          'className' => 'Department',
-          'foreignKey' => 'department_id'
-        ),
-        'OfflineSubmission' => array(
-          'className' => 'OfflineSubmission',
-          'foreignKey' => 'offline_submission_id'
-        ),
-        'User' => array(
-          'className' => 'User',
-          'foreignKey' => 'creator_id'
-        ),
-        'Status' => array(
-          'className' => 'Status',
-          'foreignKey' => 'status_id'
-        )
+    'Department' => array(
+      'className' => 'Department',
+      'foreignKey' => 'department_id'
+    ),
+    'OfflineSubmission' => array(
+      'className' => 'OfflineSubmission',
+      'foreignKey' => 'offline_submission_id'
+    ),
+    'Creator' => array(
+      'className' => 'User',
+      'foreignKey' => 'creator_id'
+    ),
+    'Requester' => array(
+      'className' => 'User',
+      'foreignKey' => 'requester_id'
+    ),
+    'Status' => array(
+      'className' => 'Status',
+      'foreignKey' => 'status_id'
+    )
+  );
+  
+  public $hasMany = array (
+    'Owner' => array(
+          'className' => 'Owner',
+          'foreignKey' => 'request_id'
+    ),
+    'Subscriber' => array(
+          'className' => 'Subscriber',
+          'foreignKey' => 'request_id'
+    )
   );
 
  	public $validate = array(
