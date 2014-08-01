@@ -284,19 +284,19 @@
 	  <h4>
 	    <?php 
 	      if ($this->Session->read('Auth.User')){
-  	      
+    	    echo $this->Html->tag('a',
+            'Point of Contact <span class="pull-right"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-arrow-right muted"></span>',
+            array('id' => 'reassign', 'escape' => false)
+          ); 
+        }else{
+	        echo "Point of Contact";
 	      }
       ?>
-	    <a href="#" class="doPop" id="reassign">
-	      Point of Contact
-        <span class="pull-right"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-arrow-right muted"></span>
-	    </a>
-	    
 	  </h4>
-	  <div id="popover-head" class="hide">Reassign To:</div>
+	  <div id="popover-head" class="hide">Reassign To: <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></div>
       <div id="popover-content" class="hide">
         <form>
-          <!-- my form --><input type="text" class="form-control">
+          <input type="text" class="form-control">
         </form>
       </div>
 	  <?php 
@@ -322,14 +322,22 @@
 	</div>
 </div>
 <script>
-  $('#reassign').popover({ 
-      html : true,
-      title: function() {
-        return $("#popover-head").html();
-      },
-      content: function() {
-        return $("#popover-content").html();
-      },
-      placement: 'left'
+  $(document).ready(function(){
+    $('#reassign').popover({ 
+        html : true,
+        title: function() {
+          return $("#popover-head").html();
+        },
+        content: function() {
+          return $("#popover-content").html();
+        },
+        placement: 'left'
+    });
+  
   });
+  $('#reassign').on('shown.bs.popover', function () {
+    $('.close').on('click',function(){
+      $('#reassign').popover('hide');
+    });
+  })
 </script>
