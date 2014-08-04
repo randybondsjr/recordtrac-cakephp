@@ -9,7 +9,7 @@
       <?php
         echo $this->Html->link(
           $this->Html->image("/img/recordtrac/logo.png", array('alt' => $agencyName, 'width' => '35px', 'height' => '35px')) . ' ' . __('RecordTrac'),
-          $appUrl,
+          Router::fullbaseUrl(),
           array('escape' => false, 'class' => 'navbar-brand')
         );
       ?>
