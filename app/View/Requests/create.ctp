@@ -12,7 +12,7 @@
 	  <p>Use RecordTrac to request copies of specific documents, photos, emails, texts, audio recordings, electronic information and data in the <?php echo $agencyName; ?>'s databases.</p>
 	  
     <?php
-
+      $labelPerson = "Your";
       echo $this->Form->create('Request');
       echo $this->Form->input('text',
                               array('type' => 'textarea', 
@@ -27,6 +27,9 @@
                                     'label' => '', 
                                     'class' => 'form-control combobox'));
       if ($this->Session->read('Auth.User')){
+        echo $this->Form->input('creator_id',
+                              array('type' => 'hidden',
+                                    'value' => $this->Session->read('Auth.User.id')));
         echo $this->Form->input('offline_submission_id',
                               array('between' => '<p class="lead">Format Received</p>',
                                     'empty' => '(choose one)',
@@ -40,23 +43,24 @@
                                     'label' => '', 
                                     'class' => 'form-control date-picker',
                                     'value' => $defaultDate));
+        $labelPerson = "Requester's";
       }
       
       echo "<p class=\"lead\">Contact Information</p>";
       echo $this->Form->input('Requester.email',
                               array('type' => 'email', 
-                                    'placeholder' => 'yourname@example.com',
-                                    'label' => 'Your email', 
+                                    'placeholder' => 'name@example.com',
+                                    'label' => $labelPerson. ' email', 
                                     'class' => 'form-control'));
       echo $this->Form->input('Requester.alias',
                               array('type' => 'text', 
-                                    'placeholder' => 'Your Name',
-                                    'label' => 'Your Name <small>(optional)</small>', 
+                                    'placeholder' => $labelPerson. ' Name',
+                                    'label' => $labelPerson. ' Name <small>(optional)</small>', 
                                     'class' => 'form-control'));
       echo $this->Form->input('Requester.phone',
                               array('type' => 'text', 
                                     'placeholder' => '(509) 555-1234',
-                                    'label' => 'Your Phone Number <small>(optional)</small>', 
+                                    'label' => $labelPerson. ' Phone Number <small>(optional)</small>', 
                                     'class' => 'form-control'));
       echo $this->Form->submit(
           'Submit My Request', 
