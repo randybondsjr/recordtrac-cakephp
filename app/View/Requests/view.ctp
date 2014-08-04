@@ -11,7 +11,6 @@
 	      if(isset($request["Request"]["offline_submission_id"]) && $request["Request"]["offline_submission_id"] != ''){
   	      printf("<p><small>This request was submitted on behalf of the requester by %s</small></p>", $request["Creator"]["alias"] );
 	      }
-	     // pr($request);
 	    ?>
     </div>
     <?php 
