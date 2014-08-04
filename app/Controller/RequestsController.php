@@ -109,12 +109,12 @@ class RequestsController extends AppController {
     //the active staff Point of Contact for the Request
     $this->loadModel('Owner');
     $this->set('poc',$this->Owner->find('first', array(
-      'conditions' => array('Owner.active = 1 AND Owner.is_point_person = 1')
+      'conditions' => array('(Owner.active = 1 AND Owner.is_point_person = 1) AND Owner.request_id = '.$id)
     )));
     
     //the active staff Helpers for the Request
     $this->set('helpers',$this->Owner->find('all', array(
-      'conditions' => array('Owner.active = 1 AND Owner.is_point_person != 1')
+      'conditions' => array('(Owner.active = 1 AND Owner.is_point_person != 1) AND Owner.request_id = '. $id)
     )));
   }
 
@@ -147,16 +147,44 @@ class RequestsController extends AppController {
       }
       //due date in 5 business days
       $this->request->data["Request"]["due_date"] = $this->BusinessDays->add_business_days($days=5, $date=$this->request->data["Request"]["date_received"], $format="Y-m-d h:i:s");
-      if(isset($this->data["Request"]["date_received"])){
-        //echo "hey";
-      }
-      //pr($this->Session->read('Auth.User'));
-      //pr($this->request->data); exit;
-      if($this->Request->saveAll($this->request->data)){
-        //@todo add an email to requester, POC, etc. 
-        //@todo write to ownders table
-        $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the '. $this->getAgencyName() .' in the next 5 days. Requester will be automatically contacted with any updates.</p>');
-        $this->redirect(array('action' => 'view', $this->Request->id));
+      $this->request->data["Subscriber"][0]["should_notify"] = 1;
+
+      //get owners for request
+      $this->loadModel('Department');
+      $dept = $this->Department->find('first', array(
+        'conditions' => array('Department.id' => $this->request->data["Request"]["department_id"])
+      ));
+      //set variables for Point Person
+      $this->request->data["Owner"][0]["user_id"] = $dept["Contact"]["id"];
+      $this->request->data["Owner"][0]["reason"] = "Point of Contact for ". $dept["Department"]["name"];
+      $this->request->data["Owner"][0]["is_point_person"] = 1;
+      
+      //Set variable for Initial Helper (backup)
+      $this->request->data["Owner"][1]["user_id"] = $dept["Backup"]["id"];      $this->request->data["Owner"][1]["reason"] = "Backup for ". $dept["Department"]["name"];
+      $this->request->data["Owner"][1]["is_point_person"] = 0;
+
+      if($this->Request->saveAll($this->request->data)){ 
+        $requestID = $this->Request->getLastInsertId();
+        $this->loadModel('User');
+        $user = $this->User->find('first', array(
+          'order' => array('User.id' => 'desc')
+        ));
+
+        $this->loadModel('Subscriber');
+        $subscriber = $this->Subscriber->find('first', array(
+          'order' => array('Subscriber.id' => 'desc')
+        ));
+        $this->Subscriber->id = $subscriber["Subscriber"]["id"];
+        
+        if($this->Subscriber->saveField('user_id', $user["User"]["id"])){
+          //@todo add an email to requester, POC, etc. 
+          if ($this->Session->read('Auth.User')){
+            $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the '. $this->getAgencyName() .' in the next 5 days. Requester will be automatically contacted with any updates.</p>');
+          }else{
+            $this->Session->setFlash('<h4>Your request has been submitted!</h4><p class="lead">You can expect a response from the  '. $this->getAgencyName() .'  in the next 5 days. You will be contacted via email with any updates.in the next 5 days.</p> <p class="lead">All messages from the   '. $this->getAgencyName() .' and/or the information and documents you requested will be posted to this page. You can access <a href="/requests/view/' . $requestID . '">this page</a> at any time.</p>');
+          }
+          $this->redirect(array('action' => 'view', $this->Request->id));
+        }
       }
     }
   }
