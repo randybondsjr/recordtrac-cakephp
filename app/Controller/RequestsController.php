@@ -119,6 +119,7 @@ class RequestsController extends AppController {
   }
 
   public function create(){
+    App::uses('CakeEmail', 'Network/Email');
     //query doctypes for dropdowm
     $this->loadModel('DocType');
     $doctypes = $this->DocType->find('all');
@@ -135,7 +136,7 @@ class RequestsController extends AppController {
     
     //save data
     if (!empty($this->request->data)) {
-      //clean up the date if this is a manual 
+      //clean up the date if this is a manual entry
       if(isset($this->data["Request"]["date_received"])){
         $cleanDate = explode("/",$this->data["Request"]["date_received"]);
         $nowTime = date('h:i:s');
@@ -160,7 +161,8 @@ class RequestsController extends AppController {
       $this->request->data["Owner"][0]["is_point_person"] = 1;
       
       //Set variable for Initial Helper (backup)
-      $this->request->data["Owner"][1]["user_id"] = $dept["Backup"]["id"];      $this->request->data["Owner"][1]["reason"] = "Backup for ". $dept["Department"]["name"];
+      $this->request->data["Owner"][1]["user_id"] = $dept["Backup"]["id"];      
+      $this->request->data["Owner"][1]["reason"] = "Backup for ". $dept["Department"]["name"];
       $this->request->data["Owner"][1]["is_point_person"] = 0;
 
       if($this->Request->saveAll($this->request->data)){ 
@@ -168,6 +170,9 @@ class RequestsController extends AppController {
         $this->loadModel('User');
         $user = $this->User->find('first', array(
           'order' => array('User.id' => 'desc')
+        ));
+        $owner = $this->User->find('first', array(
+          'conditions' => array('User.id' => $dept["Contact"]["id"])
         ));
 
         $this->loadModel('Subscriber');
@@ -177,11 +182,24 @@ class RequestsController extends AppController {
         $this->Subscriber->id = $subscriber["Subscriber"]["id"];
         
         if($this->Subscriber->saveField('user_id', $user["User"]["id"])){
+          //email requester
+          $Email = new CakeEmail();
+          $Email->template('requester')
+              ->emailFormat('html')
+              ->to('randy.bonds@yakimawa.gov')
+              ->from('web@example.com')
+              ->viewVars( array(
+                  'agencyName' => $this->getAgencyName(),
+                  'page' => '/requests/view/' . $requestID,
+                  'ownerEmail' => $owner["User"]["email"],
+                  'responseDays' => $this->getResponseDays()
+              ))
+              ->send();
           //@todo add an email to requester, POC, etc. 
           if ($this->Session->read('Auth.User')){
             $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the '. $this->getAgencyName() .' in the next 5 days. Requester will be automatically contacted with any updates.</p>');
           }else{
-            $this->Session->setFlash('<h4>Your request has been submitted!</h4><p class="lead">You can expect a response from the  '. $this->getAgencyName() .'  in the next 5 days. You will be contacted via email with any updates.in the next 5 days.</p> <p class="lead">All messages from the   '. $this->getAgencyName() .' and/or the information and documents you requested will be posted to this page. You can access <a href="/requests/view/' . $requestID . '">this page</a> at any time.</p>');
+            $this->Session->setFlash('<h4>Your request has been submitted!</h4><p class="lead">You can expect a response from the  '. $this->getAgencyName() .'  in the next ' . $this->getResponseDays() . ' days. You will be contacted via email with any updates.</p> <p class="lead">All messages from the   '. $this->getAgencyName() .' and/or the information and documents you requested will be posted to this page. You can access <a href="/requests/view/' . $requestID . '">this page</a> at any time.</p>');
           }
           $this->redirect(array('action' => 'view', $this->Request->id));
         }
