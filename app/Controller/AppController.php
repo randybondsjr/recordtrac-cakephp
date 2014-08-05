@@ -81,5 +81,10 @@ class AppController extends Controller {
     $this->responseDays = Configure::read('Agency.responseDays');;
     return $this->responseDays; 
   }
+  private $fromEmail = ""; 
+  public function getfromEmail() { 
+    $this->fromEmail = Configure::read('Agency.fromEmail');;
+    return $this->fromEmail; 
+  }
   
 }

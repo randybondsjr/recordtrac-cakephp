@@ -5,6 +5,7 @@ $config = array(
       'name' => 'City of Yakima',
       'tagline' => 'The Heart of Central Washington',
       'url' => 'http://www.yakimawa.gov',
-      'responseDays' => '5'
+      'responseDays' => '5',
+      'fromEmail' => 'web@yakimawa.gov'
     )
 );
