@@ -90,13 +90,24 @@
       <tbody>
         <?php 
           foreach ($results as $result){
+            //let's see if the request is due soon
+            $today = date("Y-m-d");
+            $due_date = $result["Request"]["due_date"];
+            $overdue = false;
+            $dueSoon = false;
+            if($today > $due_date){
+              $overdue = true;
+            }
+            if($today2 >= $due_date){
+              $dueSoon = true;
+            }
             echo "<tr>\n";
-            if ($this->Session->read('Auth.User') && $result["Request"]["status_id"] == 4){
+            if ($this->Session->read('Auth.User') && $result["Request"]["status_id"] != 2 && $dueSoon && !$overdue){ //due soon
               $statusClass = "warning"; 
-            }elseif($this->Session->read('Auth.User') && $result["Request"]["status_id"] == 3){
+            }elseif($this->Session->read('Auth.User') && $result["Request"]["status_id"] != 2 && $overdue){ // overdue
               $statusClass = "danger"; 
-            }elseif($result["Request"]["status_id"] == 2){
-              $statusClass = "danger"; 
+            }elseif($result["Request"]["status_id"] == 2){ //closed
+              $statusClass = "closed"; 
             }else{
               $statusClass = "success"; 
             }

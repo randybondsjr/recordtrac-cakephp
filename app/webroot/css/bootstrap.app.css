@@ -50,6 +50,11 @@ form p.lead {
 .status {
   font-size: 20px;
 }
+.status-closed, .table-striped>tbody>tr:nth-child(odd)>td.status-closed {
+  background-color: #222222;
+  color: #fff;
+  border-color: #333333;
+}
 .status-success, .table-striped>tbody>tr:nth-child(odd)>td.status-success {
   background-color: #dff0d8;
   color: #3c763d;

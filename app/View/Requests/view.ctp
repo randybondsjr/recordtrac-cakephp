@@ -258,17 +258,17 @@
 	</div>
 	<div class="col-sm-4">
     <?php
-      if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] == 4){
+      if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2 && $dueSoon && !$overdue){
         $statusText =  "Due Soon";
         $statusClass = "warning"; 
         $statusGlyph = "glyphicon-exclamation-sign";
-      }elseif($this->Session->read('Auth.User') && $request["Request"]["status_id"] == 3){
+      }elseif($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2 && $overdue){
         $statusText =  "Overdue";
         $statusClass = "danger"; 
         $statusGlyph = "glyphicon-exclamation-sign";
       }elseif($request["Request"]["status_id"] == 2){
         $statusText =  "Closed";
-        $statusClass = "danger"; 
+        $statusClass = "closed"; 
         $statusGlyph = "glyphicon-folder-close";
       }else{
         $statusText =  "Open";

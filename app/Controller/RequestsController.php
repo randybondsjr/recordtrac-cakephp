@@ -95,6 +95,10 @@ class RequestsController extends AppController {
 			$this->Session->setFlash('No requests found.');
 			$this->set('results', $records);
 		}
+		
+		//for figuring out if request is overdue for staff
+		$today = date("Y-m-d");
+		$this->set('today2',$this->BusinessDays->add_business_days($days=2, $date=$today, $format="Y-m-d"));
   }
   
   public function track(){
@@ -104,7 +108,8 @@ class RequestsController extends AppController {
   public function view($id = null){
     $this->Request->id = $id;
     $this->set("title_for_layout","Request " . $id . " - View a Request - " . $this->getAgencyName());
-    $this->set('request', $this->Request->read());
+    $request = $this->Request->read();
+    $this->set('request', $request);
     
     //the active staff Point of Contact for the Request
     $this->loadModel('Owner');
@@ -116,6 +121,21 @@ class RequestsController extends AppController {
     $this->set('helpers',$this->Owner->find('all', array(
       'conditions' => array('(Owner.active = 1 AND Owner.is_point_person != 1) AND Owner.request_id = '. $id)
     )));
+    
+    //let's see if the request is due soon
+    $today = date("Y-m-d");
+    $today2 = $this->BusinessDays->add_business_days($days=2, $date=$today, $format="Y-m-d");
+    $due_date = $request["Request"]["due_date"];
+    $overdue = false;
+    $dueSoon = false;
+    if($today > $due_date){
+      $overdue = true;
+    }
+    if($today2 >= $due_date){
+      $dueSoon = true;
+    }
+    $this->set('overdue', $overdue);
+    $this->set('dueSoon', $dueSoon);
   }
 
   public function create(){
