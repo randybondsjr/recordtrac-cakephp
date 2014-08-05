@@ -174,6 +174,9 @@ class RequestsController extends AppController {
         $owner = $this->User->find('first', array(
           'conditions' => array('User.id' => $dept["Contact"]["id"])
         ));
+        $helper = $this->User->find('first', array(
+          'conditions' => array('User.id' => $dept["Backup"]["id"])
+        ));
 
         $this->loadModel('Subscriber');
         $subscriber = $this->Subscriber->find('first', array(
@@ -186,8 +189,9 @@ class RequestsController extends AppController {
           $Email = new CakeEmail();
           $Email->template('requester')
               ->emailFormat('html')
-              ->to('randy.bonds@yakimawa.gov')
-              ->from('web@example.com')
+              ->to($this->request->data["Requester"]["email"])
+              ->from($this->getfromEmail())
+              ->subject($this->getAgencyName().' Public Disclosure Request')
               ->viewVars( array(
                   'agencyName' => $this->getAgencyName(),
                   'page' => '/requests/view/' . $requestID,
@@ -195,6 +199,35 @@ class RequestsController extends AppController {
                   'responseDays' => $this->getResponseDays()
               ))
               ->send();
+          //email owner
+          $Email = new CakeEmail();
+          $Email->template('owners')
+              ->emailFormat('html')
+              ->to($owner["User"]["email"])
+              ->from($this->getfromEmail())
+              ->subject('New Public Disclosure Request')
+              ->viewVars( array(
+                  'agencyName' => $this->getAgencyName(),
+                  'page' => '/requests/view/' . $requestID,
+                  'ownerEmail' => $owner["User"]["email"],
+                  'responseDays' => $this->getResponseDays()
+              ))
+              ->send();
+          //email helper    
+          $Email = new CakeEmail();
+          $Email->template('owners')
+              ->emailFormat('html')
+              ->to($helper["User"]["email"])
+              ->from($this->getfromEmail())
+              ->subject('New Public Disclosure Request')
+              ->viewVars( array(
+                  'agencyName' => $this->getAgencyName(),
+                  'page' => '/requests/view/' . $requestID,
+                  'ownerEmail' => $owner["User"]["email"],
+                  'responseDays' => $this->getResponseDays()
+              ))
+              ->send();
+          
           //@todo add an email to requester, POC, etc. 
           if ($this->Session->read('Auth.User')){
             $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the '. $this->getAgencyName() .' in the next 5 days. Requester will be automatically contacted with any updates.</p>');
