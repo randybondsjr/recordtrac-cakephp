@@ -27,6 +27,12 @@ class RequestsController extends AppController {
       //iterate through statuses
       if(!empty($this->request->query["status"])){
         foreach($this->request->query["status"] as $statusID){
+          if (!$this->Session->read('Auth.User')){ //if not a logged in user, overdue and due soon are just "open"
+            if($statusID == 1){
+              $status[] = 3;
+              $status[] = 4;
+            }
+          }
           $status[] =  filter_var($statusID, FILTER_VALIDATE_INT);
         }
         $status = implode(",", $status);
@@ -96,9 +102,28 @@ class RequestsController extends AppController {
 			$this->set('results', $records);
 		}
 		
+		//update statuses in DB on each page load
+		$requests = $this->Request->find('all');
 		//for figuring out if request is overdue for staff
 		$today = date("Y-m-d");
-		$this->set('today2',$this->BusinessDays->add_business_days($days=2, $date=$today, $format="Y-m-d"));
+		$todayDT = date("Y-m-d h:i:s");
+    $today2 = $this->BusinessDays->add_business_days($days=2, $date=$today, $format="Y-m-d");
+    foreach($requests AS $request){
+      $due_date = $request["Request"]["due_date"];
+      $overdue = false;
+      $dueSoon = false;
+      if($request["Request"]["status_id"] != 2){ //only update if its not closed
+        if($today > $due_date){
+          $this->Request->id = $request["Request"]["id"];
+          $this->Request->saveField('status_id', '4'); // set status overdue
+          $this->Request->saveField('status_updated', $todayDT); //set status updated datetime
+        }else if($today2 >= $due_date){
+          $this->Request->id = $request["Request"]["id"];
+          $this->Request->saveField('status_id', '3'); // set status overdue
+          $this->Request->saveField('status_updated', $todayDT); //set status updated datetime
+        }
+      }
+    }
   }
   
   public function track(){
@@ -121,21 +146,7 @@ class RequestsController extends AppController {
     $this->set('helpers',$this->Owner->find('all', array(
       'conditions' => array('(Owner.active = 1 AND Owner.is_point_person != 1) AND Owner.request_id = '. $id)
     )));
-    
-    //let's see if the request is due soon
-    $today = date("Y-m-d");
-    $today2 = $this->BusinessDays->add_business_days($days=2, $date=$today, $format="Y-m-d");
-    $due_date = $request["Request"]["due_date"];
-    $overdue = false;
-    $dueSoon = false;
-    if($today > $due_date){
-      $overdue = true;
-    }
-    if($today2 >= $due_date){
-      $dueSoon = true;
-    }
-    $this->set('overdue', $overdue);
-    $this->set('dueSoon', $dueSoon);
+
   }
 
   public function create(){

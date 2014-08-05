@@ -10,6 +10,8 @@
 	    <?php 
 	      if(isset($request["Request"]["offline_submission_id"]) && $request["Request"]["offline_submission_id"] != ''){
   	      printf("<p><small>This request was submitted on behalf of the requester by %s</small></p>", $request["Creator"]["alias"] );
+	      }else{
+  	      printf("<p><small>This request was submitted by %s</small></p>", $request["Requester"]["alias"] );
 	      }
 	    ?>
     </div>
@@ -258,13 +260,13 @@
 	</div>
 	<div class="col-sm-4">
     <?php
-      if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2 && $dueSoon && !$overdue){
-        $statusText =  "Due Soon";
-        $statusClass = "warning"; 
-        $statusGlyph = "glyphicon-exclamation-sign";
-      }elseif($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2 && $overdue){
+      if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] == 4){
         $statusText =  "Overdue";
         $statusClass = "danger"; 
+        $statusGlyph = "glyphicon-exclamation-sign";
+      }elseif($this->Session->read('Auth.User') && $request["Request"]["status_id"] == 3){
+        $statusText =  "Due Soon";
+        $statusClass = "warning"; 
         $statusGlyph = "glyphicon-exclamation-sign";
       }elseif($request["Request"]["status_id"] == 2){
         $statusText =  "Closed";
