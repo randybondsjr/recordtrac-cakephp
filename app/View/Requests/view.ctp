@@ -9,7 +9,7 @@
 	    <p class="lead"><?php echo nl2br($request["Request"]["text"]); ?></p>
 	    <?php 
 	      if(isset($request["Request"]["offline_submission_id"]) && $request["Request"]["offline_submission_id"] != ''){
-  	      printf("<p><small>This request was submitted on behalf of the requester by %s</small></p>", $request["Creator"]["alias"] );
+  	      printf("<p><small>This request was submitted on behalf of %s by %s</small></p>", $request["Requester"]["alias"], $request["Creator"]["alias"] );
 	      }else{
   	      printf("<p><small>This request was submitted by %s</small></p>", $request["Requester"]["alias"] );
 	      }
