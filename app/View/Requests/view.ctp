@@ -322,23 +322,3 @@
     ?>
 	</div>
 </div>
-<script>
-  $(document).ready(function(){
-    $('#reassign').popover({ 
-        html : true,
-        title: function() {
-          return $("#popover-head").html();
-        },
-        content: function() {
-          return $("#popover-content").html();
-        },
-        placement: 'left'
-    });
-  
-  });
-  $('#reassign').on('shown.bs.popover', function () {
-    $('.close').on('click',function(){
-      $('#reassign').popover('hide');
-    });
-  })
-</script>
