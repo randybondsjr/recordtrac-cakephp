@@ -45,6 +45,12 @@ form p.lead {
   border-bottom: 1px solid gray;
   padding-bottom: 7px;
 }
+.popover {
+  background-color: #dffbf5;
+}
+.popover.bottom .arrow:after {
+  border-bottom-color: #dffbf5;
+}
 /* Status
 -------------------------------------------------- */
 .status {

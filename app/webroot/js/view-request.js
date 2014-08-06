@@ -13,8 +13,6 @@ $(document).ready(function(){
       },
       placement: 'left'
   });
-  
-
   $('#reassign').on('shown.bs.popover', function () {
     $('.close').on('click',function(){
       $('#reassign').popover('hide');
