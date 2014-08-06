@@ -1,5 +1,6 @@
 <?php 
   $this->Html->script('readmore.min.js', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->script('bootstrap-combobox', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
   $this->Html->script('view-request', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
 ?>
 <div class="row">
@@ -286,7 +287,7 @@
 	    <?php 
 	      if ($this->Session->read('Auth.User')){
     	    echo $this->Html->tag('a',
-            'Point of Contact <span class="pull-right"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-arrow-right muted"></span>',
+            'Point of Contact <span class="pull-right"><span class="glyphicon glyphicon-arrow-right muted"></span><span class="glyphicon glyphicon-user"></span>',
             array('id' => 'reassign', 'escape' => false)
           ); 
         }else{
@@ -294,19 +295,59 @@
 	      }
       ?>
 	  </h4>
-	  <div id="popover-head" class="hide">Reassign To: <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></div>
-      <div id="popover-content" class="hide">
-        <form>
-          <input type="text" class="form-control">
-        </form>
-      </div>
+	  <div id="reassign-head" class="hide">
+	    Reassign To: <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	  </div>
+    <div id="reassign-content" class="hide">
+      <?php
+        echo $this->Form->create('Request', array('action'=>'reassign'));
+        echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
+        echo $this->Form->input('active', array('type' => 'hidden', 'value' => '1'));
+        echo $this->Form->input('is_point_person', array('type' => 'hidden', 'value' => '1'));
+        echo $this->Form->input('user_id', array('label' => false, 'empty' => '(choose one)', 'class' => 'form-control'));
+        echo $this->Form->input('reason', array('type' => 'text', 'label' => false, 'placeholder' => 'Say why', 'class' => 'form-control'));
+        echo $this->Form->submit(
+          'Reassign', 
+          array('class' => 'btn btn-primary btn-sm', 'title' => 'Reassign')
+        );
+      ?>
+    </div>
 	  <?php 
 	    echo $this->Html->link(
         $poc["User"]["alias"],
-        array('controller'=>'Users','action' => 'view',$poc["User"]["id"])
+        array('controller'=>'Users','action' => 'view',$poc["User"]["id"]),
+        array('class' => 'darklink')
       ); 
     ?>
-	  <h4>Helpers</h4>
+	  <h4>
+	    <?php 
+	      if ($this->Session->read('Auth.User')){
+    	    echo $this->Html->tag('a',
+            'Helpers <span class="pull-right"><span class="glyphicon glyphicon-plus muted"></span><span class="glyphicon glyphicon-user"></span>',
+            array('id' => 'addHelper', 'escape' => false)
+          ); 
+        }else{
+	        echo "Helpers";
+	      }
+      ?>
+	  </h4>
+	  <div id="addhelper-head" class="hide">
+	    Add: <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	  </div>
+    <div id="addhelper-content" class="hide">
+      <?php
+        echo $this->Form->create('Request', array('action'=>'addHelper'));
+        echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
+        echo $this->Form->input('active', array('type' => 'hidden', 'value' => '1'));
+        echo $this->Form->input('is_point_person', array('type' => 'hidden', 'value' => '0'));
+        echo $this->Form->input('user_id', array('label' => false, 'empty' => '(choose one)', 'class' => 'form-control'));
+        echo $this->Form->input('reason', array('type' => 'text', 'label' => false, 'placeholder' => 'Say why', 'class' => 'form-control'));
+        echo $this->Form->submit(
+          'Add Helper', 
+          array('class' => 'btn btn-primary btn-sm', 'title' => 'Add Helper')
+        );
+      ?>
+    </div>
 	  <ul class="list-unstyled">
   	  <?php
   	    foreach($helpers as $helper){
@@ -320,5 +361,6 @@
         printf("<p class=\"text-center\">Due: <span class=\"badge\">%s</span></p>\n", $this->Time->format('F jS, Y', $request["Request"]["due_date"]));
       }
     ?>
+    
 	</div>
 </div>

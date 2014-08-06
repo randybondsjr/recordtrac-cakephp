@@ -9,6 +9,9 @@ a:hover, a:focus {
   text-decoration: underline;
   cursor: pointer;
 }
+a.darklink {
+  color: #111;
+}
 h1#landing_brand {
 	color: #17b292;
 	margin-top: 1em;
@@ -45,10 +48,10 @@ form p.lead {
   border-bottom: 1px solid gray;
   padding-bottom: 7px;
 }
-.popover {
+form .popover {
   background-color: #dffbf5;
 }
-.popover.bottom .arrow:after {
+form .popover.bottom .arrow:after {
   border-bottom-color: #dffbf5;
 }
 /* Status

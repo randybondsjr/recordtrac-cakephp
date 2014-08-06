@@ -146,7 +146,22 @@ class RequestsController extends AppController {
     $this->set('helpers',$this->Owner->find('all', array(
       'conditions' => array('(Owner.active = 1 AND Owner.is_point_person != 1) AND Owner.request_id = '. $id)
     )));
-
+    
+    $this->loadModel('User');
+    $this->set('users',$this->User->find('list', array(
+      'joins' => array(
+        array(
+            'table' => 'departments',
+            'alias' => 'DeptJoin',
+            'type' => 'LEFT',
+            'conditions' => array(
+                'User.department_id = DeptJoin.id'
+            )
+        )
+      ),
+      'fields' => array('User.id','User.alias','DeptJoin.name'),
+      'conditions' => array('department_id IS NOT NULL')
+    )));
   }
 
   public function create(){
