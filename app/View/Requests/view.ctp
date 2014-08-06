@@ -317,11 +317,11 @@
 	  <?php 
 	    endif;
 	    if(!empty($poc)){
-	    echo $this->Html->link(
-        $poc["User"]["alias"],
-        array('controller'=>'Users','action' => 'view',$poc["User"]["id"]),
-        array('class' => 'darklink')
-      ); 
+  	    echo $this->Html->link(
+          $poc["User"]["alias"],
+          array('controller'=>'Users','action' => 'view',$poc["User"]["id"]),
+          array('class' => 'darklink')
+        ); 
       }else {
         echo "No Point of Contact Found";
       }
@@ -365,7 +365,7 @@
   	      foreach($helpers as $helper){
     	      echo "<li>". $this->Html->tag('a',
               $helper["User"]["alias"]. "<span class=\"pull-right white\">remove</span>",
-              array('id' => 'removeHelper'.$helper["Owner"]["id"], 'escape' => false, 'class' => "unassignPopover")
+              array('id' => 'removeHelper'.$helper["Owner"]["id"], 'escape' => false, 'class' => "darklink unassignPopover")
             );
             echo "<div id=\"removehelper-head" . $helper["Owner"]["id"] . "\" class=\"hide\">
               	    Remove Helper: <button type=\"button\" class=\"close\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>
@@ -389,6 +389,45 @@
   	    }
       ?>
 	  </ul>
+	  <?php
+	    echo $this->Html->tag('a',
+              "<span class=\"glyphicon glyphicon-time\"></span> History",
+              array('id' => 'historyPopover', 'escape' => false)
+            );
+	  ?>
+	  <div id="history-head" class="hide">
+	    Routing History <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	  </div>
+	  <div id="history-content" class="hide">
+	    <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th></th>
+            <th>Date</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+            foreach($history as $record){
+              $actionIcon = "plus-sign";
+              if($record["Owner"]["reason_unassigned"] != ''){
+                $actionIcon = "minus-sign";
+              }
+              echo "<tr>";
+              printf("<td>%s</td>",$record["User"]["alias"]);
+              printf("<td><span class=\"glyphicon glyphicon-%s\"></span></td>",$actionIcon);
+              printf("<td>%s</td>\n",$this->Time->format('M jS, Y',$record["Owner"]["created"]));
+              printf("<td>%s</td>",$record["Owner"]["reason"]);
+              echo "</tr>";
+            } 
+          ?>
+         
+          
+        </tbody>
+      </table>
+	  </div>
 	  <p class="text-center muted">Received: <?php printf("<td>%s</td>\n",$this->Time->format('F jS, Y',  $request["Request"]["date_received"])); ?></p> 
 	  <?php 
 	    if ($this->Session->read('Auth.User')){

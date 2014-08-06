@@ -147,6 +147,13 @@ class RequestsController extends AppController {
       'conditions' => array('(Owner.active = 1 AND Owner.is_point_person != 1) AND Owner.request_id = '. $id)
     )));
     
+    //get routing history
+    $this->set('history',$this->Owner->find('all', array(
+      'conditions' => array('Owner.request_id = '. $id),
+      'order' => array('Owner.created' => 'desc')
+    )));
+    
+    //list of staff for assigning helpers and point of contact
     $this->loadModel('User');
     $this->set('users',$this->User->find('list', array(
       'joins' => array(
@@ -162,6 +169,7 @@ class RequestsController extends AppController {
       'fields' => array('User.id','User.alias','DeptJoin.name'),
       'conditions' => array('department_id IS NOT NULL')
     )));
+    
   }
 
   public function create(){

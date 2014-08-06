@@ -1,9 +1,13 @@
 $(document).ready(function(){
   $('.combobox').combobox();
+  
+  //more link
   $('.lead').readmore({
     moreLink: '<p class="lead"><a href="#">More&hellip;</a></p>',
     lessLink: '<p class="lead"><a href="#">Less&hellip;</a></p>'
   });
+  
+  //REASSIGN REQUEST
   $('#reassign').popover({ 
       html : true,
       title: function() {
@@ -20,6 +24,7 @@ $(document).ready(function(){
     });
   })
   
+  //ADD HELPER
   $('#addHelper').popover({ 
       html : true,
       title: function() {
@@ -36,6 +41,7 @@ $(document).ready(function(){
     });
   })
   
+  //REMOVE HELPER
   $("[id^=removeHelper]").popover({ 
       html : true,
       title: function() {
@@ -54,8 +60,21 @@ $(document).ready(function(){
       $('#removeHelper'+num).popover('hide');
     });
   })
-    //var num = this.id.slice(12);
-    //console.log(num);
-    
-  //});
+  
+  //History popover
+  $('#historyPopover').popover({ 
+      html : true,
+      title: function() {
+        return $("#history-head").html();
+      },
+      content: function() {
+        return $("#history-content").html();
+      },
+      placement: 'bottom'
+  });
+  $('#historyPopover').on('shown.bs.popover', function () {
+    $('.close').on('click',function(){
+      $('#historyPopover').popover('hide');
+    });
+  })
 });
