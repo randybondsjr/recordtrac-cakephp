@@ -35,4 +35,27 @@ $(document).ready(function(){
       $('#addHelper').popover('hide');
     });
   })
+  
+  $("[id^=removeHelper]").popover({ 
+      html : true,
+      title: function() {
+        var num = this.id.slice(12);
+        return $("#removehelper-head"+num).html();
+      },
+      content: function() {
+        var num = this.id.slice(12);
+        return $("#addhelper-content"+num).html();
+      },
+      placement: 'left'
+  });
+  $("[id^=removeHelper]").on('shown.bs.popover', function () {
+    var num = this.id.slice(12);
+    $('.close').on('click',function(){
+      $('#removeHelper'+num).popover('hide');
+    });
+  })
+    //var num = this.id.slice(12);
+    //console.log(num);
+    
+  //});
 });

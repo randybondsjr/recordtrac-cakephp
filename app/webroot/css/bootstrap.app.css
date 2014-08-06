@@ -19,6 +19,9 @@ h1#landing_brand {
 .muted {
   color: #999999;
 }
+.white {
+  color: #fff;
+}
 p.intro-text {
   font-size: 16px;
 }
@@ -53,6 +56,18 @@ form .popover {
 }
 form .popover.bottom .arrow:after {
   border-bottom-color: #dffbf5;
+}
+.unassignPopover {
+  display: block;
+}
+.unassignPopover:hover {
+  background-color: #17b292;
+  cursor: pointer;
+  background-color: rgba(23,178,146, .3);
+  color: #555;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 0px;
 }
 /* Status
 -------------------------------------------------- */

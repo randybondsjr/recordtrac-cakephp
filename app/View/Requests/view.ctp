@@ -295,6 +295,7 @@
 	      }
       ?>
 	  </h4>
+	  <?php if ($this->Session->read('Auth.User')): ?>
 	  <div id="reassign-head" class="hide">
 	    Reassign To: <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 	  </div>
@@ -302,6 +303,7 @@
       <?php
         echo $this->Form->create('Request', array('action'=>'reassign'));
         echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
+        echo $this->Form->input('owner_id', array('type' => 'hidden', 'value' => $poc["Owner"]["id"]));
         echo $this->Form->input('active', array('type' => 'hidden', 'value' => '1'));
         echo $this->Form->input('is_point_person', array('type' => 'hidden', 'value' => '1'));
         echo $this->Form->input('user_id', array('label' => false, 'empty' => '(choose one)', 'class' => 'form-control'));
@@ -313,12 +315,18 @@
       ?>
     </div>
 	  <?php 
+	    endif;
+	    if(!empty($poc)){
 	    echo $this->Html->link(
         $poc["User"]["alias"],
         array('controller'=>'Users','action' => 'view',$poc["User"]["id"]),
         array('class' => 'darklink')
       ); 
+      }else {
+        echo "No Point of Contact Found";
+      }
     ?>
+    
 	  <h4>
 	    <?php 
 	      if ($this->Session->read('Auth.User')){
@@ -331,8 +339,9 @@
 	      }
       ?>
 	  </h4>
+	  <?php if ($this->Session->read('Auth.User')): ?>
 	  <div id="addhelper-head" class="hide">
-	    Add: <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	    Add Helper: <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 	  </div>
     <div id="addhelper-content" class="hide">
       <?php
@@ -348,10 +357,35 @@
         );
       ?>
     </div>
+    <?php endif; ?>
 	  <ul class="list-unstyled">
   	  <?php
-  	    foreach($helpers as $helper){
-  	      printf("<li>%s</li>", $helper["User"]["alias"]);
+  	  //pr($helpers);
+  	    if ($this->Session->read('Auth.User')){
+  	      foreach($helpers as $helper){
+    	      echo "<li>". $this->Html->tag('a',
+              $helper["User"]["alias"]. "<span class=\"pull-right white\">remove</span>",
+              array('id' => 'removeHelper'.$helper["Owner"]["id"], 'escape' => false, 'class' => "unassignPopover")
+            );
+            echo "<div id=\"removehelper-head" . $helper["Owner"]["id"] . "\" class=\"hide\">
+              	    Remove Helper: <button type=\"button\" class=\"close\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>
+              	  </div>
+                  <div id=\"addhelper-content" . $helper["Owner"]["id"] . "\" class=\"hide\">";
+            echo $this->Form->create('Request', array('action'=>'removeHelper'));
+            echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
+            echo $this->Form->input('active', array('type' => 'hidden', 'value' => '0'));
+            echo $this->Form->input('reason', array('type' => 'text', 'label' => false, 'placeholder' => 'Say why', 'class' => 'form-control'));
+            echo $this->Form->submit(
+              'Remove Helper', 
+              array('class' => 'btn btn-primary btn-sm', 'title' => 'Remove Helper')
+            );
+
+            echo "</div></li>";
+    	    }
+  	    }else{
+    	    foreach($helpers as $helper){
+    	      printf("<li>%s</li>", $helper["User"]["alias"]);
+    	    }
   	    }
       ?>
 	  </ul>
