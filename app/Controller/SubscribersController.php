@@ -28,7 +28,5 @@ class SubscribersController extends AppController {
       }
     }
     $this->redirect(array('action' => 'view', 'controller' => 'requests', $this->request->data["Subscriber"]["request_id"]));
-    //pr($subscriberExists);
-    //$this->Subscriber->save($this->request->data);
 	}
 }
