@@ -57,6 +57,10 @@ form .popover {
 form .popover.bottom .arrow:after {
   border-bottom-color: #dffbf5;
 }
+form .popover.left .arrow:after {
+  border-left-color: #dffbf5;
+}
+
 .unassignPopover {
   display: block;
 }

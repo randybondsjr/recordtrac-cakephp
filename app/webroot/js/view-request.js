@@ -77,4 +77,8 @@ $(document).ready(function(){
       $('#historyPopover').popover('hide');
     });
   })
+  
+  $("#subscribeHelp").popover({
+        placement: "bottom"
+    });
 });
