@@ -218,13 +218,28 @@ class RequestsController extends AppController {
       $this->request->data["Owner"][1]["user_id"] = $dept["Backup"]["id"];      
       $this->request->data["Owner"][1]["reason"] = "Backup for ". $dept["Department"]["name"];
       $this->request->data["Owner"][1]["is_point_person"] = 0;
+      
+      
+      //check if the user already exists (by email), if so, we'll just use that user id
+      $this->loadModel('User');
+      $emailExists = $this->User->find('first',array(
+        'conditions' => array('User.email' => $this->request->data["Requester"]["email"])
+      ));
+      $userConditions = array('order' => array('User.id' => 'desc'));
+      //if the email exists, unset all the form vars and set the user id
+      
+      if(!empty($emailExists)){
+        $this->request->data["Requester"]["id"] = $emailExists["User"]["id"];
+        unset($this->request->data["Requester"]["email"]);
+        unset($this->request->data["Requester"]["alias"]);
+        unset($this->request->data["Requester"]["phone"]);
+        $userConditions = array('conditions' => array('User.id' => $emailExists["User"]["id"]));
+      }
 
       if($this->Request->saveAll($this->request->data)){ 
         $requestID = $this->Request->getLastInsertId();
-        $this->loadModel('User');
-        $user = $this->User->find('first', array(
-          'order' => array('User.id' => 'desc')
-        ));
+        
+        $user = $this->User->find('first', $userConditions);
         $owner = $this->User->find('first', array(
           'conditions' => array('User.id' => $dept["Contact"]["id"])
         ));
@@ -243,7 +258,7 @@ class RequestsController extends AppController {
           $Email = new CakeEmail();
           $Email->template('requester')
               ->emailFormat('html')
-              ->to($this->request->data["Requester"]["email"])
+              ->to($user["User"]["email"])
               ->from($this->getfromEmail())
               ->subject($this->getAgencyName().' Public Disclosure Request')
               ->viewVars( array(

@@ -437,7 +437,7 @@
             echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
             echo $this->Form->input('should_notify', array('type' => 'hidden', 'value' => '1'));
             echo "<div class=\"input-group col-xs-9\">";
-            echo $this->Form->input('email', array('type' => 'email', 'label' => false, 'placeholder' => 'yourname@email.com', 'class' => 'form-control', 'div' => false));
+            echo $this->Form->input('User.email', array('type' => 'email', 'label' => false, 'placeholder' => 'yourname@email.com', 'class' => 'form-control', 'div' => false));
             echo "<span class=\"input-group-btn\">";
             echo $this->Form->submit(
               'Follow', 
