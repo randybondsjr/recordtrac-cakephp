@@ -2,6 +2,13 @@
   $this->Html->script('readmore.min.js', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
   $this->Html->script('bootstrap-combobox', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
   $this->Html->script('view-request', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  
+  $requesterEmail = "<span class=\"badge\">Not Provided</span>";
+  $requesterAlias = "<span class=\"badge\">Name Not Provided</span>";
+  $requesterPhone = "<span class=\"badge\">Not Provided</span>";
+  if($request["Requester"]["email"] != ""){ $requesterEmail = $this->Text->autoLinkEmails($request["Requester"]["email"]); }
+  if($request["Requester"]["alias"] != ""){ $requesterAlias = "<strong>".$request["Requester"]["alias"]."</strong>"; }
+  if($request["Requester"]["phone"] != ""){ $requesterPhone = "<strong>".$request["Requester"]["phone"]."</strong>"; }
 ?>
 <div class="row">
 	<div class="col-sm-8">
@@ -10,20 +17,14 @@
 	    <p class="lead"><?php echo nl2br($request["Request"]["text"]); ?></p>
 	    <?php 
 	      if(isset($request["Request"]["offline_submission_id"]) && $request["Request"]["offline_submission_id"] != ''){
-  	      printf("<p><small>This request was submitted on behalf of %s by %s</small></p>", $request["Requester"]["alias"], $request["Creator"]["alias"] );
+  	      printf("<p><small>This request was submitted on behalf of %s by %s</small></p>", $requesterAlias, $request["Creator"]["alias"] );
 	      }else{
-  	      printf("<p><small>This request was submitted by %s</small></p>", $request["Requester"]["alias"] );
+  	      printf("<p><small>This request was submitted by %s</small></p>", $requesterAlias );
 	      }
 	    ?>
     </div>
     <?php 
 	    if ($this->Session->read('Auth.User')){
-	      $requesterEmail = "<span class=\"badge\">Not Provided</span>";
-	      $requesterAlias = "<span class=\"badge\">Not Provided</span>";
-	      $requesterPhone = "<span class=\"badge\">Not Provided</span>";
-	      if($request["Requester"]["email"] != ""){ $requesterEmail = $this->Text->autoLinkEmails($request["Requester"]["email"]); }
-	      if($request["Requester"]["alias"] != ""){ $requesterAlias = "<strong>".$request["Requester"]["alias"]."</strong>"; }
-	      if($request["Requester"]["phone"] != ""){ $requesterPhone = "<strong>".$request["Requester"]["phone"]."</strong>"; }
         printf("<p><small> Requester's e-mail: %s<br/> Requester's name: %s and phone number: %s</small></p>\n", $requesterEmail, $requesterAlias, $requesterPhone);
       }
     ?>

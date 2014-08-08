@@ -66,36 +66,29 @@
 
 <div class="well">
   <div class="container">
-  <div class="row">
-    <h3 id="recent-requests" class="text-center"><?php echo $agencyName; ?> Request Statistics</h3>
-    <div class="col-sm-5 col-sm-offset-1">
-      <div id="responses-freq-viz">
-        Total # of Requests (top 5 departments)
+    <div class="row">
+      <h3 id="recent-requests" class="text-center"><?php echo $agencyName; ?> Request Statistics</h3>
+      <div class="col-sm-6">
+            <div id="toprequests"></div>
+            <?php echo $this->HighCharts->render('Top Requests'); ?>
+      </div>
+      <div class="col-sm-6">
+            <div id="daystorespond"></div>
+            <?php echo $this->HighCharts->render('Avg Response Time'); ?>
       </div>
     </div>
-    <div class="col-sm-5">
-      <div id="responses-time-viz">
-        Average # Days to Respond (quickest 5 departments)
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+				<p class="text-center"><small>NOTE: The resources within each department may be different.  Requests also vary in complexity, and may not be evenly spread among departments.</small></p>
+				<div class="col-sm-6 col-sm-offset-3">
+				  <?php echo $this->Html->link(
+      		        "<span class=\"glyphicon glyphicon-search\"></span> Start exploring now",
+        		      "/requests",
+                  array('escape' => false, 'class' => 'btn btn-lg btn-block btn-primary', 'id' => 'startmeup')
+  		      )
+  		    ?>
+        </div>
       </div>
     </div>
-    <div class="row-fluid">
-			<div class="col-sm-8 col-sm-offset-2">
-				<div class="row-fluid">
-					<div id="disclaimer" class="col-sm-offset-2 col-sm-8 text-center">
-						<p>NOTE: The resources within each department may be different.  Requests also vary in complexity, and may not be evenly spread among departments.</p>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="col-sm-4 col-sm-offset-4">
-					  <?php echo $this->Html->link(
-        		        "<span class=\"glyphicon glyphicon-search\"></span> Start exploring now",
-          		      "/requests",
-                    array('escape' => false, 'class' => 'btn btn-lg btn-block btn-primary', 'id' => 'startmeup')
-    		      )
-    		    ?>
-					</div>
-				</div>
-			</div>
-		</div>
   </div>
 </div>
