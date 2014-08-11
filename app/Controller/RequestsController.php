@@ -111,17 +111,24 @@ class RequestsController extends AppController {
     $today2 = $this->BusinessDays->add_business_days($days=2, $date=$today, $format="Y-m-d");
     foreach($requests AS $request){
       $due_date = $request["Request"]["due_date"];
+      $statusDate = date("Y-m-d", strtotime($request["Request"]["status_updated"]));
       $overdue = false;
       $dueSoon = false;
+      //update status if it hasn't been updated today. 
+      //if($request["Request"]["status_updated"])
       if($request["Request"]["status_id"] != 2){ //only update if its not closed
         if($today > $due_date){
-          $this->Request->id = $request["Request"]["id"];
-          $this->Request->saveField('status_id', '4'); // set status overdue
-          $this->Request->saveField('status_updated', $todayDT); //set status updated datetime
+          if($statusDate != $today){ // check if it's been updated today, if so, let's leave it alone
+            $this->Request->id = $request["Request"]["id"];
+            $this->Request->saveField('status_id', '4'); // set status overdue
+            $this->Request->saveField('status_updated', $todayDT); //set status updated datetime
+          }
         }else if($today2 >= $due_date){
-          $this->Request->id = $request["Request"]["id"];
-          $this->Request->saveField('status_id', '3'); // set status overdue
-          $this->Request->saveField('status_updated', $todayDT); //set status updated datetime
+          if($statusDate != $today){ // check if it's been updated today, if so, let's leave it alone
+            $this->Request->id = $request["Request"]["id"];
+            $this->Request->saveField('status_id', '3'); // set status due soon
+            $this->Request->saveField('status_updated', $todayDT); //set status updated datetime
+          }
         }
       }
     }
