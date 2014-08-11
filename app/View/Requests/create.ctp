@@ -20,6 +20,7 @@
                                     'before' => '<p class="lead">What are you trying to find?</p>', 
                                     'label' => '<span class="glyphicon glyphicon-exclamation-sign"></span> Everything in this request box will be displayed publicly. <a href="/about#why">Why?</a>', 
                                     'class' => 'form-control'));
+      echo "<div id=\"not_public_record\"></div>";
       echo $this->Form->input('department_id',
                               array(
                                     'between' => '<p class="lead">Select a department or document type <small class="department_optional">(optional)</small></p>',

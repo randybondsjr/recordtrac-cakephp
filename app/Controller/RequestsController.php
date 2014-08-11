@@ -1,7 +1,8 @@
 <?php
 class RequestsController extends AppController {
 
-  public $components = array('BusinessDays');
+  public $components = array("BusinessDays","RequestHandler");
+  
   public function index($query = null) {
     //variables
     $conditions = '';
@@ -71,7 +72,7 @@ class RequestsController extends AppController {
     
     //for form advanced filter department dropdown
     $this->loadModel('Department');
-    $this->set('departments',$this->Department->find('list'));
+    $this->set('departments',$this->Department->find('list', array('order' => array('Department.name' => 'asc'))));
     
     //statuses for form
     $this->loadModel('Status');
@@ -170,6 +171,35 @@ class RequestsController extends AppController {
       'conditions' => array('department_id IS NOT NULL')
     )));
     
+  }
+
+  public function is_public_record(){
+    $this->autoRender = false;
+    $this->request->onlyAllow('ajax'); // No direct access via browser URL - Note for Cake2.5: allowMethod()
+    $text = $this->request->data["request_text"];
+    //define some key terms, and the error that will show to the user.
+    $notCity = array (
+      "Certificate" => "The " . $this->getAgencyName() . " does not have copies of <strong>birth</strong>, <strong>death</strong>, or marriage <strong>certificates</strong>. Contact the Yakima County Auditor's Office for these records by calling (509) 574-1330 or visiting <a href='http://www.yakimacounty.us/auditor/Record.htm' target='_blank'>www.yakimacounty.us/auditor/Record.html</a>",
+      "Divorce" => "The " . $this->getAgencyName() . " does not have copies of <strong>divorce</strong> decrees or judgements. Contact the Yakima County Auditor's Office for these records by calling (509) 574-1330 or visiting <a href='http://www.yakimacounty.us/auditor/Record.htm' target='_blank'>www.yakimacounty.us/auditor/Record.html</a>"
+    );
+    foreach ($notCity as $key => $value){
+      $pattern = "/". $key."/i";
+      preg_match($pattern, $text, $matches);
+      if(!empty($matches)){
+        $words[] = $matches[0];
+      }
+    }
+    if(!empty($words)){
+      $errors = '';
+      foreach ($words as $word){
+        $word = ucfirst($word);
+        $errors .= $notCity[$word];
+      }
+      $data = $errors;
+    }else{
+      return false;
+    }
+    return new CakeResponse(array('body' =>$data));
   }
 
   public function create(){
@@ -297,7 +327,7 @@ class RequestsController extends AppController {
               ))
               ->send();
           
-          //@todo add an email to requester, POC, etc. 
+          //things are good, redirect with message 
           if ($this->Session->read('Auth.User')){
             $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the '. $this->getAgencyName() .' in the next 5 days. Requester will be automatically contacted with any updates.</p>');
           }else{

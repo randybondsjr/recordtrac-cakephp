@@ -24,4 +24,28 @@ $(document).ready(function(){
         placement: "bottom",
         trigger: 'focus'
     });
+    
+    $('#RequestText').on('blur', function() {
+    
+    request_text = $(this).val();
+    request = $.ajax({
+      url: 'is_public_record',
+      type: 'post',
+      data: {
+        request_text: request_text
+      }
+    });
+    request.done( function(data) {
+      console.log(data);
+      $div = $('#not_public_record');
+      if (data != '') {
+        $div.addClass('alert').addClass('alert-danger');
+        $div.html(data);
+        $div.prepend("<span class='glyphicon glyphicon-exclamation-sign'></span>&nbsp;");
+      } else {
+        $div.empty();
+        $div.removeClass('alert').removeClass('alert-error');
+      }
+    });
+  })
 });
