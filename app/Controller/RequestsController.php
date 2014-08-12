@@ -10,6 +10,7 @@ class RequestsController extends AppController {
     $dateQuery = '';
     $dept = '';
     $requester = '';
+    $userID = $this->Session->read('Auth.User.id');
     
     //if there is a filter submitted (GET), adjust query
     if(!empty($this->request->query)){
@@ -21,9 +22,6 @@ class RequestsController extends AppController {
         $requester = filter_var($this->request->query["requester"], FILTER_SANITIZE_STRING);
         $requester = "AND Requester.Alias LIKE '%$requester%'";
       }
-      
-      //@todo ADD My Requests filtering
-      
       
       //iterate through statuses
       if(!empty($this->request->query["status"])){
@@ -87,12 +85,115 @@ class RequestsController extends AppController {
     //total results for title
     $this->set('total',$total = $this->Request->find('count'));
     
-    //paginate results
-    $this->paginate = array(
-				'limit' => 15,
-				'conditions' => $conditions,
-        'order' => array('Request.id' => 'desc')
-		);
+    
+    //Staff Requests filtering
+    if(!empty($this->request->query["my_filter"])){
+      $poc = false;
+      $helper = false;
+      if(in_array("poc", $this->request->query["my_filter"])){
+        $poc = true;
+        //paginate results
+        $this->paginate = array(
+    				'limit' => 15,
+    				'conditions' => $conditions,
+    				'joins' =>  array(
+            array(
+              'table' => 'owners',
+              'alias' => 'Owner',
+              'type' => 'inner',
+              'conditions' => array(
+                  'Owner.request_id = Request.id',
+                  'Owner.user_id' => $userID,
+                  'Owner.active' => 1,
+                  'Owner.is_point_person' => 1
+               )
+             )
+           ),
+          'contains' => array('Owner'),
+          'group' => 'Owner.request_id',
+          'recursive' => 1,
+          'order' => array('Request.id' => 'desc')
+    		);
+      }
+      if(in_array("helper", $this->request->query["my_filter"])){
+        $helper = true;
+        //paginate results
+        $this->paginate = array(
+    				'limit' => 15,
+    				'conditions' => $conditions,
+    				'joins' =>  array(
+            array(
+              'table' => 'owners',
+              'alias' => 'Owner',
+              'type' => 'inner',
+              'conditions' => array(
+                  'Owner.request_id = Request.id',
+                  'Owner.user_id' => $userID,
+                  'Owner.active' => 1,
+                  'Owner.is_point_person' => 0
+               )
+             )
+           ),
+          'contains' => array('Owner'),
+          'group' => 'Owner.request_id',
+          'recursive' => 1,
+          'order' => array('Request.id' => 'desc')
+    		);
+      }
+      if($poc && $helper){
+        //paginate results
+        $this->paginate = array(
+    				'limit' => 15,
+    				'conditions' => $conditions,
+    				'joins' =>  array(
+            array(
+              'table' => 'owners',
+              'alias' => 'Owner',
+              'type' => 'inner',
+              'conditions' => array(
+                  'Owner.request_id = Request.id',
+                  'Owner.user_id' => $userID,
+                  'Owner.active' => 1
+               )
+             )
+           ),
+          'contains' => array('Owner'),
+          'group' => 'Owner.request_id',
+          'recursive' => 1,
+          'order' => array('Request.id' => 'desc')
+    		);
+      }
+    }elseif(!isset($this->request->query["my_filter"]) && $this->Session->read('Auth.User')){ //for initial pagview
+      //paginate results
+        $this->paginate = array(
+    				'limit' => 15,
+    				'conditions' => $conditions,
+    				'joins' =>  array(
+            array(
+              'table' => 'owners',
+              'alias' => 'Owner',
+              'type' => 'inner',
+              'conditions' => array(
+                  'Owner.request_id = Request.id',
+                  'Owner.user_id' => $userID,
+                  'Owner.active' => 1
+               )
+             )
+           ),
+          'contains' => array('Owner'),
+          'group' => 'Owner.request_id',
+          'recursive' => 1,
+          'order' => array('Request.id' => 'desc')
+    		);
+    }else{
+      //paginate results
+      $this->paginate = array(
+  				'limit' => 15,
+  				'conditions' => $conditions,
+          'order' => array('Request.id' => 'desc')
+  		);
+    }
+    
 		$records = $this->paginate('Request');
 		
 		//error handling in case there are no requests found

@@ -4,6 +4,7 @@
   $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js', array('inline' => false));
   $this->Html->css('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css', array('inline' => false));
 ?>
+<?php  //echo $this->element('sql_dump'); ?>
 <div class="row">
   <div class="col-sm-8">
     <h1>Explore <span id="request-count" class="badge badge-info badge-lg"><?php echo $total; ?></span> requests and counting</h1>
@@ -29,11 +30,19 @@
                                     'class' => 'form-control'));   
       echo "<h5 class=\"underline\">ADVANCED FILTER</h5>";
       if ($this->Session->read('Auth.User')){
+        
+        if(empty($this->request->query)){
+          $selected = array('poc','helper');
+        }else{
+          $selected = $this->request->data['Request']['my_filter'];
+        }
+        
         echo $this->Form->input('my_filter',
                               array('label' => 'My Requests',
                                     'multiple' => 'checkbox',
                                     'class' => 'checkbox autocomplete',
-                                    'options' => array('as Point of Contact', 'as Helper')));
+                                    'options' => array('poc' => 'as Point of Contact', 'helper' => 'as Helper'),
+                                    'selected' => $selected));
       }                  
       echo $this->Form->input('status',
                               array('multiple' => 'checkbox', 
@@ -88,6 +97,7 @@
       <tbody>
         <?php 
           foreach ($results as $result){
+            //pr($result);
             echo "<tr>\n";
             if ($this->Session->read('Auth.User') && $result["Request"]["status_id"] == 4){ //overdue
               $statusClass = "danger"; 
