@@ -67,7 +67,7 @@
           'Submit My Request', 
           array('class' => 'btn btn-primary', 'title' => 'Submit My Request')
       );
-      
+      echo $this->Form->end();
     ?>
 	</div>
 	<div class="col-sm-4 col-sm-offset-1">
