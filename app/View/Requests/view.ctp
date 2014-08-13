@@ -131,6 +131,13 @@
                       'between' => '<div class="col-sm-9">',
                       'after' => '</div>',
                       'rows' => 3));
+            echo $this->Form->input('staff_mins',
+                array('type' => 'text', 
+                      'div' => 'form-group',
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Minutes of Staff Time Spent'), 
+                      'class' => 'form-control',
+                      'between' => '<div class="col-sm-9">',
+                      'after' => '</div>'));
             echo $this->Form->submit(
                 'Add Note', 
                 array('class' => 'btn btn-primary', 
