@@ -1,4 +1,6 @@
 <?php
-class RequestsController extends AppController {
+class RecordsController extends AppController {
+  public function add() {
 
+	}
 }
