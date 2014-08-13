@@ -261,24 +261,26 @@ class RequestsController extends AppController {
       'conditions' => array('Owner.request_id = '. $id),
       'order' => array('Owner.created' => 'desc')
     )));
-    
-    //list of staff for assigning helpers and point of contact
-    $this->loadModel('User');
-    $this->set('users',$this->User->find('list', array(
-      'joins' => array(
-        array(
-            'table' => 'departments',
-            'alias' => 'DeptJoin',
-            'type' => 'LEFT',
-            'conditions' => array(
-                'User.department_id = DeptJoin.id'
-            )
-        )
-      ),
-      'fields' => array('User.id','User.alias','DeptJoin.name'),
-      'conditions' => array('department_id IS NOT NULL')
-    )));
-    
+    if($this->Session->read('Auth.User')){ // only load this stuff if a staff member is logged in
+      //list of staff for assigning helpers and point of contact
+      $this->loadModel('User');
+      $this->set('users',$this->User->find('list', array(
+        'joins' => array(
+          array(
+              'table' => 'departments',
+              'alias' => 'DeptJoin',
+              'type' => 'LEFT',
+              'conditions' => array(
+                  'User.department_id = DeptJoin.id'
+              )
+          )
+        ),
+        'fields' => array('User.id','User.alias','DeptJoin.name'),
+        'conditions' => array('department_id IS NOT NULL')
+      )));
+      $this->loadModel("ExtendReason");
+      $this->set("extend_reasons",$this->ExtendReason->find('list', array('fields' => array('ExtendReason.reason','ExtendReason.label'))));
+    }
   }
 
   public function is_public_record(){
