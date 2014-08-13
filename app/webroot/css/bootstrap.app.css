@@ -200,7 +200,10 @@ h3.control-widget {
   /*background-color: rgb(234, 234, 255);*/
   /*border: 1px dashed #ccc;*/
 }
-
+div.tooltip-inner {
+ width: 200px;
+ max-width: 200px;
+}
 
 /* Form
 -------------------------------------------------- */
