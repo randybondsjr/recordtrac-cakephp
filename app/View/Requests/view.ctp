@@ -1,6 +1,7 @@
 <?php 
   $this->Html->script('readmore.min.js', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
-  $this->Html->script('bootstrap-combobox', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->script('bootstrap-select.min', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->css('bootstrap-select.min', array('inline' => false));
   $this->Html->script('view-request', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
   
   $requesterEmail = "<span class=\"badge\">Not Provided</span>";
@@ -9,7 +10,7 @@
   if($request["Requester"]["email"] != ""){ $requesterEmail = $this->Text->autoLinkEmails($request["Requester"]["email"]); }
   if($request["Requester"]["alias"] != ""){ $requesterAlias = "<strong>".$request["Requester"]["alias"]."</strong>"; }
   if($request["Requester"]["phone"] != ""){ $requesterPhone = "<strong>".$request["Requester"]["phone"]."</strong>"; }
- // pr($request);
+
 ?>
 <div class="row">
 	<div class="col-sm-8">
@@ -118,7 +119,7 @@
         <!-- Add note -->
         <div class="target-for" data-target-for="2">
           <?php
-            echo $this->Form->create('Note', array('type' => 'file', 'action' => 'add', 'controller' => 'note', 'class' => 'form-horizontal'));
+            echo $this->Form->create('Note', array('action' => 'add', 'class' => 'form-horizontal'));
             echo $this->Form->input('user_id',array('type' => 'hidden', 'value' => $this->Session->read('Auth.User.id')));
             echo $this->Form->input('request_id',array('type' => 'hidden', 'value' => $request["Request"]["id"]));
             echo $this->Form->input('text',
@@ -143,49 +144,54 @@
         <!-- Extend Request -->
         <div class="target-for" data-target-for="3">
           <?php
-            echo $this->Form->create('Record', array('type' => 'file', 'action' => 'add', 'controller' => 'record', 'class' => 'form-horizontal'));
+            echo $this->Form->create('Extend', array('url'=>$this->Html->url(array('controller'=>'notes', 'action'=>'extend')), 'class' => 'form-horizontal'));
             echo $this->Form->input('user_id',array('type' => 'hidden', 'value' => $this->Session->read('Auth.User.id')));
             echo $this->Form->input('request_id',array('type' => 'hidden', 'value' => $request["Request"]["id"]));
-            echo $this->Form->input('description',
-                array('type' => 'textarea', 
+            echo $this->Form->input('extend_reasons',
+                array('options' => $extend_reasons,
+                      'multiple' => true,
                       'div' => 'form-group',
-                      'placeholder' => 'Add a short explanation of the record',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Name of Record'), 
-                      'class' => 'form-control',
-                      'between' => '<div class="col-sm-9">',
-                      'after' => '</div>',
-                      'rows' => 1));
-            echo $this->Form->input('filename',
-                array('type' => 'file', 
-                      'div' => 'form-group',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Upload a File'), 
-                      'class' => 'form-control',
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Reason'), 
+                      'class' => 'form-control selectpicker',
                       'between' => '<div class="col-sm-9">',
                       'after' => '</div>'));
-            echo $this->Form->input('url',
-                array('type' => 'text', 
-                      'div' => 'form-group',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Or Provide a Link to the Record'), 
-                      'class' => 'form-control',
-                      'between' => '<div class="col-sm-9">',
-                      'after' => '</div>'));
-            echo $this->Form->input('access',
-                array('type' => 'textarea', 
-                      'div' => 'form-group',
-                      'placeholder' => 'Add a short explanation of the record',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Or indicate how the record can be accessed offline'), 
-                      'class' => 'form-control',
-                      'placeholder' => 'How can the requester get this record?  Ex. "Sent via mail on a CD", "Print out awaiting requester at City Clerk desk"',
-                      'between' => '<div class="col-sm-9">',
-                      'after' => '</div>',
-                      'rows' => 3));
-            echo $this->Form->submit(
-                'Add Record', 
-                array('class' => 'btn btn-primary', 
-                      'title' => 'Add Record',
-                      'div' => 'form-group', 
-                      'before' => '<div class="col-sm-9 col-sm-offset-3">',
-                      'after' => '</div>'));
+            echo "<div class=\"form-group\"><div class=\"col-sm-9 col-sm-offset-3\"><button id=\"extend-request\" class=\"btn btn-primary\">Extend Request</button></div></div>";
+            ?>
+            <!-- Modal -->
+            <div class="modal fade" id="extendModal" tabindex="-1" role="dialog" aria-labelledby="extendModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Reason for extension</h4>
+                  </div>
+                  <div class="modal-body">
+                  <?php
+                    echo $this->Form->input('text',
+                          array('type' => 'textarea', 
+                                'div' => 'form-group',
+                                'label' => false, 
+                                'class' => 'form-control',
+                                'between' => '<div class="col-sm-12">',
+                                'after' => '</div>',
+                                'rows' => 10));
+                  ?>
+                  </div>
+                  <div class="modal-footer">
+                    <?php 
+                      echo $this->Form->submit(
+                                    'Extend Record', 
+                                    array('class' => 'btn btn-primary', 
+                                          'title' => 'Extend Record',
+                                          'div' => 'form-group', 
+                                          'before' => '<div class="col-sm-9 col-sm-offset-3">',
+                                          'after' => '</div>'));
+                    ?>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php
             echo $this->Form->end();
           ?>
         </div>
