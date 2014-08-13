@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  $('.combobox').combobox();
+  $('.selectpicker').selectpicker();
+  $('[rel=tooltip]').tooltip();
   
   //more link
   $('.lead').readmore({
@@ -22,7 +23,7 @@ $(document).ready(function(){
     $('.close').on('click',function(){
       $('#reassign').popover('hide');
     });
-  })
+  });
   
   //ADD HELPER
   $('#addHelper').popover({ 
@@ -39,7 +40,7 @@ $(document).ready(function(){
     $('.close').on('click',function(){
       $('#addHelper').popover('hide');
     });
-  })
+  });
   
   //REMOVE HELPER
   $("[id^=removeHelper]").popover({ 
@@ -59,7 +60,7 @@ $(document).ready(function(){
     $('.close').on('click',function(){
       $('#removeHelper'+num).popover('hide');
     });
-  })
+  });
   
   //History popover
   $('#historyPopover').popover({ 
@@ -76,7 +77,7 @@ $(document).ready(function(){
     $('.close').on('click',function(){
       $('#historyPopover').popover('hide');
     });
-  })
+  });
   
   $("#subscribeHelp").popover({
     placement: "bottom"
@@ -92,6 +93,12 @@ $(document).ready(function(){
     //
   });
 
-  
+  $('#extend-request').click(function(e){
+    e.preventDefault();
+    var val = $('#ExtendExtendReasons').val();
+    console.log(val);
+    $('#ExtendText').append(val);
+    $('#extendModal').modal('show');
+  });
 
 });
