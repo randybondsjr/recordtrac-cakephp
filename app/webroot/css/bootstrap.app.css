@@ -73,6 +73,9 @@ form .popover.left .arrow:after {
   padding: 5px;
   margin-bottom: 0px;
 }
+.glyphicon-calendar:before {
+  content: "\e109";
+}
 /* Status
 -------------------------------------------------- */
 .status {
@@ -106,6 +109,9 @@ span.status {
 }
 /* Response Widget
 -------------------------------------------------- */
+h3.control-widget {
+  display: inline !important;
+}
 .rw-container {
   /*border: 3px dashed green;*/
   margin: 20px 0px;

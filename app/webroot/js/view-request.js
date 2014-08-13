@@ -79,6 +79,19 @@ $(document).ready(function(){
   })
   
   $("#subscribeHelp").popover({
-        placement: "bottom"
-    });
+    placement: "bottom"
+  });
+  
+  //staff actions
+  $('.rw-btn-wrap').click(function(){
+    $(this).addClass('active');
+    var target = $(this).data("target");
+    $(".target-for").not(target).hide();
+    $('.rw-btn-wrap').not(this).removeClass('active');
+    $("[data-target-for='"+target+"']").slideDown();
+    //
+  });
+
+  
+
 });

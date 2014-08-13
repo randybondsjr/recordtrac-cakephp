@@ -28,42 +28,40 @@
         printf("<p><small> Requester's e-mail: %s<br/> Requester's name: %s and phone number: %s</small></p>\n", $requesterEmail, $requesterAlias, $requesterPhone);
       }
     ?>
-	  <h3>Response</h3>
+	  <h3 class="control-widget">Response</h3>
 	  
 	  <?php 
 	    if ($this->Session->read('Auth.User')):
 	  ?>
-	  <div class="rw-container">
-
+    <div class="rw-container">
       <div class="rw-controller-container">
         <div class="rw-controller-btns-container">
-    
+        
           <div class="rw-btn-wrap" data-target="1">
-            <div class="rw-btn"><i class="icon-file-text-alt"></i></div><div class="rw-btn-expand">Add Record</div>
+            <div class="rw-btn"><span class="glyphicon glyphicon-file"></span></div><div class="rw-btn-expand">Add Record</div>
           </div>
-    
+          
           <div class="rw-btn-wrap" data-target="2">
-            <div class="rw-btn"><i class="icon-edit"></i></div><div class="rw-btn-expand">Add Note</div>
+            <div class="rw-btn"><span class="glyphicon glyphicon-edit"></span></div><div class="rw-btn-expand">Add Note</div>
           </div>
-    
-    
+          
+          
           <div class="rw-btn-wrap" data-target="3">
-            <div class="rw-btn"><i class="icon-calendar"></i></div><div class="rw-btn-expand">Extend Request</div>
-          </div>
-    
-    
+            <div class="rw-btn"><span class="glyphicon glyphicon-calendar"></span></div><div class="rw-btn-expand">Extend Request</div>
+          </div>          
+          
           <div class="rw-btn-wrap" data-target="4">
-            <div class="rw-btn"><i class="icon-archive"></i></div><div class="rw-btn-expand">Close Request</div>
+           <div class="rw-btn"><span class="glyphicon glyphicon-folder-close"></span></div><div class="rw-btn-expand">Close Request</div>
           </div>
-    
         </div>
-    
       </div>
     
       <!-- here reside the data-target-for="X"  -->
-      <div class="rw-actions-container">
-    
+      <div class="rw-actions-container"> 
         <div class="target-for" data-target-for="1">
+          <?php
+            echo $this->Form->create('Record', array('type' => 'file', 'action' => 'add', 'controller' => 'record'));
+          ?>
           <form name="input_doc" class="form-horizontal" id="submitRecord" method="post" action="/add_a_record" autocomplete="on" enctype="multipart/form-data" novalidate="novalidate">
             <input type="hidden" name="request_id" value="20">
             <fieldset>
