@@ -278,8 +278,13 @@ class RequestsController extends AppController {
         'fields' => array('User.id','User.alias','DeptJoin.name'),
         'conditions' => array('department_id IS NOT NULL')
       )));
+      //extend request reasons
       $this->loadModel("ExtendReason");
       $this->set("extend_reasons",$this->ExtendReason->find('list', array('fields' => array('ExtendReason.reason','ExtendReason.label'))));
+      
+      //close request reasons
+      $this->loadModel("ClosedReason");
+      $this->set("closed_reasons",$this->ClosedReason->find('list', array('fields' => array('ClosedReason.reason','ClosedReason.label'))));
     }
   }
 
