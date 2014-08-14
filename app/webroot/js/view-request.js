@@ -100,5 +100,12 @@ $(document).ready(function(){
     $('#ExtendText').append(val);
     $('#extendModal').modal('show');
   });
+  $('#close-request').click(function(e){
+    e.preventDefault();
+    var val = $('#CloseClosedReasons').val();
+    console.log(val);
+    $('#CloseText').append(val);
+    $('#closedModal').modal('show');
+  });
 
 });
