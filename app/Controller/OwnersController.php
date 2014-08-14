@@ -64,4 +64,48 @@ class OwnersController extends AppController {
       }
     }
   }
+  
+  public function addHelper() {
+    App::uses('CakeEmail', 'Network/Email');
+    //no empty requests to this page
+    if (empty($this->request->data)) {
+      $this->redirect(array('action' => 'index', 'controller' => 'recordtrac'));
+    }
+    //check if this person is already a helper
+    $currentHelpers = $this->Owner->find('all', array(
+      'conditions' => array('Owner.request_id = '. $this->request->data["Owner"]["request_id"] .' AND Owner.is_point_person = 0'),
+      'fields' => array('Owner.user_id')
+    ));
+    $currentHelperIDs = array();
+    foreach ($currentHelpers as $currentHelper){
+      $currentHelperIDs[] = $currentHelper["Owner"]["user_id"];
+    }
+    // if this person is already a helper, throw error
+    if(in_array($this->request->data["Owner"]["user_id"], $currentHelperIDs)){
+      $this->Session->setFlash('<h4>ERROR!</h4><p class="lead">This staff member is already a helper for this request! No Helper Added.</p>');
+      $this->redirect(array('controller' => 'requests', 'action' => 'view', $this->request->data["Owner"]["request_id"]));
+    }
+    //save the new helper and email them
+    if($this->Owner->save($this->request->data)){
+      $this->loadModel("User");
+      $helper = $this->User->find('first', array(
+        'conditions' => array('User.id = '. $this->request->data["Owner"]["user_id"]),
+        'fields' => array('User.email')
+      ));
+      $Email = new CakeEmail();
+      $Email->template('owners')
+          ->emailFormat('html')
+          ->to($helper["User"]["email"])
+          ->from($this->getfromEmail())
+          ->subject($this->getAgencyName().' PDR Assigned to You')
+          ->viewVars( array(
+              'agencyName' => $this->getAgencyName(),
+              'page' => '/requests/view/' . $this->request->data["Owner"]["request_id"],
+              'responseDays' => $this->getResponseDays()
+          ))
+          ->send();
+      $this->Session->setFlash('<h4>Success!</h4><p class="lead">Helper for this request has been added.</p>');
+      $this->redirect(array('controller' => 'requests', 'action' => 'view', $this->request->data["Owner"]["request_id"]));
+    }
+	}
 }
