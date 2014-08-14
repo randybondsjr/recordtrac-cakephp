@@ -51,7 +51,7 @@ $(document).ready(function(){
       },
       content: function() {
         var num = this.id.slice(12);
-        return $("#addhelper-content"+num).html();
+        return $("#removehelper-content"+num).html();
       },
       placement: 'left'
   });

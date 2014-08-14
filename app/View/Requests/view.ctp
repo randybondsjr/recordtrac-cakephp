@@ -368,33 +368,38 @@
     <?php endif; ?>
 	  <ul class="list-unstyled">
   	  <?php
-  	  //pr($helpers);
-  	    if ($this->Session->read('Auth.User')){
-  	      foreach($helpers as $helper){
-    	      echo "<li>". $this->Html->tag('a',
-              $helper["User"]["alias"]. "<span class=\"pull-right white\">remove</span>",
-              array('id' => 'removeHelper'.$helper["Owner"]["id"], 'escape' => false, 'class' => "darklink unassignPopover")
-            );
-            echo "<div id=\"removehelper-head" . $helper["Owner"]["id"] . "\" class=\"hide\">
-              	    Remove Helper: <button type=\"button\" class=\"close\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>
-              	  </div>
-                  <div id=\"addhelper-content" . $helper["Owner"]["id"] . "\" class=\"hide\">";
-            echo $this->Form->create('Owner', array('action'=>'removeHelper'));
-            echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
-            echo $this->Form->input('active', array('type' => 'hidden', 'value' => '0'));
-            echo $this->Form->input('reason', array('type' => 'text', 'label' => false, 'placeholder' => 'Say why', 'class' => 'form-control'));
-            echo $this->Form->submit(
-              'Remove Helper', 
-              array('class' => 'btn btn-primary btn-sm', 'title' => 'Remove Helper')
-            );
-            echo $this->Form->end();
-            echo "</div></li>";
+  	    if(!empty($helpers)){
+    	    if ($this->Session->read('Auth.User')){
+    	      foreach($helpers as $helper){
+      	      echo "<li>". $this->Html->tag('a',
+                $helper["User"]["alias"]. "<span class=\"pull-right white\">remove</span>",
+                array('id' => 'removeHelper'.$helper["Owner"]["id"], 'escape' => false, 'class' => "darklink unassignPopover")
+              );
+              echo "<div id=\"removehelper-head" . $helper["Owner"]["id"] . "\" class=\"hide\">
+                	    Remove Helper: <button type=\"button\" class=\"close\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>
+                	  </div>
+                    <div id=\"removehelper-content" . $helper["Owner"]["id"] . "\" class=\"hide\">";
+              echo $this->Form->create('Owner', array('action'=>'removeHelper'));
+              echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
+              echo $this->Form->input('owner_id', array('type' => 'hidden', 'value' => $helper["Owner"]["id"]));
+              echo $this->Form->input('user_id', array('type' => 'hidden', 'value' => $helper["Owner"]["user_id"]));
+              echo $this->Form->input('active', array('type' => 'hidden', 'value' => '0'));
+              echo $this->Form->input('reason_unassigned', array('type' => 'text', 'label' => false, 'placeholder' => 'Say why', 'class' => 'form-control', 'value' => 'Task completed'));
+              echo $this->Form->submit(
+                'Remove Helper', 
+                array('class' => 'btn btn-primary btn-sm', 'title' => 'Remove Helper')
+              );
+              echo $this->Form->end();
+              echo "</div></li>";
+      	    }
+    	    }else{
+      	    foreach($helpers as $helper){
+      	      printf("<li>%s</li>", $helper["User"]["alias"]);
+      	    }
     	    }
-  	    }else{
-    	    foreach($helpers as $helper){
-    	      printf("<li>%s</li>", $helper["User"]["alias"]);
-    	    }
-  	    }
+        }else{
+          echo "No Helpers for this request";
+        }
       ?>
 	  </ul>
 	  <?php

@@ -13,6 +13,9 @@ class Owner extends AppModel {
   public $validate = array(
     'reason' => array(
       'rule' => 'notEmpty'
+    ),
+    'reason_unassigned' => array(
+      'rule' => 'notEmpty'
     )
   );
 

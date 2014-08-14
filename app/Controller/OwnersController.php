@@ -82,6 +82,7 @@ class OwnersController extends AppController {
     }
     // if this person is already a helper, throw error
     if(in_array($this->request->data["Owner"]["user_id"], $currentHelperIDs)){
+      //@todo ADD FLASH ERROR Template
       $this->Session->setFlash('<h4>ERROR!</h4><p class="lead">This staff member is already a helper for this request! No Helper Added.</p>');
       $this->redirect(array('controller' => 'requests', 'action' => 'view', $this->request->data["Owner"]["request_id"]));
     }
@@ -105,6 +106,36 @@ class OwnersController extends AppController {
           ))
           ->send();
       $this->Session->setFlash('<h4>Success!</h4><p class="lead">Helper for this request has been added.</p>');
+      $this->redirect(array('controller' => 'requests', 'action' => 'view', $this->request->data["Owner"]["request_id"]));
+    }
+	}
+	
+	public function removeHelper(){
+  	App::uses('CakeEmail', 'Network/Email');
+    //no empty requests to this page
+    if (empty($this->request->data)) {
+      $this->redirect(array('action' => 'index', 'controller' => 'recordtrac'));
+    }
+    $this->Owner->id = $this->request->data["Owner"]["owner_id"];
+    if($this->Owner->save($this->request->data)){
+      $this->loadModel("User");
+      $helper = $this->User->find('first', array(
+        'conditions' => array('User.id = '. $this->request->data["Owner"]["user_id"]),
+        'fields' => array('User.email')
+      ));
+      $Email = new CakeEmail();
+      $Email->template('staffremoved')
+          ->emailFormat('html')
+          ->to($helper["User"]["email"])
+          ->from($this->getfromEmail())
+          ->subject($this->getAgencyName().' PDR Assigned to You')
+          ->viewVars( array(
+              'agencyName' => $this->getAgencyName(),
+              'page' => '/requests/view/' . $this->request->data["Owner"]["request_id"],
+              'responseDays' => $this->getResponseDays()
+          ))
+          ->send();
+      $this->Session->setFlash('<h4>Success!</h4><p class="lead">Helper for this request has been removed.</p>');
       $this->redirect(array('controller' => 'requests', 'action' => 'view', $this->request->data["Owner"]["request_id"]));
     }
 	}
