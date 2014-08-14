@@ -309,6 +309,7 @@
         echo $this->Form->create('Owner', array('action'=>'reassignPoc'));
         echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
         echo $this->Form->input('owner_id', array('type' => 'hidden', 'value' => $poc["Owner"]["id"]));
+        echo $this->Form->input('prev_id', array('type' => 'hidden', 'value' => $poc["User"]["id"]));
         echo $this->Form->input('active', array('type' => 'hidden', 'value' => '1'));
         echo $this->Form->input('is_point_person', array('type' => 'hidden', 'value' => '1'));
         echo $this->Form->input('user_id', array('label' => false, 'empty' => '(choose one)', 'class' => 'form-control'));
