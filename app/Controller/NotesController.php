@@ -6,4 +6,7 @@ class NotesController extends AppController {
 	public function extend() {
 
 	}
+	public function closeRequest(){
+  	
+	} 
 }
