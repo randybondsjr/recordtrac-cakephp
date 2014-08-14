@@ -10,4 +10,10 @@ class Owner extends AppModel {
           'foreignKey' => 'request_id'
         )
   );
+  public $validate = array(
+    'reason' => array(
+      'rule' => 'notEmpty'
+    )
+  );
+
 }
