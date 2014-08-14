@@ -73,7 +73,7 @@ class OwnersController extends AppController {
     }
     //check if this person is already a helper
     $currentHelpers = $this->Owner->find('all', array(
-      'conditions' => array('Owner.request_id = '. $this->request->data["Owner"]["request_id"] .' AND Owner.is_point_person = 0'),
+      'conditions' => array('Owner.request_id = '. $this->request->data["Owner"]["request_id"] .' AND Owner.is_point_person = 0 AND Owner.active = 1'),
       'fields' => array('Owner.user_id')
     ));
     $currentHelperIDs = array();
@@ -83,7 +83,7 @@ class OwnersController extends AppController {
     // if this person is already a helper, throw error
     if(in_array($this->request->data["Owner"]["user_id"], $currentHelperIDs)){
       //@todo ADD FLASH ERROR Template
-      $this->Session->setFlash('<h4>ERROR!</h4><p class="lead">This staff member is already a helper for this request! No Helper Added.</p>');
+      $this->Session->setFlash('<h4>ERROR!</h4><p class="lead">This staff member is already a helper for this request! No Helper Added.</p>', 'danger');
       $this->redirect(array('controller' => 'requests', 'action' => 'view', $this->request->data["Owner"]["request_id"]));
     }
     //save the new helper and email them
