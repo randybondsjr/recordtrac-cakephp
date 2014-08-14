@@ -317,6 +317,7 @@
           'Reassign', 
           array('class' => 'btn btn-primary btn-sm', 'title' => 'Reassign')
         );
+        echo $this->Form->end();
       ?>
     </div>
 	  <?php 
@@ -350,7 +351,7 @@
 	  </div>
     <div id="addhelper-content" class="hide">
       <?php
-        echo $this->Form->create('Request', array('action'=>'addHelper'));
+        echo $this->Form->create('Owner', array('action'=>'addHelper'));
         echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
         echo $this->Form->input('active', array('type' => 'hidden', 'value' => '1'));
         echo $this->Form->input('is_point_person', array('type' => 'hidden', 'value' => '0'));
@@ -360,6 +361,7 @@
           'Add Helper', 
           array('class' => 'btn btn-primary btn-sm', 'title' => 'Add Helper')
         );
+        echo $this->Form->end();
       ?>
     </div>
     <?php endif; ?>
@@ -376,7 +378,7 @@
               	    Remove Helper: <button type=\"button\" class=\"close\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>
               	  </div>
                   <div id=\"addhelper-content" . $helper["Owner"]["id"] . "\" class=\"hide\">";
-            echo $this->Form->create('Request', array('action'=>'removeHelper'));
+            echo $this->Form->create('Owner', array('action'=>'removeHelper'));
             echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
             echo $this->Form->input('active', array('type' => 'hidden', 'value' => '0'));
             echo $this->Form->input('reason', array('type' => 'text', 'label' => false, 'placeholder' => 'Say why', 'class' => 'form-control'));
@@ -384,7 +386,7 @@
               'Remove Helper', 
               array('class' => 'btn btn-primary btn-sm', 'title' => 'Remove Helper')
             );
-
+            echo $this->Form->end();
             echo "</div></li>";
     	    }
   	    }else{
