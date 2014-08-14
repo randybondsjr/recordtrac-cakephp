@@ -21,10 +21,10 @@ class SubscribersController extends AppController {
     ));
     //throw error in flash if subscriber exists, otherwise add a record
     if(!empty($subscriberExists)){
-      $this->Session->setFlash('<h4>ERROR</h4><p class="lead">You\'re already subscribed to receive updates for this request.</p>');
+      $this->Session->setFlash('<h4>ERROR</h4><p class="lead">You\'re already subscribed to receive updates for this request.</p>', 'danger');
     }else{
       if($this->Subscriber->save($this->request->data)){
-        $this->Session->setFlash('<h4>Success!</h4><p class="lead">You will be contacted via email at with any updates to this request.</p>');
+        $this->Session->setFlash('<h4>Success!</h4><p class="lead">You will be contacted via email at with any updates to this request.</p>', 'success');
       }
     }
     $this->redirect(array('action' => 'view', 'controller' => 'requests', $this->request->data["Subscriber"]["request_id"]));

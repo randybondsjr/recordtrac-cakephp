@@ -57,7 +57,7 @@ class OwnersController extends AppController {
                   'page' => '/requests/view/' . $this->request->data["Owner"]["request_id"]
               ))
               ->send();
-          $this->Session->setFlash('<h4>Success!</h4><p class="lead">The Point of Contact for this request has been updated.</p>');
+          $this->Session->setFlash('<h4>Success!</h4><p class="lead">The Point of Contact for this request has been updated.</p>', 'success');
           $this->redirect(array('controller' => 'requests', 'action' => 'view', $this->request->data["Owner"]["request_id"]));
           
         }
@@ -105,7 +105,7 @@ class OwnersController extends AppController {
               'responseDays' => $this->getResponseDays()
           ))
           ->send();
-      $this->Session->setFlash('<h4>Success!</h4><p class="lead">Helper for this request has been added.</p>');
+      $this->Session->setFlash('<h4>Success!</h4><p class="lead">Helper for this request has been added.</p>', 'success');
       $this->redirect(array('controller' => 'requests', 'action' => 'view', $this->request->data["Owner"]["request_id"]));
     }
 	}
@@ -135,7 +135,7 @@ class OwnersController extends AppController {
               'responseDays' => $this->getResponseDays()
           ))
           ->send();
-      $this->Session->setFlash('<h4>Success!</h4><p class="lead">Helper for this request has been removed.</p>');
+      $this->Session->setFlash('<h4>Success!</h4><p class="lead">Helper for this request has been removed.</p>', 'success');
       $this->redirect(array('controller' => 'requests', 'action' => 'view', $this->request->data["Owner"]["request_id"]));
     }
 	}

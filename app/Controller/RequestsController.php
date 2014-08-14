@@ -200,7 +200,7 @@ class RequestsController extends AppController {
 		if( ! empty($records)){
 			$this->set('results', $records);
 		}else{
-			$this->Session->setFlash('No requests found.');
+			$this->Session->setFlash('No requests found.', 'danger');
 			$this->set('results', $records);
 		}
 		
@@ -444,9 +444,9 @@ class RequestsController extends AppController {
           
           //things are good, redirect with message 
           if ($this->Session->read('Auth.User')){
-            $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the '. $this->getAgencyName() .' in the next 5 days. Requester will be automatically contacted with any updates.</p>');
+            $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the '. $this->getAgencyName() .' in the next 5 days. Requester will be automatically contacted with any updates.</p>', 'success');
           }else{
-            $this->Session->setFlash('<h4>Your request has been submitted!</h4><p class="lead">You can expect a response from the  '. $this->getAgencyName() .'  in the next ' . $this->getResponseDays() . ' days. You will be contacted via email with any updates.</p> <p class="lead">All messages from the   '. $this->getAgencyName() .' and/or the information and documents you requested will be posted to this page. You can access <a href="/requests/view/' . $requestID . '">this page</a> at any time.</p>');
+            $this->Session->setFlash('<h4>Your request has been submitted!</h4><p class="lead">You can expect a response from the  '. $this->getAgencyName() .'  in the next ' . $this->getResponseDays() . ' days. You will be contacted via email with any updates.</p> <p class="lead">All messages from the   '. $this->getAgencyName() .' and/or the information and documents you requested will be posted to this page. You can access <a href="/requests/view/' . $requestID . '">this page</a> at any time.</p>', 'success');
           }
           $this->redirect(array('action' => 'view', $this->Request->id));
         }
