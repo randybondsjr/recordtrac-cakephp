@@ -5,13 +5,13 @@ App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class User extends AppModel {
     public $validate = array(
-        'email' => array(
+        /*'email' => array(
           'rule1' => array(
             'rule'    => 'email',
             'message' => 'This should be an email address',
             'last'    => false
            )
-        ),
+        ),*/
         'password' => array(
             'required' => array(
                 'rule' => array('minLength', 8),

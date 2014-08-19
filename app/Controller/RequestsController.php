@@ -333,6 +333,8 @@ class RequestsController extends AppController {
     $submissions = $this->OfflineSubmission->find('list');
     $this->set('offlineSubmissions',$submissions);
     
+    
+
     //save data
     if (!empty($this->request->data)) {
       //clean up the date if this is a manual entry
@@ -371,8 +373,8 @@ class RequestsController extends AppController {
         'conditions' => array('User.email' => $this->request->data["Requester"]["email"])
       ));
       $userConditions = array('order' => array('User.id' => 'desc'));
-      //if the email exists, unset all the form vars and set the user id
       
+      //if the email exists, unset all the form vars and set the user id
       if(!empty($emailExists)){
         $this->request->data["Requester"]["id"] = $emailExists["User"]["id"];
         unset($this->request->data["Requester"]["email"]);
@@ -399,6 +401,7 @@ class RequestsController extends AppController {
         $this->Subscriber->id = $subscriber["Subscriber"]["id"];
         
         if($this->Subscriber->saveField('user_id', $user["User"]["id"])){
+          if(isset($user["User"]["email"]) && $user["User"]["email"] != ''){
           //email requester
           $Email = new CakeEmail();
           $Email->template('requester')
@@ -413,6 +416,7 @@ class RequestsController extends AppController {
                   'responseDays' => $this->getResponseDays()
               ))
               ->send();
+          }
           //email owner
           $Email = new CakeEmail();
           $Email->template('owners')
