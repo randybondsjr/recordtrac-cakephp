@@ -332,8 +332,6 @@ class RequestsController extends AppController {
     $this->loadModel('OfflineSubmission');
     $submissions = $this->OfflineSubmission->find('list');
     $this->set('offlineSubmissions',$submissions);
-    
-    
 
     //save data
     if (!empty($this->request->data)) {
