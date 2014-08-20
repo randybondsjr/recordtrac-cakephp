@@ -35,6 +35,10 @@ class Request extends AppModel {
     'Record' => array(
           'className' => 'Record',
           'foreignKey' => 'request_id'
+    ),
+    'Note' => array(
+          'className' => 'Note',
+          'foreignKey' => 'request_id'
     )
   );
 
