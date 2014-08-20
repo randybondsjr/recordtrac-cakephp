@@ -33,7 +33,7 @@
 	  <h3 class="control-widget">Response</h3>
 	  
 	  <?php 
-	    if ($this->Session->read('Auth.User')):
+	    if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2):
 	  ?>
     <div class="rw-container">
       <div class="rw-controller-container">
@@ -290,7 +290,7 @@
 	  
 	  <h4>
 	    <?php 
-	      if ($this->Session->read('Auth.User')){
+	      if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2){
     	    echo $this->Html->tag('a',
             'Point of Contact <span class="pull-right"><span class="glyphicon glyphicon-arrow-right muted"></span><span class="glyphicon glyphicon-user"></span>',
             array('id' => 'reassign', 'escape' => false)
@@ -300,7 +300,7 @@
 	      }
       ?>
 	  </h4>
-	  <?php if ($this->Session->read('Auth.User')): ?>
+	  <?php if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2): ?>
 	  <div id="reassign-head" class="hide">
 	    Reassign To: <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 	  </div>
@@ -336,7 +336,7 @@
     
 	  <h4>
 	    <?php 
-	      if ($this->Session->read('Auth.User')){
+	      if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2){
     	    echo $this->Html->tag('a',
             'Helpers <span class="pull-right"><span class="glyphicon glyphicon-plus muted"></span><span class="glyphicon glyphicon-user"></span>',
             array('id' => 'addHelper', 'escape' => false)
@@ -369,7 +369,7 @@
 	  <ul class="list-unstyled">
   	  <?php
   	    if(!empty($helpers)){
-    	    if ($this->Session->read('Auth.User')){
+    	    if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2){
     	      foreach($helpers as $helper){
       	      echo "<li>". $this->Html->tag('a',
                 $helper["User"]["alias"]. "<span class=\"pull-right white\">remove</span>",
