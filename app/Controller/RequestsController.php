@@ -400,20 +400,20 @@ class RequestsController extends AppController {
         
         if($this->Subscriber->saveField('user_id', $user["User"]["id"])){
           if(isset($user["User"]["email"]) && $user["User"]["email"] != ''){
-          //email requester
-          $Email = new CakeEmail();
-          $Email->template('requester')
-              ->emailFormat('html')
-              ->to($user["User"]["email"])
-              ->from($this->getfromEmail())
-              ->subject($this->getAgencyName().' Public Disclosure Request')
-              ->viewVars( array(
-                  'agencyName' => $this->getAgencyName(),
-                  'page' => '/requests/view/' . $requestID,
-                  'ownerEmail' => $owner["User"]["email"],
-                  'responseDays' => $this->getResponseDays()
-              ))
-              ->send();
+            //email requester
+            $Email = new CakeEmail();
+            $Email->template('requester')
+                ->emailFormat('html')
+                ->to($user["User"]["email"])
+                ->from($this->getfromEmail())
+                ->subject($this->getAgencyName().' Public Disclosure Request #' .$requestID)
+                ->viewVars( array(
+                    'agencyName' => $this->getAgencyName(),
+                    'page' => '/requests/view/' . $requestID,
+                    'ownerEmail' => $owner["User"]["email"],
+                    'responseDays' => $this->getResponseDays()
+                ))
+                ->send();
           }
           //email owner
           $Email = new CakeEmail();
@@ -421,7 +421,7 @@ class RequestsController extends AppController {
               ->emailFormat('html')
               ->to($owner["User"]["email"])
               ->from($this->getfromEmail())
-              ->subject('New Public Disclosure Request')
+              ->subject('New Public Disclosure Request #' .$requestID)
               ->viewVars( array(
                   'agencyName' => $this->getAgencyName(),
                   'page' => '/requests/view/' . $requestID,
@@ -435,7 +435,7 @@ class RequestsController extends AppController {
               ->emailFormat('html')
               ->to($helper["User"]["email"])
               ->from($this->getfromEmail())
-              ->subject('New Public Disclosure Request')
+              ->subject('New Public Disclosure Request #' .$requestID)
               ->viewVars( array(
                   'agencyName' => $this->getAgencyName(),
                   'page' => '/requests/view/' . $requestID,
@@ -454,5 +454,25 @@ class RequestsController extends AppController {
         }
       }
     }
+  }
+  
+  public function unsubscribe($id=null){
+    if($id == null){
+      $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
+    }
+    $this->loadModel('Subscriber');
+    $subscriber = $this->Subscriber->find('first', array(
+          'conditions' => array('Subscriber.id' => $id)
+        ));
+    $this->Subscriber->id = $id; 
+
+    // don't notify
+    if($this->Subscriber->saveField('should_notify', 0)){
+      $this->Session->setFlash('<h4>Success!</h4><p class="lead">You will no longer receive updates for this request</p>', 'success');  
+    }else{
+      $this->Session->setFlash('<h4>ERROR</h4><p class="lead">Could not unsubscribe at this time</p>', 'danger');
+    }
+
+    $this->redirect(array('action' => 'view', $subscriber["Request"]["id"]));
   }
 }
