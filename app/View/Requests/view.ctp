@@ -10,7 +10,12 @@
   if($request["Requester"]["email"] != ""){ $requesterEmail = $this->Text->autoLinkEmails($request["Requester"]["email"]); }
   if($request["Requester"]["alias"] != ""){ $requesterAlias = "<strong>".$request["Requester"]["alias"]."</strong>"; }
   if($request["Requester"]["phone"] != ""){ $requesterPhone = "<strong>".$request["Requester"]["phone"]."</strong>"; }
-
+  
+  // to show max upload size in mb
+  $max_upload = (int)(ini_get('upload_max_filesize'));
+  $max_post = (int)(ini_get('post_max_size'));
+  $memory_limit = (int)(ini_get('memory_limit'));
+  $upload_mb = min($max_upload, $max_post, $memory_limit);
 ?>
 <div class="row">
 	<div class="col-sm-8">
@@ -81,7 +86,7 @@
                       'label' => array('class' =>'control-label col-sm-3', 'text' => 'Upload a File <span id="recordTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Upload a record stored on your computer. The record will be uploaded and the public will be able to read and download it here."><span class="glyphicon glyphicon-exclamation-sign"></span></span>'), 
                       'class' => 'form-control',
                       'between' => '<div class="col-sm-9">',
-                      'after' => '</div>'));
+                      'after' => '<p class="help-block">Maximum Upload File Size: '.$upload_mb.'MB</p></div>'));
             echo $this->Form->input('url',
                 array('type' => 'text', 
                       'div' => 'form-group',
