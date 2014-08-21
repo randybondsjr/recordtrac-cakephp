@@ -1,6 +1,6 @@
 <?php 
 class Record extends AppModel {
-
+  
   public $actsAs = array(
     'Upload.Upload' => array(
         'filename',

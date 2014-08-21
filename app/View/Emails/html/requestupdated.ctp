@@ -284,7 +284,19 @@
                 printf("<p class=\"callout\">%s</p>", nl2br($extend));
               }
             ?>
-	
+            <?php
+              if(isset($fileupload) && $fileupload != ''){
+                echo "<p>The following record was added to the request:</p>";
+                if($fileupload == 'url'){
+                  $fileupload = sprintf("You can find the requested record at the following link:<br/> <a href=\"%s\">%s</a>", $url, $description);
+                }elseif($fileupload == 'offline'){
+                  $fileupload = sprintf("Instructions for obtaining the record:<br/>%s", $url);
+                }else{
+                  $fileupload = sprintf("You can find the requested record at the following link:<br/> <a href=\"%s\">%s</a>", $url, $description);
+                }
+                printf("<p class=\"callout\">%s</p>", $fileupload );
+              }
+            ?>
 						<!-- social & contact -->
 						<table width="100%">
 							<tr>
