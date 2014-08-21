@@ -29,7 +29,8 @@ class Record extends AppModel {
                 'text/plain',
                 'application/rtf',
                 'image/jpeg',
-                'image/gif'
+                'image/gif',
+                'application/zip'
                ), 
           false
         ),
@@ -45,6 +46,7 @@ class Record extends AppModel {
                       <li>Plain text (.txt)</li>
                       <li>Rich text format (.rtf)</li>
                       <li>Image Formats (.png/.jpg/.gif)</li>
+                      <li>Zip Files (.zip)</li>
                       </ul>
                      ',
         'allowEmpty' => true
