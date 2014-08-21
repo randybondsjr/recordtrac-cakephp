@@ -23,3 +23,5 @@ http://getbootstrap.com - Twitter Bootstrap (as included in the above Layout)
 http://www.cakephp.org - CakePHP
 
 https://github.com/destinydriven/cakephp-high-charts-plugin
+
+https://github.com/josegonzalez/cakephp-upload
