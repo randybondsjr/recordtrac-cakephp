@@ -261,7 +261,17 @@ class RequestsController extends AppController {
       'conditions' => array('Owner.request_id = '. $id),
       'order' => array('Owner.created' => 'desc')
     )));
+    
+    
     if($this->Session->read('Auth.User')){ // only load this stuff if a staff member is logged in
+    
+      // to show max upload size in mb
+      $max_upload = (int)(ini_get('upload_max_filesize'));
+      $max_post = (int)(ini_get('post_max_size'));
+      $memory_limit = (int)(ini_get('memory_limit'));
+      $upload_mb = min($max_upload, $max_post, $memory_limit);
+      $this->set('upload_mb', $upload_mb);
+      
       //list of staff for assigning helpers and point of contact
       $this->loadModel('User');
       $this->set('users',$this->User->find('list', array(

@@ -11,11 +11,6 @@
   if($request["Requester"]["alias"] != ""){ $requesterAlias = "<strong>".$request["Requester"]["alias"]."</strong>"; }
   if($request["Requester"]["phone"] != ""){ $requesterPhone = "<strong>".$request["Requester"]["phone"]."</strong>"; }
   
-  // to show max upload size in mb
-  $max_upload = (int)(ini_get('upload_max_filesize'));
-  $max_post = (int)(ini_get('post_max_size'));
-  $memory_limit = (int)(ini_get('memory_limit'));
-  $upload_mb = min($max_upload, $max_post, $memory_limit);
 ?>
 <div class="row">
 	<div class="col-sm-8">
@@ -38,6 +33,7 @@
 	  <h3 class="control-widget">Response</h3>
 	  
 	  <?php 
+
 	    if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2):
 	  ?>
     <div class="rw-container">
