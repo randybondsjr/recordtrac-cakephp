@@ -239,12 +239,23 @@ class RequestsController extends AppController {
     $this->set("title_for_layout","Track a Request - " . $this->getAgencyName());
   }
   
+  private function dateSort($a,$b){
+    $dateA = strtotime($a['created']);
+    $dateB = strtotime($b['created']);
+    return ($dateB-$dateA);
+  }
+  
   public function view($id = null){
     $this->Request->id = $id;
     $this->set("title_for_layout","Request " . $id . " - View a Request - " . $this->getAgencyName());
     $request = $this->Request->read();
     $this->set('request', $request);
-    
+	    
+    //organize reponses
+    $responses = array_merge($request["Record"], $request["Note"]);
+	  usort($responses, array($this,'dateSort'));
+	  $this->set('responses', $responses);
+	  
     //the active staff Point of Contact for the Request
     $this->loadModel('Owner');
     $this->set('poc',$this->Owner->find('first', array(
