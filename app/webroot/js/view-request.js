@@ -7,6 +7,11 @@ $(document).ready(function(){
     moreLink: '<p class="lead"><a href="#">More&hellip;</a></p>',
     lessLink: '<p class="lead"><a href="#">Less&hellip;</a></p>'
   });
+  $('.longdescription').readmore({
+    maxHeight: 38,
+    moreLink: '<p><a href="#">More&hellip;</a></p>',
+    lessLink: '<p><a href="#">Less&hellip;</a></p>'
+  });
   
   //REASSIGN REQUEST
   $('#reassign').popover({ 

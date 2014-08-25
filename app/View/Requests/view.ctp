@@ -31,9 +31,8 @@
       }
     ?>
 	  <h3 class="control-widget">Response</h3>
-	  
-	  <?php 
 
+	  <?php
 	    if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2):
 	  ?>
     <div class="rw-container">
@@ -264,6 +263,41 @@
     
     </div>
     <?php endif; ?>
+    <?php
+      if($countResponses != 0){
+  	    foreach ($responses as $response){
+  	      echo "<div class=\"row\">";
+  	      echo "<div class=\"col-sm-1\">";
+    	      if(isset($response["type_id"]) && $response["type_id"] == 1){ //regular note 
+      	      echo "<span class=\"glyphicon glyphicon-edit\"></span>";
+      	      $text = sprintf("<span class=\"longdescription\">%s</span>", nl2br($response["text"]));
+    	      }elseif(isset($response["type_id"]) && $response["type_id"] == 2) { //extension
+      	      echo "<span class=\"glyphicon glyphicon-plus\"></span>";
+      	      $text = sprintf("<span class=\"longdescription\">%s</span>", nl2br($response["text"]));
+    	      }elseif(isset($response["type_id"]) && $response["type_id"] == 3) { //closed
+    	        echo "<span class=\"glyphicon glyphicon-folder-close\"></span>";
+    	        $text = sprintf("<span class=\"longdescription\">%s</span>", nl2br($response["text"]));
+    	      }elseif(isset($response["filename"]) && $response["filename"] != '') { 
+    	        echo "<span class=\"glyphicon glyphicon-file\"></span>";
+    	        $text = sprintf("<a href=\"/files/record/filename/%s/%s\" target=\"_blank\">%s <span class=\"glyphicon glyphicon-new-window\"></span></a>",$response["id"],$response["filename"],$response["description"]);
+    	      }elseif(isset($response["url"]) && $response["url"] != '') { 
+    	        echo "<span class=\"glyphicon glyphicon-link\"></span>";
+    	        $text = sprintf("<a href=\"%s\" target=\"_blank\">%s <span class=\"glyphicon glyphicon-new-window\"></span></a>",$response["url"],$response["description"]);
+    	      }elseif(isset($response["access"]) && $response["access"] != '') { 
+              echo "<span class=\"glyphicon glyphicon-book\"></span>";
+              $text = sprintf("<span class=\"longdescription\">%s</span>", nl2br($response["description"]));
+    	      }
+  	      echo "</div>";
+  	      printf("<div class=\"col-sm-9\">%s</div>", $text);
+  
+          printf("<div class=\"col-sm-2 text-right\">%s</div>",$this->Date->time_elapsed_string($response["created"]));
+          //echo time_elapsed_string($response["created"]);
+  	      echo "</div>\n<hr>";
+  	    }
+      }else{
+        echo "<p><em>No records uploaded yet.</em></p>\n";
+      }
+	  ?>
 	</div>
 	<div class="col-sm-4">
     <?php
