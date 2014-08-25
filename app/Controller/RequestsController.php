@@ -251,10 +251,12 @@ class RequestsController extends AppController {
     $request = $this->Request->read();
     $this->set('request', $request);
 	    
-    //organize reponses
+    //organize and count reponses
     $responses = array_merge($request["Record"], $request["Note"]);
 	  usort($responses, array($this,'dateSort'));
 	  $this->set('responses', $responses);
+	  $this->set('countResponses',count($responses));
+	  
 	  
     //the active staff Point of Contact for the Request
     $this->loadModel('Owner');
