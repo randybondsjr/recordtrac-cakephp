@@ -53,6 +53,7 @@ class NotesController extends AppController {
 	public function extend() {
     App::uses('CakeEmail', 'Network/Email');
     if (!empty($this->request->data)) {
+      $this->request->data["Note"] = $this->request->data["Extend"];
       if($this->Note->save($this->request->data)){
         $requestID = filter_var($this->request->data["Extend"]["request_id"], FILTER_VALIDATE_INT);
         
@@ -116,6 +117,7 @@ class NotesController extends AppController {
 	public function closeRequest(){
     App::uses('CakeEmail', 'Network/Email');
     if (!empty($this->request->data)) {
+      $this->request->data["Note"] = $this->request->data["Close"];
       if($this->Note->save($this->request->data)){
         $requestID = filter_var($this->request->data["Close"]["request_id"], FILTER_VALIDATE_INT);
         $this->loadModel('Request');
@@ -158,9 +160,9 @@ class NotesController extends AppController {
           }
         }
         
-        $this->Session->setFlash('<h4>Success!</h4><p class="lead">Request Extended, subscribers have been emailed.</p>', 'success');
+        $this->Session->setFlash('<h4>Success!</h4><p class="lead">Request Closed, subscribers have been emailed.</p>', 'success');
       }else{
-        $this->Session->setFlash('<h4>ERROR</h4><p class="lead">Request could not extended be added at this time</p>', 'danger');
+        $this->Session->setFlash('<h4>ERROR</h4><p class="lead">Request could not closed be added at this time</p>', 'danger');
       }
       $this->redirect(array('action' => 'view', 'controller' => 'requests', $requestID));
     }else{
