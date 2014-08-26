@@ -204,7 +204,7 @@ class RequestsController extends AppController {
 			$this->set('results', $records);
 		}
 		
-		//update statuses in DB on each page load
+		//update statuses in DB on each page load REMOVE REMOVE REMOVE
 		$requests = $this->Request->find('all');
 		//for figuring out if request is overdue for staff
 		$today = date("Y-m-d");

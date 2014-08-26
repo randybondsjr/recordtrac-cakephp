@@ -5,10 +5,11 @@ class RecordsController extends AppController {
     App::uses('CakeEmail', 'Network/Email');
     
     if (!empty($this->request->data)) {
+       $requestID = filter_var($this->request->data["Record"]["request_id"], FILTER_VALIDATE_INT);
       if ($this->Record->validates()) {
         // it validated logic
         if($this->Record->save($this->request->data)){
-          $requestID = filter_var($this->request->data["Record"]["request_id"], FILTER_VALIDATE_INT);
+         
   
           //determine type of record
           $recordType = '';
@@ -61,7 +62,15 @@ class RecordsController extends AppController {
           }
           $this->Session->setFlash("<h4>Success</h4><p>Your record has been added and subscribers have been notified by email.</p>", 'success');
         }else{
-          $this->Session->setFlash("<h4>ERROR</h4><p>Could not save record at this time</p>", 'danger');
+          if($this->request->data["Record"]["filename"]["error"] == 1){
+            $this->Session->setFlash("<h4>ERROR</h4><p>File exceeds maximum upload size. No file uploaded.</p>", 'danger');
+          }elseif($this->request->data["Record"]["filename"]["error"] == 0){
+            $errors = $this->Record->validationErrors;
+            foreach ($errors["filename"] as $error){
+              $this->Session->setFlash("<h4>ERROR</h4><p>".$error."</p>", 'danger');
+            } 
+          }
+                   
         }
       } else {
         // didn't validate logic

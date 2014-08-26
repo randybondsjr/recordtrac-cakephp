@@ -13,6 +13,7 @@ class Record extends AppModel {
       'rule' => 'notEmpty'
     ),
     'filename' => array(
+      'rule1' => array(
         'rule' => array(
           'isValidMimeType', 
           array('application/pdf', 
@@ -50,6 +51,11 @@ class Record extends AppModel {
                       </ul>
                      ',
         'allowEmpty' => true
+      ),
+      'rule2' => array(
+        'rule' => 'isUnderPhpSizeLimit',
+        'message' => 'File exceeds upload filesize limit'
+      )
     )
   );
 
