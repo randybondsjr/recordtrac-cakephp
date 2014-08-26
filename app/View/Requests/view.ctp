@@ -291,7 +291,7 @@
   	      printf("<div class=\"col-sm-9\">%s</div>", $text);
   
           printf("<div class=\"col-sm-2 text-right\">%s</div>",$this->Date->time_elapsed_string($response["created"]));
-          //echo time_elapsed_string($response["created"]);
+
   	      echo "</div>\n<hr>";
   	    }
       }else{

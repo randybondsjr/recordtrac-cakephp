@@ -205,7 +205,8 @@ class RequestsController extends AppController {
 		}
 		
 		//update statuses in DB on each page load REMOVE REMOVE REMOVE
-		$requests = $this->Request->find('all');
+		/*
+$requests = $this->Request->find('all');
 		//for figuring out if request is overdue for staff
 		$today = date("Y-m-d");
 		$todayDT = date("Y-m-d h:i:s");
@@ -233,6 +234,7 @@ class RequestsController extends AppController {
         }
       }
     }
+*/
   }
   
   public function track(){
@@ -365,11 +367,11 @@ class RequestsController extends AppController {
         $cleanDate = $cleanDate[2]."-".$cleanDate[0]."-".$cleanDate[1]." ".$nowTime;
         $this->request->data["Request"]["date_received"] = $cleanDate;
       }else{
-        $today = date("Y-m-d h:i:s");
+        $today = date("Y-m-d H:i:s");
         $this->request->data["Request"]["date_received"] = $today;
       }
       //due date in 5 business days
-      $this->request->data["Request"]["due_date"] = $this->BusinessDays->add_business_days($days=5, $date=$this->request->data["Request"]["date_received"], $format="Y-m-d h:i:s");
+      $this->request->data["Request"]["due_date"] = $this->BusinessDays->add_business_days($days=5, $date=$this->request->data["Request"]["date_received"], $format="Y-m-d H:i:s");
       $this->request->data["Subscriber"][0]["should_notify"] = 1;
 
       //get owners for request

@@ -78,10 +78,12 @@ class NotesController extends AppController {
        
         
         
-        $extendDate = $this->BusinessDays->add_business_days($days=10, $date=$request["Request"]["due_date"], $format="Y-m-d h:i:s");
+        $extendDate = $this->BusinessDays->add_business_days($days=10, $date=$request["Request"]["due_date"], $format="Y-m-d H:i:s");
         $this->Request->id = $requestID;
+        $todayDT = date("Y-m-d H:i:s");
         $this->Request->saveField('extended', '1'); 
         $this->Request->saveField('due_date', $extendDate); 
+        $this->Request->saveField('status_updated', $todayDT);
 
         foreach ($subscribers as $subscriber){
           //make sure they are set to receive notifications, and have a valid email
@@ -122,9 +124,9 @@ class NotesController extends AppController {
         $requestID = filter_var($this->request->data["Close"]["request_id"], FILTER_VALIDATE_INT);
         $this->loadModel('Request');
         $this->Request->id = $requestID;
-        $todayDT = date("Y-m-d h:i:s");
+        $todayDT = date("Y-m-d H:i:s");
         $this->Request->saveField('status_id', '2'); 
-        $this->Request->saveField('due_date', $todayDT);
+        $this->Request->saveField('status_updated', $todayDT);
         
         //get the subscribers
         $this->loadModel('Subscriber');
