@@ -5,16 +5,23 @@ class BusinessDaysComponent extends Component {
 
   function add_business_days($days=0, $date="TODAY", $format="c") {
     // CREATE YOUR ARRAY OF HOLIDAYS
-    $holidays = array();
-    $november = strtotime(date('Y') . '-11-0');
-    $january  = strtotime(date('Y') . '-01-0');
-    $nextyear = mktime(0,0,0, 1, 1, date('Y') + 1);
+    $holidays  = array();
+    $november  = strtotime(date('Y') . '-11-0');
+    $january   = strtotime(date('Y') . '-01-0');
+    $february  = strtotime(date('Y') . '-02-0');
+    $may       = strtotime(date('Y') . '-05-0');
+    $september = strtotime(date('Y') . '-09-0');
+    $nextyear  = mktime(0,0,0, 1, 1, date('Y') + 1);
     $holidays['Dr_M_L_King']  = date('r', strtotime('Third Monday', $january));
     $holidays['Independence'] = date('r', strtotime(date('Y') . '-07-04'));
     $holidays['Thanksgiving'] = date('r', strtotime('Fourth Thursday', $november));
+    $holidays['Thanksgiving2'] = date('r', strtotime('Fourth Friday', $november));
     $holidays['Christmas']    = date('r', strtotime(date('Y') . '-12-25'));
     $holidays['NewYear']      = date('r', $nextyear);
-    
+    $holidays['Presidents']  = date('r', strtotime('Third Monday', $february));
+    $holidays['Memorial']  = date('r', strtotime('last Monday', $february));
+    $holidays['Labor']  = date('r', strtotime('First Monday', $september));
+    $holidays['Veteran']  = date('r', strtotime(date('Y') . '-11-11'));
     // ACTIVATE THIS TO SEE THE HOLIDAYS
     // print_r($holidays);
     
