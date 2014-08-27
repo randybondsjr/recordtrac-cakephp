@@ -311,9 +311,6 @@ class RequestsController extends AppController {
   }
 
   public function create(){
-    if (empty($this->request->data)) {
-      $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
-    }
     App::uses('CakeEmail', 'Network/Email');
     //query doctypes for dropdowm
     $this->loadModel('DocType');
