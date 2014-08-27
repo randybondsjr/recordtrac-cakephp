@@ -10,20 +10,106 @@
   if($request["Requester"]["email"] != ""){ $requesterEmail = $this->Text->autoLinkEmails($request["Requester"]["email"]); }
   if($request["Requester"]["alias"] != ""){ $requesterAlias = "<strong>".$request["Requester"]["alias"]."</strong>"; }
   if($request["Requester"]["phone"] != ""){ $requesterPhone = "<strong>".$request["Requester"]["phone"]."</strong>"; }
-  
 ?>
 <div class="row">
 	<div class="col-sm-8">
 	  <div class="well">
-	    <h1>Request <span class="muted">#<?php  echo $request["Request"]["id"]; ?></span></h1>
+	    <h1 class="control-widget">Request <span class="muted">#<?php  echo $request["Request"]["id"]; ?></span></h1>
+	    <?php if ($this->Session->read('Auth.User')): ?>
+      <div class="rw-container">
+        <div class="rw-controller-container">
+          <div class="rw-controller-btns-container">
+            <div class="rw-btn-wrap" data-target="askform">
+              <div class="rw-btn">
+                <span class="glyphicon glyphicon-question-sign"></span>
+              </div>
+              <div class="rw-btn-expand"> 
+                Ask a Question
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rw-actions-container"> 
+        <!--Add Record -->
+        <div class="target-for" data-target-for="askform">
+          <?php
+            echo $this->Form->create('Question', array('action' => 'ask', 'controller' => 'question', 'class' => 'form-horizontal'));
+            echo $this->Form->input('creator_id',array('type' => 'hidden', 'value' => $this->Session->read('Auth.User.id')));
+            echo $this->Form->input('request_id',array('type' => 'hidden', 'value' => $request["Request"]["id"]));
+            echo $this->Form->input('question',
+                array('type' => 'textarea', 
+                      'div' => 'form-group',
+                      'placeholder' => 'Add the requester a question',
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Question <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Use this space to ask a question about the request. The question will be posted online to be viewed by the public."><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
+                      'class' => 'form-control',
+                      'between' => '<div class="col-sm-9">',
+                      'after' => '</div>',
+                      'rows' => 2));
+            echo $this->Form->submit(
+                'Ask Question', 
+                array('class' => 'btn btn-primary', 
+                      'title' => 'Ask Question',
+                      'div' => 'form-group', 
+                      'before' => '<div class="col-sm-9 col-sm-offset-3">',
+                      'after' => '</div>'));
+            echo $this->Form->end();
+          ?>
+        </div>
+      </div>
+	    <?php endif; ?>
 	    <p class="lead"><?php echo nl2br($request["Request"]["text"]); ?></p>
 	    <?php 
+	      if(!empty($request["Question"])){
+	        foreach($request["Question"] as $question){
+	          $user = $this->User->getUserDetails($question["creator_id"]);
+	          echo "<hr/>\n";
+	          echo "<div class=\"row\">\n";
+	          echo "<div class=\"col-sm-1\"><span class=\"glyphicon glyphicon-question-sign\"></span></div>\n";
+	          printf("<div class=\"col-sm-8\">%s - %s</div>\n", $question["question"], $this->Text->autoLinkEmails($user["User"]["email"], array('class' => 'muted')));
+	          printf("<div class=\"col-sm-3 text-right\">%s</div>\n",$this->Date->time_elapsed_string($question["created"]));
+	          echo "</div>\n";
+	          
+	          echo "<div class=\"row\">\n";
+	          if($question["answer"] != ''){
+	            printf("<div class=\"col-sm-8 col-sm-offset-1\">%s - Requester</div>\n", $question["answer"]);
+	          }elseif($this->Session->read('Auth.User')){
+  	          echo "<div class=\"col-sm-8 col-sm-offset-1\"><em>Requester hasn't answered yet.</em></div>\n";
+	          }else{
+	            echo "<div class=\"col-sm-8 col-sm-offset-1\">";
+              echo $this->Form->create('Question', array('action' => 'answer', 'controller' => 'question', 'class' => 'form-horizontal'));
+              echo $this->Form->input('id',array('type' => 'hidden', 'value' => $question["id"]));
+              echo $this->Form->input('request_id',array('type' => 'hidden', 'value' => $request["Request"]["id"]));
+              echo $this->Form->input('answer',
+                  array('type' => 'textarea', 
+                        'div' => 'form-group',
+                        'placeholder' => 'Can you respond to the above question?',
+                        'label' => array('class' =>'control-label col-sm-3', 'text' => 'Answer'), 
+                        'class' => 'form-control',
+                        'between' => '<div class="col-sm-9">',
+                        'after' => '</div>',
+                        'rows' => 2));
+              echo $this->Form->submit(
+                  'Answer Question', 
+                  array('class' => 'btn btn-primary', 
+                        'title' => 'Answer Question',
+                        'div' => 'form-group', 
+                        'before' => '<div class="col-sm-9 col-sm-offset-3">',
+                        'after' => '</div>'));
+              echo $this->Form->end();
+              echo "</div>";
+	          }
+	          echo "</div>\n";
+          }
+        }
+        echo "<hr/>\n";
 	      if(isset($request["Request"]["offline_submission_id"]) && $request["Request"]["offline_submission_id"] != ''){
-  	      printf("<p><small>This request was submitted on behalf of %s by %s</small></p>", $requesterAlias, $request["Creator"]["alias"] );
+  	      printf("<p><small>This request was submitted on behalf of %s by %s</small></p>\n", $requesterAlias, $request["Creator"]["alias"] );
 	      }else{
-  	      printf("<p><small>This request was submitted by %s</small></p>", $requesterAlias );
+  	      printf("<p><small>This request was submitted by %s</small></p>\n", $requesterAlias );
 	      }
 	    ?>
+	    
     </div>
     <?php 
 	    if ($this->Session->read('Auth.User')){

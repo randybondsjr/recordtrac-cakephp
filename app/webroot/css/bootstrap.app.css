@@ -109,7 +109,7 @@ span.status {
 }
 /* Response Widget
 -------------------------------------------------- */
-h3.control-widget {
+h1.control-widget, h3.control-widget {
   display: inline-block !important;
 }
 .rw-container {
