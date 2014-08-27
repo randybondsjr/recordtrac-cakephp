@@ -55,4 +55,3 @@ class BusinessDaysComponent extends Component {
     return date($format, strtotime($arr[$days]));
   }
 }
-//echo add_business_days($days=3, $date="TODAY", $format="c");
