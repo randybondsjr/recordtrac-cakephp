@@ -2,6 +2,9 @@
 class NotesController extends AppController {
   public $components = array("BusinessDays");
   public function add() {
+    if (empty($this->request->data)) {
+      $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
+    }
     App::uses('CakeEmail', 'Network/Email');
     if (!empty($this->request->data)) {
       if($this->Note->save($this->request->data)){
@@ -51,6 +54,9 @@ class NotesController extends AppController {
     }
 	}
 	public function extend() {
+	  if (empty($this->request->data)) {
+      $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
+    }
     App::uses('CakeEmail', 'Network/Email');
     if (!empty($this->request->data)) {
       $this->request->data["Note"] = $this->request->data["Extend"];
@@ -117,6 +123,9 @@ class NotesController extends AppController {
     }
 	}
 	public function closeRequest(){
+	  if (empty($this->request->data)) {
+      $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
+    }
     App::uses('CakeEmail', 'Network/Email');
     if (!empty($this->request->data)) {
       $this->request->data["Note"] = $this->request->data["Close"];

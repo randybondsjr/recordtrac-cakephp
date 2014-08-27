@@ -2,6 +2,9 @@
 class RecordsController extends AppController {
 
   public function add() {
+    if (empty($this->request->data)) {
+      $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
+    }
     App::uses('CakeEmail', 'Network/Email');
     
     if (!empty($this->request->data)) {
