@@ -90,6 +90,7 @@ class NotesController extends AppController {
         $this->Request->saveField('extended', '1'); 
         $this->Request->saveField('due_date', $extendDate); 
         $this->Request->saveField('status_updated', $todayDT);
+        $this->Request->saveField('status_id', '1');
 
         foreach ($subscribers as $subscriber){
           //make sure they are set to receive notifications, and have a valid email
