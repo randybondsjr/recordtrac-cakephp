@@ -1,4 +1,4 @@
-body{ padding: 70px 0px;}
+body{ padding: 100px 0px;}
 p.lead small {font-size: 60%;}
 a {
   color: #17b292;
@@ -323,7 +323,9 @@ p.text-center.text-body {
 
 /* Admin Area
 -------------------------------------------------- */
-
+.navbar-admin{
+  margin-top: -10px;
+}
 
 /* Glyphicon additional styles
 -------------------------------------------------- */
@@ -357,6 +359,9 @@ body {
 /* Media Queries
 -------------------------------------------------- */
 /* Medium Devices, Desktops */
-	@media only screen and (max-width : 992px) {
-    body{padding-top: 100px;}
-	}
+@media only screen and (min-width : 992px) {
+  body{padding-top: 70px;}
+  .navbar-admin{
+    margin-top: -20px;
+  }
+}
