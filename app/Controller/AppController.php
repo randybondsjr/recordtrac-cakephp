@@ -73,17 +73,17 @@ class AppController extends Controller {
   }
   private $agencyName = ""; 
   public function getAgencyName() { 
-    $this->agencyName = Configure::read('Agency.name');;
+    $this->agencyName = Configure::read('Agency.name');
     return $this->agencyName; 
   }
   private $responseDays = ""; 
   public function getResponseDays() { 
-    $this->responseDays = Configure::read('Agency.responseDays');;
+    $this->responseDays = Configure::read('Agency.responseDays');
     return $this->responseDays; 
   }
   private $fromEmail = ""; 
   public function getfromEmail() { 
-    $this->fromEmail = Configure::read('Agency.fromEmail');;
+    $this->fromEmail = Configure::read('Agency.fromEmail');
     return $this->fromEmail; 
   }
   
