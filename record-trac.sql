@@ -1,6 +1,13 @@
 # ************************************************************
-# Use this file to import MySQL table structure
-# DB Name: record-trac
+# Sequel Pro SQL dump
+# Version 4096
+#
+# http://www.sequelpro.com/
+# http://code.google.com/p/sequel-pro/
+#
+# Host: 127.0.0.1 (MySQL 5.6.14)
+# Database: record-trac
+# Generation Time: 2014-08-28 00:22:42 +0000
 # ************************************************************
 
 
@@ -11,6 +18,20 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table closed_reasons
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `closed_reasons`;
+
+CREATE TABLE `closed_reasons` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) DEFAULT NULL,
+  `reason` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 # Dump of table departments
@@ -44,6 +65,51 @@ CREATE TABLE `doc_types` (
 
 
 
+# Dump of table extend_reasons
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `extend_reasons`;
+
+CREATE TABLE `extend_reasons` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) DEFAULT NULL,
+  `reason` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table notes
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `notes`;
+
+CREATE TABLE `notes` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `text` text,
+  `request_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `staff_mins` int(11) DEFAULT '0',
+  `type_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table notes_types
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `notes_types`;
+
+CREATE TABLE `notes_types` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
 # Dump of table offline_submissions
 # ------------------------------------------------------------
 
@@ -68,10 +134,47 @@ CREATE TABLE `owners` (
   `request_id` int(11) DEFAULT NULL,
   `active` tinyint(1) DEFAULT '1' COMMENT 'Indicate whether they''re still involved in the request or not.',
   `reason` varchar(255) DEFAULT NULL COMMENT 'Reason they were assigned',
-  `reason_unassigneed` varchar(255) DEFAULT NULL COMMENT 'Reason they were unassigned',
+  `reason_unassigned` varchar(255) DEFAULT NULL COMMENT 'Reason they were unassigned',
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   `is_point_person` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table questions
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `questions`;
+
+CREATE TABLE `questions` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `question` text,
+  `answer` text,
+  `request_id` int(11) DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table records
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `records`;
+
+CREATE TABLE `records` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `request_id` int(11) DEFAULT NULL,
+  `description` text,
+  `filename` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `access` text,
+  `staff_mins` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
