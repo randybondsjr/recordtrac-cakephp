@@ -468,4 +468,5 @@ class RequestsController extends AppController {
 
     $this->redirect(array('action' => 'view', $subscriber["Request"]["id"]));
   }
+  
 }
