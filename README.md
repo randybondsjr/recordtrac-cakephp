@@ -24,7 +24,7 @@ Although this project is called a "port," it does not follow the same convention
     
     ***YOU MUST CHANGE THESE CREDENTIALS BEFORE GOING INTO PRODUCTION*** 
     
-9.Enjoy!
+9. Enjoy!
 
 If you have any questions, please [create an issue](https://github.com/randybondsjr/recordtrac-cakephp/issues) in github.
 
