@@ -1,7 +1,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainnav">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -14,7 +14,7 @@
         );
       ?>
       </div>
-    <div class="collapse navbar-collapse pull-left">
+    <div class="collapse navbar-collapse pull-left" id="mainnav">
       <ul class="nav navbar-nav">
         <li><?php echo $this->Html->link('New Request', '/requests/create'); ?></li>
         <li><?php echo $this->Html->link('Explore Requests', '/requests'); ?></li>

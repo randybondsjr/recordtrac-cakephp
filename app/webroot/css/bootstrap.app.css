@@ -352,3 +352,11 @@ body {
   padding: 10px 0;
   background-color: #ddd;
 }
+
+
+/* Media Queries
+-------------------------------------------------- */
+/* Medium Devices, Desktops */
+	@media only screen and (max-width : 992px) {
+    body{padding-top: 100px;}
+	}
