@@ -1,4 +1,4 @@
-body{ padding: 70px 0px; }
+body{ padding: 70px 0px;}
 p.lead small {font-size: 60%;}
 a {
   color: #17b292;
@@ -320,6 +320,10 @@ p.text-center.text-body {
 #request-count {
   background-color: #17b292;
 }
+
+/* Admin Area
+-------------------------------------------------- */
+
 
 /* Glyphicon additional styles
 -------------------------------------------------- */
