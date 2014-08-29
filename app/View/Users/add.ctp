@@ -49,3 +49,4 @@
     </div>
 	</div><!--END FROM ADMIN NAV -->
 </div>
+<div class="clearfix"></div>

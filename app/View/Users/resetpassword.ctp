@@ -28,3 +28,4 @@
         <p class="lead">Please be kind, rewind.</p>
       </div>
     </div>
+    <div class="clearfix"></div>

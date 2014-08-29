@@ -8,3 +8,4 @@
     <p><strong>Phone</strong>: <?php echo $record["User"]["phone"]; ?></p>
   </div>
 </div>
+<div class="clearfix"></div>
