@@ -55,7 +55,7 @@
             <ul id="users" class="panel-collapse collapse">
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-plus\"></span> Add User","/users/add",array('escape' => false));?></li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-user\"></span> Manage Staff Users","/users/staff",array('escape' => false));?></li>
-              <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-search\"></span> Manage Users","/users",array('escape' => false));?></li>
+              <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-search\"></span> Manage All Users","/users",array('escape' => false));?></li>
             </ul>
           </li>
           <li class="panel dropdown">
