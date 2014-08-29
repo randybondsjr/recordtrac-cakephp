@@ -9,34 +9,28 @@
 		</div>
     <div class="row">
       <div class="col-sm-7">
-        <?php echo $this->Form->create('User'); ?>
+        <?php echo $this->Form->create('Department'); ?>
         <fieldset>
-          <legend><?php echo __('Edit User'); ?></legend>
+          <legend><?php echo __('Edit Department'); ?></legend>
             
           <?php 
             
-            echo $this->Form->input('alias',array(
+            echo $this->Form->input('name',array(
                                               'label'=>'Name', 
                                               'class' => 'form-control', 
-                                              'placeholder' => 'Full Name'));
-            echo $this->Form->input('email',array(
-                                              'type' => 'email', 
-                                              'placeholder' => 'yourname@example.com',
-                                              'label' => 'Email', 
-                                              'class' => 'form-control'));
-            echo $this->Form->input('phone',array(
-                                              'placeholder' => '509.555.1234',
-                                              'class' => 'form-control'));
-            echo $this->Form->input('department_id',array( 
+                                              'placeholder' => 'Department Name'));
+            echo $this->Form->input('contact_id',array( 
                                               'empty' => '(chose one)',
                                               'class' => 'form-control'));
-            echo $this->Form->input('is_admin',array('label' => 'Super Admin?'));
+            echo $this->Form->input('backup_id',array( 
+                                              'empty' => '(chose one)',
+                                              'class' => 'form-control'));
           ?>
         </fieldset>
         <?php 
           echo $this->Form->submit(
-            'Update User', 
-            array('class' => 'btn btn-primary', 'title' => 'Custom Title')
+            'Update Department', 
+            array('class' => 'btn btn-primary', 'title' => 'Update Department')
           );
         ?>
       </div>
