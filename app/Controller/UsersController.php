@@ -29,6 +29,16 @@ class UsersController extends AppController {
       $this->User->recursive = 0;
       $this->set('users', $this->paginate());
     }
+    
+    public function staff() {
+      $this->paginate = array(
+				'limit' => 25,
+				'conditions' => 'User.department_id IS NOT NULL',
+        'order' => array('User.alias' => 'asc')
+      );
+      $this->User->recursive = 0;
+      $this->set('users', $this->paginate());
+    }
 
     public function add() {
       $this->loadModel('Department');

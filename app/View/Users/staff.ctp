@@ -2,7 +2,6 @@
   $this->Html->script('admin', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
   echo $this->Element('admin-navigation'); 
 ?>
-
 <div class="row">
   <div class="col-sm-7">
     <h1>Administration <small>Users</small> <?php echo $this->Html->link('<span class="glyphicon glyphicon-plus"></span>', array('action' => 'add'),array('class' => 'btn btn-primary', 'escape' => false)); ?></h1>
@@ -51,6 +50,12 @@
 								array('action' => 'edit', $user['User']['id']),
 								array('class' => 'btn btn-success btn-small', 'escape' => false, 'title' => 'Edit User')
                 );
+            echo " ";
+            echo	$this->Html->link(
+								'<span class="glyphicon glyphicon-refresh"></span>',
+								array('action' => 'resetpassword', $user['User']['id']),
+								array('class' => 'btn btn-warning btn-small', 'escape' => false, 'title' => 'Reset User Password')
+							  );
             echo "</td>";
             echo "</tr>";
           }

@@ -1,3 +1,7 @@
+<?php
+  $this->Html->script('admin', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  echo $this->Element('admin-navigation'); 
+?>
  <div class="row">
 			<div class="col-sm-8">
 				<h1>RecordTrac - Administration</h1>
@@ -43,3 +47,5 @@
         <p class="lead">Please be kind, rewind.</p>
       </div>
     </div>
+	</div><!--END FROM ADMIN NAV -->
+</div>
