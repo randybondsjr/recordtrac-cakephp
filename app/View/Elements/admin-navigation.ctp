@@ -1,10 +1,10 @@
 </div><!-- end container so we can go full width --->
-<div class="row admin-head hidden-xs">
+<div class="admin-head hidden-xs">
   <div class="col-sm-12">
     <h2><span class="glyphicon glyphicon-stats"></span> Administration</h2>
   </div>
 </div>
-<div class="row full-height">
+<div class="full-height">
   <div class="col-sm-2 navbar-admin-bg">
     <div id="navbar" class="navbar  navbar-admin">
       <div class="navbar-header">
@@ -20,6 +20,7 @@
       <div class="clearfix"></div>
       <div class="collapse navbar-collapse" id="adminnav">
         <ul class="nav nav-stacked" id="menu-bar">
+          <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-dashboard\"></span> Dashboard","/admin",array('escape' => false));?></li>
           <li class="panel dropdown">
             <a data-toggle="collapse" data-parent="#menu-bar" href="#requests">
                 <span class="glyphicon glyphicon-folder-open"></span>&nbsp; Requests <span class="caret"></span>
@@ -71,5 +72,5 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-9">
+  <div class="col-sm-10">
     
