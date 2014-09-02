@@ -37,7 +37,7 @@ class ExtendreasonsController extends AppController {
     }
     if ($this->request->is('post') || $this->request->is('put')) {
         if ($this->Extendreason->save($this->request->data)) {
-            $this->Session->setFlash(__('The extend reasone has been updated'), 'success');
+            $this->Session->setFlash(__('The extend reason has been updated'), 'success');
             return $this->redirect(array('action' => 'index'));
         }
         $this->Session->setFlash(
