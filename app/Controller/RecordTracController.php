@@ -40,6 +40,7 @@ class RecordTracController extends AppController {
   }
   
   public function index() {
+    $this->set("title_for_layout","RecordTrac - " . $this->getAgencyName());
     //top requests
     $this->loadModel('Requests');
     $this->set('totalRequests', $this->Requests->find('count'));
