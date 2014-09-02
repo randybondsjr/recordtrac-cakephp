@@ -28,7 +28,7 @@
             <ul id="requests" class="panel-collapse collapse">
               <li>Document Types</li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-plus\"></span> Add Document Type","/doctypes/add",array('escape' => false));?></li>
-              <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-search\"></span> Manage Document Type","/doctypes",array('escape' => false));?></li>
+              <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-search\"></span> Manage Document Types","/doctypes",array('escape' => false));?></li>
               <li class="divider"></li>
               <li>Closed Reasons</li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-plus\"></span> Add Extend Reason","/extendreasons/add",array('escape' => false));?></li>
