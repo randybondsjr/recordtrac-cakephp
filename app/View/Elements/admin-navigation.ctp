@@ -30,11 +30,11 @@
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-plus\"></span> Add Document Type","/doctypes/add",array('escape' => false));?></li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-search\"></span> Manage Document Types","/doctypes",array('escape' => false));?></li>
               <li class="divider"></li>
-              <li>Closed Reasons</li>
+              <li>Extend Reasons</li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-plus\"></span> Add Extend Reason","/extendreasons/add",array('escape' => false));?></li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-search\"></span> Manage Extend Reasons","/extendreasons",array('escape' => false));?></li>
               <li class="divider"></li>
-              <li>Extend Reasons</li>
+              <li>Closed Reasons</li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-plus\"></span> Add Closed Reason","/closedreasons/add",array('escape' => false));?></li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-search\"></span> Manage Closed Reasons","/closedreasons",array('escape' => false));?></li>
             </ul>
