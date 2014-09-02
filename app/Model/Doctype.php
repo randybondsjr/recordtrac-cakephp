@@ -9,4 +9,13 @@ class DocType extends AppModel {
   var $virtualFields = array(
     'prettyDocName' => 'CONCAT(DocType.name, " - ", Department.name)'
   ); 
+  public $validate = array(
+ 	 'name' => array(
+          'rule' => 'notEmpty'
+        ),
+   'department_id' => array(
+          'rule' => 'notEmpty'
+        )
+  );
+	
 }
