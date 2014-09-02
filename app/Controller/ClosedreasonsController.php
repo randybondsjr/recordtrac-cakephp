@@ -35,7 +35,7 @@ class ClosedreasonsController extends AppController {
         throw new NotFoundException(__('Invalid document id'));
     }
     if ($this->request->is('post') || $this->request->is('put')) {
-        if ($this->Extendreason->save($this->request->data)) {
+        if ($this->Closedreason->save($this->request->data)) {
             $this->Session->setFlash(__('The closed reason has been updated'), 'success');
             return $this->redirect(array('action' => 'index'));
         }
@@ -43,7 +43,7 @@ class ClosedreasonsController extends AppController {
             __('The closed reason could not be saved. Please, try again.'), 'danger'
         );
     } else {
-        $this->request->data = $this->Extendreason->read(null, $id);
+        $this->request->data = $this->Closedreason->read(null, $id);
     }
   }
 }
