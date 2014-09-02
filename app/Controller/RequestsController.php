@@ -273,11 +273,11 @@ class RequestsController extends AppController {
       )));
       //extend request reasons
       $this->loadModel("ExtendReason");
-      $this->set("extend_reasons",$this->ExtendReason->find('list', array('fields' => array('ExtendReason.reason','ExtendReason.label'))));
+      $this->set("extend_reasons",$this->ExtendReason->find('list', array('fields' => array('ExtendReason.reason','ExtendReason.name'))));
       
       //close request reasons
       $this->loadModel("ClosedReason");
-      $this->set("closed_reasons",$this->ClosedReason->find('list', array('fields' => array('ClosedReason.reason','ClosedReason.label'))));
+      $this->set("closed_reasons",$this->ClosedReason->find('list', array('fields' => array('ClosedReason.reason','ClosedReason.name'))));
     }
   }
 
