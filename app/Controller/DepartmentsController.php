@@ -5,12 +5,12 @@ class DepartmentsController extends AppController {
     $this->Auth->deny();
   }
   public function index(){
-      $this->paginate = array(
-				'limit' => 25,
-        'order' => array('Department.name' => 'asc')
-      );
-      $this->Department->recursive = 0;
-      $this->set('depts', $this->paginate());
+    $this->paginate = array(
+			'limit' => 25,
+      'order' => array('Department.name' => 'asc')
+    );
+    $this->Department->recursive = 0;
+    $this->set('depts', $this->paginate());
   }
   public function add(){
     $this->loadModel('User');
