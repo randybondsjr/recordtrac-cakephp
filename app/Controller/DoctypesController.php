@@ -14,6 +14,7 @@ class DoctypesController extends AppController {
     $this->set('types', $this->paginate());
   }
   public function add(){
+    $this->set("title_for_layout","Add Document Type");
     $this->loadModel('Department');
     $this->set('departments', $this->Department->find('list', array('fields' => 'id, name', 'order' => 'Department.name')));
     
@@ -29,6 +30,7 @@ class DoctypesController extends AppController {
     }
   }
   public function edit($id = null){
+    $this->set("title_for_layout","Edit Document Type");
     $this->Doctype->id = $id;
     $this->loadModel('Department');
     $this->set('departments', $this->Department->find('list', array('fields' => 'id, name', 'order' => 'Department.name')));
