@@ -12,11 +12,17 @@ class Department extends AppModel {
         )   
   );
   
-  /*
+  
  	public $validate = array(
- 	 'pc_name_dp_tag' => array(
-            'rule' => 'notEmpty'
+ 	 'name' => array(
+          'rule' => 'notEmpty'
+        ),
+   'contact_id' => array(
+          'rule' => 'notEmpty'
+        ),
+   'backup_id' => array(
+          'rule' => 'notEmpty'
         )
   );
-	*/
+	
 }
