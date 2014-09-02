@@ -341,7 +341,7 @@ p.text-center.text-body {
 }
 .navbar-admin-bg {
   background: #2c3e50;
-  height: 100%;
+  height: auto;
 }
 .navbar-admin .navbar-toggle .icon-bar {
   background-color: #fff;
@@ -434,5 +434,8 @@ body {
 @media only screen and (min-width : 768px) {
   .navbar-admin {
     margin-top: 0;
+  }
+  .navbar-admin-bg {
+    height: 100%;
   }
 }
