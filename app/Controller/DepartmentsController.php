@@ -1,5 +1,9 @@
 <?php
 class DepartmentsController extends AppController {
+  public function beforeFilter(){
+	  parent::beforeFilter();
+    $this->Auth->deny();
+  }
   public function index(){
       $this->paginate = array(
 				'limit' => 25,
