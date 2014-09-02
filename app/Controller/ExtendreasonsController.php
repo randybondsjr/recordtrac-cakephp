@@ -15,8 +15,7 @@ class ExtendreasonsController extends AppController {
   }
   public function add(){
     $this->set("title_for_layout","Add Extend Reason");
-    $this->loadModel('Department');
-    $this->set('departments', $this->Department->find('list', array('fields' => 'id, name', 'order' => 'Department.name')));
+
     
     if ($this->request->is('post')) {
         $this->Extendreason->create();
@@ -32,8 +31,7 @@ class ExtendreasonsController extends AppController {
   public function edit($id = null){
     $this->set("title_for_layout","Edit Extend Reason");
     $this->Extendreason->id = $id;
-    $this->loadModel('Department');
-    $this->set('departments', $this->Department->find('list', array('fields' => 'id, name', 'order' => 'Department.name')));
+
     if (!$this->Extendreason->exists()) {
         throw new NotFoundException(__('Invalid document id'));
     }
