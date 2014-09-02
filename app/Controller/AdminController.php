@@ -15,7 +15,6 @@ class AdminController extends AppController {
   public function index() {
     $thirtyDaysAgo = date("Y-m-d",strtotime("now -30 days") );
     $todayDaysAgo  = date('Y-m-d');
-    $chartData = array( 7.0,6.9,9.5,14.5,18.2,21.5,25.2,26.5,23.3,18.3,13.9,9.6);
     $this->loadModel('Calendar');
     $dailyRequests = $this->Calendar->find('all', array(
        'fields' => 'calendar.datefield, COUNT(requests.date_received) as total',
@@ -29,7 +28,7 @@ class AdminController extends AppController {
                         )
                     )
                   ),
-       'conditions' => "calendar.datefield >= '". $thirtyDaysAgo ."' AND calendar.datefield < '".  $todayDaysAgo ."'",
+       'conditions' => "calendar.datefield >= '". $thirtyDaysAgo ."' AND calendar.datefield <= '".  $todayDaysAgo ."'",
        'group' => 'calendar.datefield'
        ));
     $requestDays = array();
