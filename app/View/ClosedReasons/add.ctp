@@ -34,7 +34,7 @@
       </div>
       <div class="col-sm-3 col-sm-offset-1 well">
         <h3>Instructions</h3>
-        <p class="lead">Please be kind, rewind.</p>
+        <p class="lead">Remember the name of the reason is for internal use, while the reason itself is the text that will be emailed to the requester.</p>
       </div>
     </div>
 	</div><!--END FROM ADMIN NAV -->

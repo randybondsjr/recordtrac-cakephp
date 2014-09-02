@@ -33,7 +33,7 @@
       </div>
       <div class="col-sm-3 col-sm-offset-1 well">
         <h3>Instructions</h3>
-        <p class="lead">Please be kind, rewind.</p>
+        <p class="lead">Update a document type and the department to which it should be related, this is how the request will be routed.</p>
       </div>
     </div>
 	</div><!--END FROM ADMIN NAV -->

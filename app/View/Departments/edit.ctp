@@ -36,7 +36,7 @@
       </div>
       <div class="col-sm-3 col-sm-offset-1 well">
         <h3>Instructions</h3>
-        <p class="lead">Please be kind, rewind.</p>
+        <p class="lead">Update department name, or the staff members responsible for this departments requests.</p>
       </div>
     </div>
 	</div><!--END FROM ADMIN NAV -->
