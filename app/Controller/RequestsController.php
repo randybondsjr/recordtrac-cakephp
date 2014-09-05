@@ -217,6 +217,9 @@ class RequestsController extends AppController {
   
   public function view($id = null){
     $this->Request->id = $id;
+    if (!$this->Request->exists()) {
+      throw new NotFoundException(__('Invalid Request ID'));
+    }
     $this->set("title_for_layout","Request " . $id . " - View a Request - " . $this->getAgencyName());
     $request = $this->Request->read();
     $this->set('request', $request);
