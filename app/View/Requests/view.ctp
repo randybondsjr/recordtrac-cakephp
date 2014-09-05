@@ -15,7 +15,7 @@
 	<div class="col-sm-8">
 	  <div class="well">
 	    <h1 class="control-widget">Request <span class="muted">#<?php  echo $request["Request"]["id"]; ?></span></h1>
-	    <?php if ($this->Session->read('Auth.User')): ?>
+	    <?php if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2): ?>
       <div class="rw-container">
         <div class="rw-controller-container">
           <div class="rw-controller-btns-container">
