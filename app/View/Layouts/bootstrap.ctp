@@ -47,8 +47,8 @@
 
     </div><!-- /.container -->
     <div id="footer" class="footer">
-      <p class="text-center">Made by <!-- <a href="http://codeforamerica.org/2013-partners/oakland/"> -->Code for America 2013 Fellows<!-- </a> --></p>
-      <p class="text-center"><a href="/signup">Get the app</a> for your city or <a href="https://github.com/postcode/recordtrac#recordtrac"> view project info</a>.</p>
+      <p class="text-center">Updated by <a href="http://www.yakimawa.gov">City of Yakima ITS</a> from RecordTrac by <!-- <a href="http://codeforamerica.org/2013-partners/oakland/"> -->Code for America 2013 Fellows<!-- </a> --></p>
+      <p class="text-center"><a href="http://www.postcode.io/recordtrac">Get the app</a> for your city or <a href="https://github.com/randybondsjr/recordtrac-cakephp"> view project info</a>.</p>
     </div>
   </body>
 </html>
