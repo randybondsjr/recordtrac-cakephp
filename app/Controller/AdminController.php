@@ -17,19 +17,19 @@ class AdminController extends AppController {
     $todayDaysAgo  = date('Y-m-d');
     $this->loadModel('Calendar');
     $dailyRequests = $this->Calendar->find('all', array(
-       'fields' => 'calendar.datefield, COUNT(requests.date_received) as total',
+       'fields' => 'datefield, COUNT(requests.date_received) as total',
        'joins' => array(
                     array('table' => 'requests',
                         'alias' => 'requests',
                         'type' => 'LEFT',
                         'conditions' => array(
-                            'date(requests.date_received) >= calendar.datefield',
-                            'date(requests.date_received) <  calendar.datefield + 1'
+                            'date(requests.date_received) >= datefield',
+                            'date(requests.date_received) <  datefield + 1'
                         )
                     )
                   ),
-       'conditions' => "calendar.datefield >= '". $thirtyDaysAgo ."' AND calendar.datefield <= '".  $todayDaysAgo ."'",
-       'group' => 'calendar.datefield'
+       'conditions' => "datefield >= '". $thirtyDaysAgo ."' AND datefield <= '".  $todayDaysAgo ."'",
+       'group' => 'datefield'
        ));
     $requestDays = array();
     $requestCount = array();
