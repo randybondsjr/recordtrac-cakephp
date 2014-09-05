@@ -369,6 +369,7 @@ class RequestsController extends AppController {
       $userConditions = array('order' => array('User.id' => 'desc'));
       
       //if the email exists, unset all the form vars and set the user id
+/*
       if(!empty($emailExists)){
         $this->request->data["Requester"]["id"] = $emailExists["User"]["id"];
         unset($this->request->data["Requester"]["email"]);
@@ -376,6 +377,7 @@ class RequestsController extends AppController {
         unset($this->request->data["Requester"]["phone"]);
         $userConditions = array('conditions' => array('User.id' => $emailExists["User"]["id"]));
       }
+*/
 
       if($this->Request->saveAll($this->request->data)){ 
         $requestID = $this->Request->getLastInsertId();
