@@ -83,6 +83,7 @@ class RecordsController extends AppController {
         }
         
       }
+      unset($this->request->data);
       $this->redirect(array('action' => 'view', 'controller' => 'requests', $requestID));
     }
 	}
