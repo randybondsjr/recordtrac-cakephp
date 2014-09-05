@@ -72,7 +72,7 @@ class UsersController extends AppController {
       if ($this->request->is('post') || $this->request->is('put')) {
           if ($this->User->save($this->request->data)) {
               $this->Session->setFlash(__('The user\'s password has been changed.'), 'success');
-              return $this->redirect(array('action' => 'index'));
+              return $this->redirect(array('action' => 'staff'));
           }
           $this->Session->setFlash(
               __('The password could not be saved. Please, try again.'), 'danger'
