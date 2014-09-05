@@ -313,11 +313,11 @@ class RequestsController extends AppController {
   public function create(){
     App::uses('CakeEmail', 'Network/Email');
     //query doctypes for dropdowm
-    $this->loadModel('DocType');
-    $doctypes = $this->DocType->find('all');
+    $this->loadModel('Doctype');
+    $doctypes = $this->Doctype->find('all');
     $doctypeList = array();
     foreach ($doctypes AS $doctype){
-      $doctypeList[] = array('value' => $doctype["DocType"]["department_id"], 'name' => $doctype["DocType"]["prettyDocName"]);
+      $doctypeList[] = array('value' => $doctype["Doctype"]["department_id"], 'name' => $doctype["Doctype"]["prettyDocName"]);
     }
     $this->set('departments',$doctypeList);
     
