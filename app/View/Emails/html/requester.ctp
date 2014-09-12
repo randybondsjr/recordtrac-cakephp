@@ -336,7 +336,6 @@
 					<td align="center">
 					    <img src="<?php echo Router::fullbaseUrl(); ?>/img/recordtrac/logo.png" width="121" height="121"> <br /> <br />
               <p><?php echo $agencyName; ?></p>
-							<p>If you do not want to receive these updates, please <a href='<?php echo Router::fullbaseUrl().$unsubscribe; ?>'>unsubscribe</a></p>
 					</td>
 				</tr>
 			</table>
