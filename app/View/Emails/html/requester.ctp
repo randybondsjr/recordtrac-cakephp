@@ -1,5 +1,5 @@
 <p>Thank you for submitting a public records request to the <?php echo $agencyName; ?>. You will receive email updates about your request, but you can always view any activity on the request page, <a href='<?php echo Router::fullbaseUrl().$page; ?>'><?php echo Router::fullbaseUrl().$page; ?></a>.</p>
-<p>In the next <?php echo $responseDays; ?> days, you can expect a response from the <?php echo $agencyName; ?>.</br>
+<p>In the next <?php echo $responseDays; ?> business days, you can expect a response from the <?php echo $agencyName; ?>.</br>
 A response can be the following:</p>
 <ul>
 <li>a question about your request</li>
