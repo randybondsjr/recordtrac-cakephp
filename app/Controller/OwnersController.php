@@ -117,6 +117,9 @@ class OwnersController extends AppController {
       $this->redirect(array('action' => 'index', 'controller' => 'recordtrac'));
     }
     $this->Owner->id = $this->request->data["Owner"]["owner_id"];
+    $this->Owner->saveField('active',0);
+    unset($this->Owner->id);
+    unset($this->request->data["Owner"]["owner_id"]);
     if($this->Owner->save($this->request->data)){
       $this->loadModel("User");
       $helper = $this->User->find('first', array(

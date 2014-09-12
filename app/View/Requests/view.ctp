@@ -546,19 +546,19 @@
           <?php
             foreach($history as $record){
               $actionIcon = "plus-sign";
+              $reason = $record["Owner"]["reason"];
               if($record["Owner"]["reason_unassigned"] != ''){
                 $actionIcon = "minus-sign";
+                $reason = $record["Owner"]["reason_unassigned"];
               }
               echo "<tr>";
               printf("<td>%s</td>",$record["User"]["alias"]);
               printf("<td><span class=\"glyphicon glyphicon-%s\"></span></td>",$actionIcon);
               printf("<td>%s</td>\n",$this->Time->format('M jS, Y',$record["Owner"]["created"]));
-              printf("<td>%s</td>",$record["Owner"]["reason"]);
+              printf("<td>%s</td>",$reason);
               echo "</tr>";
             } 
           ?>
-         
-          
         </tbody>
       </table>
 	  </div>
