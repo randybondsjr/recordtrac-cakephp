@@ -42,7 +42,7 @@ class UsersController extends AppController {
 
     public function add() {
       $this->loadModel('Department');
-      $this->set('departments', $this->Department->find('list'));
+      $this->set('departments', $this->Department->find('list', array('order' => array('Department.name' => 'asc'))));
       if ($this->request->is('post')) {
           $this->User->create();
           if ($this->User->save($this->request->data)) {
@@ -86,7 +86,7 @@ class UsersController extends AppController {
 
     public function edit($id = null) {
       $this->loadModel('Department');
-      $this->set('departments', $this->Department->find('list'));
+      $this->set('departments', $this->Department->find('list', array('order' => array('Department.name' => 'asc'))));
       $this->User->id = $id;
       if (!$this->User->exists()) {
           throw new NotFoundException(__('Invalid user'));
