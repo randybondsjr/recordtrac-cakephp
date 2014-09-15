@@ -21,7 +21,7 @@
   	<link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap.app.css">
   	<!-- Latest compiled and minified JavaScript -->
-  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  	<script src="/js/jquery.min.js"></script>
   	<script src="/js/bootstrap.min.js"></script>
   <?php 
     echo $this->fetch('css');
