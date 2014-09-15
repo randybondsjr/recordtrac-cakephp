@@ -53,7 +53,8 @@ class Request extends AppModel {
     'text' => array(
       'rule1' => array(
         'rule'    => 'notEmpty',
-        'last'    => false
+        'last'    => false,
+        'message' => 'This field is required'
        ),
       'rule2' => array(
           'rule'    => array('minLength', 50),
