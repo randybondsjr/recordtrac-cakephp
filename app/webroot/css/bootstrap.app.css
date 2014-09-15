@@ -76,6 +76,9 @@ form .popover.left .arrow:after {
 .glyphicon-calendar:before {
   content: "\e109";
 }
+.radio input[type=radio], .radio-inline input[type=radio], .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
+  margin-left: 0px;
+}
 /* Status
 -------------------------------------------------- */
 .status {
@@ -323,7 +326,7 @@ p.text-center.text-body {
 
 /* Admin Area
 -------------------------------------------------- */
-.admin-head {
+.admin-head .col-sm-12 {
   margin-top: -10px;
   background-color: #2c3e50;
   padding: 1px 0;
