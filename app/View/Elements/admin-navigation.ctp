@@ -63,8 +63,8 @@
                 <span class="glyphicon glyphicon-tasks"></span> Reports <span class="caret"></span>
               </a>
             <ul id="reports" class="panel-collapse collapse">
-              <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-file\"></span> Report 1","/admin",array('escape' => false));?></li>
-              <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-file\"></span> Report 2","/users",array('escape' => false));?></li>
+              <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-file\"></span> Requests by Month","/admin/requestsbymonth",array('escape' => false));?></li>
+              <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-file\"></span> Requests by Year","/admin/requestsbyyear",array('escape' => false));?></li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-file\"></span> Report 3","/users",array('escape' => false));?></li>
             </ul>
           </li> 

@@ -164,4 +164,34 @@ class AdminController extends AppController {
 
     $pieChart->addSeries($series);
   }
+  
+  public function requestsbymonth(){
+    $this->set("title_for_layout","Request by Month Report - RecordTrac - " . $this->getAgencyName());
+
+    $params = array(
+      'recursive' => -1,
+      'fields' => array("COUNT(id) as 'total'", "DATE_FORMAT(created, '%Y') as 'year'","DATE_FORMAT(created, '%M') as 'month'"),
+      'group' => array("DATE_FORMAT(created, '%Y%M')"),
+      'order' => array('created' => 'DESC')
+    );
+    
+    $this->loadModel('Requests');
+    $numberOfPosts = $this->Requests->find('all', $params);
+    $this->set('months',$numberOfPosts);
+  }
+  
+  public function requestsbyyear(){
+    $this->set("title_for_layout","Request by Year Report - RecordTrac - " . $this->getAgencyName());
+
+    $params = array(
+      'recursive' => -1,
+      'fields' => array("COUNT(id) as 'total'", "DATE_FORMAT(created, '%Y') as 'year'"),
+      'group' => array("DATE_FORMAT(created, '%Y')"),
+      'order' => array('created' => 'DESC')
+    );
+    
+    $this->loadModel('Requests');
+    $numberOfPosts = $this->Requests->find('all', $params);
+    $this->set('months',$numberOfPosts);
+  }
 }
