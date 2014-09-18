@@ -1,0 +1,5 @@
+Copyright 2014 City of Yakima <http://www.yakimawa.gov>
+
+# Affero GNU Public License 3.0
+
+The full license text is at <http://www.gnu.org/licenses/agpl-3.0.html>
