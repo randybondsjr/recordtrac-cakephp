@@ -568,17 +568,18 @@
         printf("<p class=\"text-center\">Due: <span class=\"badge\">%s</span></p>\n", $this->Time->format('F jS, Y', $request["Request"]["due_date"]));
       }else{
         echo $this->Form->create('Subscriber', array('action'=>'subscribe'));
-            echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
-            echo $this->Form->input('should_notify', array('type' => 'hidden', 'value' => '1'));
-            echo "<div class=\"input-group col-xs-9\">";
-            echo $this->Form->input('User.email', array('type' => 'email', 'label' => false, 'placeholder' => 'yourname@email.com', 'class' => 'form-control', 'div' => false));
-            echo "<span class=\"input-group-btn\">";
-            echo $this->Form->submit(
-              'Follow', 
-              array('class' => 'btn btn-search', 'title' => 'Follow',  'div' => false)
-            );
-            echo "</span></div>";
-            echo "<span class=\"glyphicon glyphicon-question-sign \" id=\"subscribeHelp\" data-toggle=\"popover\" data-content=\"Enter your email here and we will send you updates for this request.\"></span>";
+        echo $this->Form->input('request_id', array('type' => 'hidden', 'value' => $request["Request"]["id"]));
+        echo $this->Form->input('should_notify', array('type' => 'hidden', 'value' => '1'));
+        echo "<div class=\"input-group col-xs-9 pull-left\">";
+        echo $this->Form->input('User.email', array('type' => 'email', 'label' => false, 'placeholder' => 'yourname@email.com', 'class' => 'form-control', 'div' => false));
+        echo "<span class=\"input-group-btn\">";
+        echo $this->Form->submit(
+          'Follow', 
+          array('class' => 'btn btn-search', 'title' => 'Follow',  'div' => false)
+        );
+        echo "</span></div>";
+        echo "<span class=\"glyphicon glyphicon-question-sign\" id=\"subscribeHelp\" data-toggle=\"popover\" data-content=\"Enter your email here and we will send you updates for this request.\"></span>";
+        echo $this->Form->end();
       }
     ?>
     

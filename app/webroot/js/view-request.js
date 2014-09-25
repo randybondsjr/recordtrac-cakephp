@@ -85,7 +85,7 @@ $(document).ready(function(){
   });
   
   $("#subscribeHelp").popover({
-    placement: "bottom"
+    placement: "left"
   });
   
   //staff actions

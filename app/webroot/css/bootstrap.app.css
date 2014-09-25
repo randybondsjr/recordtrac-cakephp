@@ -258,6 +258,9 @@ div.tooltip-inner {
 .btn-primary.active {
   background-color: #11856d \9;
 }
+#subscribeHelp{
+  margin-left: 10px;
+}
 /* Tables
 -------------------------------------------------- */
 th a.asc:after {
