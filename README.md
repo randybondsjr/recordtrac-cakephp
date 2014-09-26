@@ -5,7 +5,7 @@ Although this project is called a "port," it does not follow the same convention
 
 
 ##Installation Instructions
-1. You will need to have [CakePHP](http://www.cakephp.org) (2.5.3) installed, install it from the instructions on their site.
+1. You will need to have [CakePHP](http://www.cakephp.org) (2.5.4) installed, install it from the instructions on their site.
 2. `record-trac.sql` is included with this, it is the structure for the database, import it into the database that you configured in CakePHP.
 3. If you would like some test data (recommended), also import `record-trac-content.sql`
 4. Copy the files from this package into the corresponding CakePHP folders, the following files will need to be edited rather than overwritten if you are installing to a CakePHP installation that already has applications running: 
