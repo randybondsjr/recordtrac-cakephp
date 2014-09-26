@@ -84,7 +84,7 @@ class NotesController extends AppController {
        
         
         
-        $extendDate = $this->BusinessDays->add_business_days($days=10, $date=$request["Request"]["due_date"], $format="Y-m-d H:i:s");
+        $extendDate = $this->BusinessDays->add_business_days($days=$this->request->data["Extend"]["days"], $date=$request["Request"]["due_date"], $format="Y-m-d H:i:s");
         $this->Request->id = $requestID;
         $todayDT = date("Y-m-d H:i:s");
         $this->Request->saveField('extended', '1'); 

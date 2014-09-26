@@ -271,6 +271,16 @@
                                 'after' => '</div>',
                                 'rows' => 10));
                   ?>
+                  <?php
+                    echo $this->Form->input('days',
+                          array('type' => 'text', 
+                                'div' => 'form-group',
+                                'label' => array('class' =>'control-label col-sm-3', 'text' => 'Days to Extend'), 
+                                'class' => 'form-control',
+                                'value' => '10',
+                                'between' => '<div class="col-sm-9">',
+                                'after' => '<p class="help-block">Business days to extend from '. $this->Time->format('F jS, Y', $request["Request"]["due_date"]) .' (due date)</p></div>'));
+                  ?>
                   </div>
                   <div class="modal-footer">
                     <?php 
