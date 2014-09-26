@@ -1,6 +1,6 @@
 #CakePHP RecordTrac Port
 
-This is a port of [RecordTrac] (https://github.com/postcode/recordtrac) using [CakePHP](http://www.cakephp.org) (2.5.3) as the framework. 
+This is a port of [RecordTrac] (https://github.com/postcode/recordtrac) using [CakePHP](http://www.cakephp.org) (2.5.4) as the framework. 
 Although this project is called a "port," it does not follow the same conventions for JSON files and DB as the original RecordTrac.
 
 
