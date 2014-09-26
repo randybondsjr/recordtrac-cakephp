@@ -62,6 +62,7 @@ class NotesController extends AppController {
       $this->request->data["Note"] = $this->request->data["Extend"];
       if($this->Note->save($this->request->data)){
         $requestID = filter_var($this->request->data["Extend"]["request_id"], FILTER_VALIDATE_INT);
+        $extendDays = filter_var($this->request->data["Extend"]["days"], FILTER_VALIDATE_INT);
         
         //get the subscribers
         $this->loadModel('Subscriber');
@@ -84,7 +85,7 @@ class NotesController extends AppController {
        
         
         
-        $extendDate = $this->BusinessDays->add_business_days($days=$this->request->data["Extend"]["days"], $date=$request["Request"]["due_date"], $format="Y-m-d H:i:s");
+        $extendDate = $this->BusinessDays->add_business_days($days=$extendDays, $date=$request["Request"]["due_date"], $format="Y-m-d H:i:s");
         $this->Request->id = $requestID;
         $todayDT = date("Y-m-d H:i:s");
         $this->Request->saveField('extended', '1'); 
