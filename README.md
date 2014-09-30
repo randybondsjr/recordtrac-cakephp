@@ -28,6 +28,9 @@ Although this project is called a "port," it does not follow the same convention
 
 If you have any questions, please [create an issue](https://github.com/randybondsjr/recordtrac-cakephp/issues) in github.
 
+###Additional Notes
+You may want to add a honeypot to your implementation in order to stave off spam, install [CakePHP HoneyPot Blacklist Component](https://github.com/randybondsjr/HttpBlacklist-Component) to accomplish this.
+
 ###Technologies Used
 http://www.ekoim.com/blog/bootstrap-cakephp-bootstrapcake/ - CakePHP Bootstrap Layout Addition
 
