@@ -23,8 +23,8 @@
 			<br>
 
 				<h4 id="what">What is RecordTrac?</h4>
-				<p>RecordTrac is a quick, simple way for you to submit a public records request to <?php echo $agencyName; ?></p>  
-				<p><strong>Every message or record uploaded on this site is completely public.</strong> This makes easier to understand what happens to every request.</p>
+				<p>RecordTrac is a quick, simple way for you to submit a public records request to <?php echo $agencyName; ?>.</p>  
+				<p><strong>Every message or record uploaded on this site is completely public.</strong> This makes it easier to understand what happens to every request.</p>
 				<br>
 
 				<h4 id="why">Why was RecordTrac made?</h4>
@@ -76,15 +76,15 @@
 
 
 				<h4 id="show">Why can you show everyone my request?</h4>
-				<p>The California Public Records Act and Oakland’s Sunshine Ordinance gives everyone access to documents, photos, emails, texts, audio recordings, and data about the <?php echo $agencyName; ?> and its business. This is why we can display your request and any responses from <?php echo $agencyName; ?> staff. To make you feel comfortable, we don't allow the public to view your name or contact information through this website. </p>
+				<p>The Washington State Public Records Act gives everyone access to documents, photos, emails, texts, audio recordings, and data about the <?php echo $agencyName; ?> and its business. This is why we can display your request and any responses from <?php echo $agencyName; ?> staff.</p>
 
 				<p>According to the Public Records Act, the <?php echo $agencyName; ?> must:</p>
 				<ul>
 				<li>Help you locate the record</li>
 				<li>Allow you to view the records immediately during business hours</li>
-				<li>Respond within 10 days</li> 
+				<li>Respond within 5 days</li> 
 				</ul>
-				<p>The <?php echo $agencyName; ?> may ask for a 14-day extension if they have to sort through a large number of documents, retrieve the document from a facility outside of City Hall, consult with another agency, or write a computer program to get data.</p> 
+				<p>The <?php echo $agencyName; ?> may ask for an extension if additional time is necessary to gather and review records.</p> 
 				<p>
 					For more information on the Public Records Act, check out these resources:
 				</p>
@@ -97,9 +97,12 @@
 				<p>The <?php echo $agencyName; ?> will not publicly release records or information that violates your right to privacy. This also includes records that will compromise your safety or the completion of a law enforcement investigation.</p>
 
 				<p>For example, many police reports contain sensitive information that can only be sent to the individuals directly involved in the crime or incident, and will not be released through RecordTrac. You will, however, better understand the number and types of records requests processed, even when the record itself cannot be uploaded due to sensitive data.</p>   
-				<br>
+				
+				<h4 id="contact">Who should I contact if I have questions?</h4>
+				<p>The Clerks office at the <?php echo $agencyName; ?> handles the majority of our public records requests, you can email them at <?php echo $this->Text->autoLinkEmails('Public.Records@yakimawa.gov'); ?> or by calling 509-575-6000.</p>
+				
 				<h4 id="redeploy">What should I do if I want my agency to use RecordTrac?</h4>
-				<p>RecordTrac is an open-source software project that can be redeployed by any municipality. If you want to reuse RecordTrac, we'd love to hear from you. Visit our sign-up page by <a href="http://www.recordtrac.com">clicking here</a>.</p>
+				<p>RecordTrac is an open-source software project that can be redeployed by any municipality. If you want to reuse RecordTrac, visit the <a href="http://www.recordtrac.com" target="_blank">Code for America orginal project</a>, or the <a href="https://github.com/CityofYakima/recordtrac-cakephp" target="_blank">City of Yakima CakePHP port on github</a>.</p>
 
 			</div>
 		</div>
