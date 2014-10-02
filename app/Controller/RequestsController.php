@@ -273,7 +273,7 @@ class RequestsController extends AppController {
         ),
         'fields' => array('User.id','User.alias','DeptJoin.name'),
         'conditions' => array('department_id IS NOT NULL'),
-              'order' => 'User.alias'
+        'order' => 'User.alias'
       )));
       //extend request reasons
       $this->loadModel("ExtendReason");
@@ -342,13 +342,14 @@ class RequestsController extends AppController {
         $today = date("Y-m-d H:i:s");
         $this->request->data["Request"]["date_received"] = $today;
       }
-/*       echo $this->request->data["Request"]["date_received"]; */
+      
       $responseDays = $this->getResponseDays();
-      //due date in 5 business days
-/*
-      echo $this->getBccEmail();
-      exit;
-*/
+      
+      //if request is after five pm, push one more day on to due date
+      if(substr($this->request->data["Request"]["date_received"], 11,2) >= 17){
+        $responseDays = $responseDays + 1;
+      }
+
       $this->request->data["Request"]["due_date"] = $this->BusinessDays->add_business_days($days=$responseDays, $date=$this->request->data["Request"]["date_received"], $format="Y-m-d H:i:s");
       $this->request->data["Subscriber"][0]["should_notify"] = 1;
 
