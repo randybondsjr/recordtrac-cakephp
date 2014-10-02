@@ -18,7 +18,7 @@
                               array('type' => 'textarea', 
                                     'placeholder' => 'Describe your request. Be as specific as possible.',
                                     'before' => '<p class="lead">What are you trying to find?</p>', 
-                                    'label' => '<span class="glyphicon glyphicon-exclamation-sign"></span> Everything in this request box will be displayed publicly. <a href="/about#why">Why?</a>', 
+                                    'label' => '<div class="alert alert-info"><span class="glyphicon glyphicon-exclamation-sign glyphicon-info"></span> Everything in this request box will be displayed publicly. <a href="/about#why">Why?</a></div>',
                                     'class' => 'form-control'));
       echo "<div id=\"not_public_record\"></div>";
       echo $this->Form->input('department_id',

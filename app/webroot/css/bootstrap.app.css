@@ -76,6 +76,10 @@ form .popover.left .arrow:after {
 .glyphicon-calendar:before {
   content: "\e109";
 }
+label .alert {
+  margin-bottom: 0;
+  padding: 5px 10px;
+}
 .radio input[type=radio], .radio-inline input[type=radio], .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
   margin-left: 0px;
 }
