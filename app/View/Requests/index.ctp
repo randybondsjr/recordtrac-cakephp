@@ -89,8 +89,9 @@
             <th><?php echo $this->Paginator->sort('', 'Point of Contact');?></th>
             <?php if ($this->Session->read('Auth.User')): ?>
             <th><?php echo $this->Paginator->sort('due_date', 'Due');?></th>
-            <th><?php echo $this->Paginator->sort('User.Alias', 'Requester Name');?></th>
             <?php endif;?>
+            <th><?php echo $this->Paginator->sort('User.Alias', 'Requester Name');?></th>
+            
 
           </tr>
       </thead>
@@ -126,8 +127,8 @@
             }
             if ($this->Session->read('Auth.User')){
               printf("<td>%s</td>\n",$this->Time->format('M jS, Y',  $result["Request"]["due_date"]));
-              printf("<td>%s</td>\n",$result["Requester"]["alias"]); 
             }
+            printf("<td>%s</td>\n",$result["Requester"]["alias"]); 
             echo "</tr>\n";
           }
         ?>
