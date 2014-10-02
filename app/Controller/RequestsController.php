@@ -272,7 +272,8 @@ class RequestsController extends AppController {
           )
         ),
         'fields' => array('User.id','User.alias','DeptJoin.name'),
-        'conditions' => array('department_id IS NOT NULL')
+        'conditions' => array('department_id IS NOT NULL'),
+              'order' => 'User.alias'
       )));
       //extend request reasons
       $this->loadModel("ExtendReason");
