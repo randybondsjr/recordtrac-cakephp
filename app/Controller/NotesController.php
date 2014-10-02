@@ -31,6 +31,7 @@ class NotesController extends AppController {
                 ->emailFormat('html')
                 ->to($subscriber["User"]["email"])
                 ->from($this->getfromEmail())
+                ->bcc($this->getBccEmail())
                 ->subject($this->getAgencyName().' Public Disclosure Request #' .$requestID ." - Updated")
                 ->viewVars( array(
                     'agencyName' => $this->getAgencyName(),
@@ -102,6 +103,7 @@ class NotesController extends AppController {
                 ->emailFormat('html')
                 ->to($subscriber["User"]["email"])
                 ->from($this->getfromEmail())
+                ->bcc($this->getBccEmail())
                 ->subject($this->getAgencyName().' Public Disclosure Request #' .$requestID ." - Updated")
                 ->viewVars( array(
                     'agencyName' => $this->getAgencyName(),
@@ -160,6 +162,7 @@ class NotesController extends AppController {
                 ->emailFormat('html')
                 ->to($subscriber["User"]["email"])
                 ->from($this->getfromEmail())
+                ->bcc($this->getBccEmail())
                 ->subject($this->getAgencyName().' Public Disclosure Request #' .$requestID ." - Closed")
                 ->viewVars( array(
                     'agencyName' => $this->getAgencyName(),

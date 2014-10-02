@@ -86,5 +86,9 @@ class AppController extends Controller {
     $this->fromEmail = Configure::read('Agency.fromEmail');
     return $this->fromEmail; 
   }
-  
+  private $bccEmail = ""; 
+  public function getBccEmail() { 
+    $this->bccEmail = Configure::read('Agency.bccEmail');
+    return $this->bccEmail; 
+  }
 }

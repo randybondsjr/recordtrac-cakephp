@@ -341,8 +341,14 @@ class RequestsController extends AppController {
         $today = date("Y-m-d H:i:s");
         $this->request->data["Request"]["date_received"] = $today;
       }
+/*       echo $this->request->data["Request"]["date_received"]; */
+      $responseDays = $this->getResponseDays();
       //due date in 5 business days
-      $this->request->data["Request"]["due_date"] = $this->BusinessDays->add_business_days($days=5, $date=$this->request->data["Request"]["date_received"], $format="Y-m-d H:i:s");
+/*
+      echo $this->getBccEmail();
+      exit;
+*/
+      $this->request->data["Request"]["due_date"] = $this->BusinessDays->add_business_days($days=$responseDays, $date=$this->request->data["Request"]["date_received"], $format="Y-m-d H:i:s");
       $this->request->data["Subscriber"][0]["should_notify"] = 1;
 
       //get owners for request
@@ -404,6 +410,7 @@ class RequestsController extends AppController {
                 ->emailFormat('html')
                 ->to($user["User"]["email"])
                 ->from($this->getfromEmail())
+                ->bcc($this->getBccEmail())
                 ->subject($this->getAgencyName().' Public Disclosure Request #' .$requestID)
                 ->viewVars( array(
                     'agencyName' => $this->getAgencyName(),
