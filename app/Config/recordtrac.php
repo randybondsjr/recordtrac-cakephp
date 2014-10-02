@@ -6,6 +6,7 @@ $config = array(
       'tagline' => 'your agency tagline',
       'url' => 'http://www.example.com',
       'responseDays' => '5',
-      'fromEmail' => 'web@example.com'
+      'fromEmail' => 'web@example.com',
+      'bccEmail' => 'web@example.com'
     )
 );
