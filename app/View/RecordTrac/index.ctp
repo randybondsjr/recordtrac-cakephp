@@ -50,11 +50,11 @@
 		</div>
 		
 		<div class="row">
-			<div class="col-sm-4 col-sm-offset-4">
+			<div class="col-sm-12 text-center">
 			  <?php echo $this->Html->link(
         		        "See how $agencyName's doing <span class=\"glyphicon glyphicon-arrow-down\"></span>",
           		      "#recent-requests",
-                    array('escape' => false, 'class' => 'btn btn-lg btn-block btn-primary', 'id' => 'seedata')
+                    array('escape' => false, 'class' => 'btn btn-lg btn-primary', 'id' => 'seedata')
 		      )
 		    ?>
 			</div>

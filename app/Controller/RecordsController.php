@@ -1,6 +1,8 @@
 <?php
 class RecordsController extends AppController {
 
+  public $components = array("FileSanitize");
+
   public function add() {
     if (empty($this->request->data)) {
       $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
@@ -10,6 +12,9 @@ class RecordsController extends AppController {
     if (!empty($this->request->data)) {
        $requestID = filter_var($this->request->data["Record"]["request_id"], FILTER_VALIDATE_INT);
       if ($this->Record->validates()) {
+        //clean filename
+        $this->request->data["Record"]["filename"]["name"] = $this->FileSanitize->sanitize($this->request->data["Record"]["filename"]["name"]);
+        
         // it validated logic
         if($this->Record->save($this->request->data)){
          
@@ -25,7 +30,7 @@ class RecordsController extends AppController {
             $url = filter_var($this->request->data["Record"]["access"], FILTER_SANITIZE_STRING);
           }else{
             $recordType = "file";
-            $url = Router::fullbaseUrl()."/files/record/filename/".$this->Record->id."/".rawurlencode($this->request->data["Record"]["filename"]["name"]);
+            $url = Router::fullbaseUrl()."/files/record/filename/".$this->Record->id."/".$this->request->data["Record"]["filename"]["name"];
           }
           
           //get the subscribers
