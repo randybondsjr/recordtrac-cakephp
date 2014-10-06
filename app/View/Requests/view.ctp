@@ -16,6 +16,15 @@
 	  <div class="well">
 	    <h1 class="control-widget">Request <span class="muted">#<?php  echo $request["Request"]["id"]; ?></span></h1>
 	    <?php if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2): ?>
+      <?php 
+        if($this->Session->read('Auth.User.is_admin')){
+          echo $this->Html->link(
+        		        "<span class=\"glyphicon glyphicon-pencil\"></span> Edit Request",
+          		      "edit/".$request["Request"]["id"]."/",
+                    array('escape' => false, 'class' => 'btn btn-primary pull-right', 'id' => 'seedata')
+          );
+        }
+      ?>
       <div class="rw-container">
         <div class="rw-controller-container">
           <div class="rw-controller-btns-container">
