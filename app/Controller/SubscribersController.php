@@ -1,6 +1,7 @@
 <?php
 class SubscribersController extends AppController {
   public function subscribe() {
+    App::uses('CakeEmail', 'Network/Email');
     if (empty($this->request->data)) {
       $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
     }
@@ -27,6 +28,25 @@ class SubscribersController extends AppController {
         $this->Session->setFlash('<h4>ERROR</h4><p class="lead">You\'re already subscribed to receive updates for this request.</p>', 'danger');
       }else{
         if($this->Subscriber->save($this->request->data)){
+          $requestID = $this->request->data["Subscriber"]["request_id"];
+          $subscriber = $this->Subscriber->getLastInsertID();
+          if(isset($this->request->data["User"]["email"]) && $this->request->data["User"]["email"] != ''){
+            //email requester
+            $Email = new CakeEmail();
+            $Email->template('subscribe')
+                ->emailFormat('html')
+                ->to($this->request->data["User"]["email"])
+                ->from($this->getfromEmail())
+                ->bcc($this->getBccEmail())
+                ->subject($this->getAgencyName().' Public Disclosure Request #' .$requestID)
+                ->viewVars( array(
+                    'agencyName' => $this->getAgencyName(),
+                    'page' => '/requests/view/' . $requestID,
+                    'ownerEmail' => $this->getBccEmail(),
+                    'unsubscribe' =>'/requests/unsubscribe/'.$subscriber
+                ))
+                ->send();
+          }
           $this->Session->setFlash('<h4>Success!</h4><p class="lead">You will be contacted via email at with any updates to this request.</p>', 'success');
         }
       }
