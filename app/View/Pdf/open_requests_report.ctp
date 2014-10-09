@@ -18,7 +18,7 @@ class MYPDF extends TCPDF {
         $this->setPage($page_start);
 
         // write the right cell
-        $this->MultiCell(0, 0, $right, "T:1 0 0 0", 'L', 0, 1, $this->GetX() ,$y_start, true, 0);
+        $this->MultiCell(0, 0, $right, "T:1 0 0 L:1", 'L', 0, 1, $this->GetX() ,$y_start, true, 0);
 
         $page_end_2 = $this->getPage();
         $y_end_2 = $this->GetY();
