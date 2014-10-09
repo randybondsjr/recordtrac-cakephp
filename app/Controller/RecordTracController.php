@@ -161,7 +161,6 @@ class RecordTracController extends AppController {
                   'enableAutoStep' 		=> FALSE
           )
     );
-
     $series = $this->HighCharts->addChartSeries();
     $series->addName('Days')
            ->addData($avgTimes);

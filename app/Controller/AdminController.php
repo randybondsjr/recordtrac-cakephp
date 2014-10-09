@@ -194,4 +194,14 @@ class AdminController extends AppController {
     $numberOfPosts = $this->Requests->find('all', $params);
     $this->set('months',$numberOfPosts);
   }
+  
+  public function openrequests(){
+    $this->response->type('application/pdf');
+
+    $this->loadModel("Request");
+    $requests = $this->Request->find('all', array('conditions' => array('Request.Status_id != 2'), 'order' => array('Request.id' => 'desc')));
+    $this->set(compact('requests'));
+    $this->layout = '/pdf/default';
+    $this->render('/Pdf/open_requests_report');
+  }
 }
