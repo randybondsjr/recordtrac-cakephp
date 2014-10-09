@@ -87,22 +87,9 @@ $pdf->AddPage();
 
 $pdf->SetFont('times', '', 9);
 
-//$pdf->SetCellPadding(0);
-//$pdf->SetLineWidth(2);
-
 // set color for background
 $pdf->SetFillColor(255, 255, 200);
 
-$text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed imperdiet lectus. Phasellus quis velit velit, non condimentum quam. Sed neque urna, ultrices ac volutpat vel, laoreet vitae augue. Sed vel velit erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras eget velit nulla, eu sagittis elit. Nunc ac arcu est, in lobortis tellus. Praesent condimentum rhoncus sodales. In hac habitasse platea dictumst. Proin porta eros pharetra enim tincidunt dignissim nec vel dolor. Cras sapien elit, ornare ac dignissim eu, ultricies ac eros. Maecenas augue magna, ultrices a congue in, mollis eu nulla. Nunc venenatis massa at est eleifend faucibus. Vivamus sed risus lectus, nec interdum nunc.
-
-Fusce et felis vitae diam lobortis sollicitudin. Aenean tincidunt accumsan nisi, id vehicula quam laoreet elementum. Phasellus egestas interdum erat, et viverra ipsum ultricies ac. Praesent sagittis augue at augue volutpat eleifend. Cras nec orci neque. Mauris bibendum posuere blandit. Donec feugiat mollis dui sit amet pellentesque. Sed a enim justo. Donec tincidunt, nisl eget elementum aliquam, odio ipsum ultrices quam, eu porttitor ligula urna at lorem. Donec varius, eros et convallis laoreet, ligula tellus consequat felis, ut ornare metus tellus sodales velit. Duis sed diam ante. Ut rutrum malesuada massa, vitae consectetur ipsum rhoncus sed. Suspendisse potenti. Pellentesque a congue massa.';
-
-// print some rows just as example
-/*
-for ($i = 0; $i < 10; ++$i) {
-    $pdf->MultiRow("Row \n".($i+1), $text."\n");
-}
-*/
 
 foreach($requests as $row){
   $dateReceived = date('M j, y g:ia',strtotime($row["Request"]["date_received"]));
@@ -120,13 +107,7 @@ foreach($requests as $row){
   $details .= "Department: ". $row["Department"]["name"] ."\n";
   $details .= "Owner: ". $ownerName ."\n";
   $details .= "Requester: ". $row["Requester"]["alias"] ."\n";
-/*
-  $this->Cell($w[1],7,$dateReceived,'LR',0,'L',$fill);
-  $this->Cell($w[1],7,$row["Request"]["text"],'LR',0,'L',$fill);
-  $this->Cell($w[2],7,$deptname,'LR',0,'R',$fill);
-  $this->Cell($w[3],7,$owner,'LR',0,'R',$fill);
-  $this->Cell($w[4],7,$row["Requester"]["alias"],'LR',0,'R',$fill);
-*/
+
   $pdf->MultiRow($details, $row["Request"]["text"]."\n");
 }
 
