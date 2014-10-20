@@ -43,7 +43,6 @@ class BusinessDaysComponent extends Component {
     {
       // ASSIGN RFC2822 DATE STRINGS TO EACH TIMESTAMP
       $arr[$timestamp_key] = date('r', $timestamp_key);
-      $arr[$timestamp_key] = substr($arr[$timestamp_key], 0, 13) . " 00:00:00";
   
       // REMOVE THE DAY FROM THE ARRAY IF IT IS A HOLIDAY OR WEEKEND DAY
       if (in_array($arr[$timestamp_key], $holidays)) $arr[$timestamp_key] = 'S';
