@@ -58,12 +58,10 @@
                               array('type' => 'text',
                                     'label' => 'End', 
                                     'class' => 'form-control date-picker autocomplete'));
-      if ($this->Session->read('Auth.User')){
-        echo $this->Form->input('requester',
-                              array('label' => 'Requester Name',
-                                    'class' => 'form-control',
-                                    'placeholder' => 'Requester Name'));
-      }
+      echo $this->Form->input('requester',
+                            array('label' => 'Requester Name',
+                                  'class' => 'form-control',
+                                  'placeholder' => 'Requester Name'));
       echo $this->Form->input('department_id',
                               array(
                                     'empty' => '(choose one)', 
