@@ -78,6 +78,28 @@
 	  </div>
 	</div>
 	<div class="col-sm-9">
+    
+  	<ul class="pagination pull-right">
+	    <li>
+	      <?php echo $this->Paginator->prev(
+            __('Previous'),
+            array(),
+            null,
+            array('style' => 'display: none')
+          );
+        ?>
+      </li>
+      <li>
+        <?php echo $this->Paginator->next(
+            __('Next'),
+            array(),
+            null,
+            array('style' => 'display: none')
+          );
+        ?>
+      </li>
+    </ul>
+    <p><?php echo $this->Paginator->counter('Page {:page} of {:pages}, showing {:current} records out of {:count} total');?></p>
 	  <table class="table table-striped">
       <thead>
           <tr>
