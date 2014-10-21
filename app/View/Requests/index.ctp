@@ -33,10 +33,11 @@
         
         if(empty($this->request->query)){
           $selected = array('poc','helper');
+        }elseif(!isset($this->params->data['Request']['my_filter'])){
+          $selected = '';
         }else{
           $selected = $this->request->data['Request']['my_filter'];
         }
-        
         echo $this->Form->input('my_filter',
                               array('label' => 'My Requests',
                                     'multiple' => 'checkbox',
@@ -181,3 +182,4 @@
 	  <p><?php echo $this->Paginator->counter('Page {:page} of {:pages}, showing {:current} records out of {:count} total');?></p>
 	</div>
 </div>
+ 
