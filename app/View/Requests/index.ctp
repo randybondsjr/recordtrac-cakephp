@@ -121,7 +121,6 @@
       <tbody>
         <?php 
           foreach ($results as $result){
-            //pr($result);
             echo "<tr>\n";
             if ($this->Session->read('Auth.User') && $result["Request"]["status_id"] == 4){ //overdue
               $statusClass = "danger"; 
