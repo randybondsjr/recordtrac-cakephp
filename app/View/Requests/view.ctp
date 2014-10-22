@@ -427,7 +427,15 @@
 	  <div class="well status status-<?php echo $statusClass; ?> text-center">
 	    <span class="glyphicon <?php echo $statusGlyph; ?>"></span>&nbsp; <?php echo $statusText; ?>
 	  </div>
-	  
+	  <?php 
+      if($this->Session->read('Auth.User.is_admin') && $request["Request"]["status_id"] == 2){
+        echo $this->Html->link(
+        	        "<span class=\"glyphicon glyphicon-arrow-down\"></span> Reopen Request",
+        		      "reopen/".$request["Request"]["id"]."/",
+                  array('escape' => false, 'class' => 'btn btn-block btn-primary'),"Are you sure you wish to reopen this request?"
+        );
+      }
+		?>
 	  <h4>
 	    <?php 
 	      if ($this->Session->read('Auth.User') && $request["Request"]["status_id"] != 2){

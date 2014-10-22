@@ -550,4 +550,66 @@ class RequestsController extends AppController {
       }
     }
   }
+  
+  public function reopen($id=null){
+    App::uses('CakeEmail', 'Network/Email');
+
+    $this->Request->id = $id;
+    if ($id != null){
+      $this->request->data["Request"]["status_id"] = "1";
+      $this->request->data["Request"]["modified_id"] = $this->Session->read('Auth.User.id');
+      $this->request->data["Request"]["status_updated"] = date("Y-m-d h:i:s");
+      
+      if($this->Request->save($this->request->data)){
+        $this->loadModel('Note');
+        $note = array();
+        $note["Note"]["request_id"] = $id;
+        $note["Note"]["type_id"] = 1;
+        $note["Note"]["text"] = "This request was reopened by a staff member.";
+        $note["Note"]["user_id"] = $this->Session->read('Auth.User.id');
+        if($this->Note->save($note)){
+          $requestID = filter_var($id, FILTER_VALIDATE_INT);
+          
+          //get the subscribers
+          $this->loadModel('Subscriber');
+          $subscribers = $this->Subscriber->find('all', array(
+            'conditions' => array('Subscriber.request_id' => $requestID)
+          ));
+          
+          //get the point of contact
+          $this->loadModel('Owner');
+          $owner = $this->Owner->find('first', array(
+            'conditions' => array('Owner.request_id' => $requestID)
+          ));
+  
+          foreach ($subscribers as $subscriber){
+            //make sure they are set to receive notifications, and have a valid email
+            if($subscriber["Subscriber"]["should_notify"] == 1 && $subscriber["User"]["email"] != ''){
+              //email subscriber
+              $Email = new CakeEmail();
+              $Email->template('requestupdated')
+                  ->emailFormat('html')
+                  ->to($subscriber["User"]["email"])
+                  ->from($this->getfromEmail())
+                  ->bcc($this->getBccEmail())
+                  ->subject($this->getAgencyName().' Public Disclosure Request #' .$requestID ." - Updated")
+                  ->viewVars( array(
+                      'agencyName' => $this->getAgencyName(),
+                      'page' => '/requests/view/' . $requestID,
+                      'ownerEmail' => $owner["User"]["email"],
+                      'requestID' => $requestID,
+                      'unsubscribe' =>'/requests/unsubscribe/'.$subscriber["Subscriber"]["id"],
+                      'note' => $note["Note"]["text"]
+                  ))
+                  ->send();
+            }
+          }
+        }
+        $this->Session->setFlash('<h4>The request has been reopened!</h4><p class="lead">The requester has been notified via email that the request was edited, and a note has been added to the request.</p>', 'success');
+      }else{
+        $this->Session->setFlash('<h4>Error</h4><p class="lead">Could not update request at this time.</p>', 'danger');
+      }
+      $this->redirect(array('action' => 'view', $this->Request->id)); 
+    }
+  }
 }
