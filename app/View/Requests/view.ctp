@@ -76,7 +76,7 @@
 	          echo "<div class=\"row\">\n";
 	          echo "<div class=\"col-sm-1\"><span class=\"glyphicon glyphicon-question-sign\"></span></div>\n";
 	          printf("<div class=\"col-sm-8\">%s - %s</div>\n", $question["question"], $this->Text->autoLinkEmails($user["User"]["email"], array('class' => 'muted')));
-	          printf("<div class=\"col-sm-3 text-right\">%s</div>\n",$this->Date->time_elapsed_string($question["created"]));
+	          printf("<div class=\"col-sm-3 text-right\"><span data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" rel=\"tooltip\">%s</span></div>",$this->Time->format('M jS, Y g:ia', $question["created"]),$this->Date->time_elapsed_string($question["created"]));
 	          echo "</div>\n";
 	          
 	          echo "<div class=\"row\">\n";
@@ -395,7 +395,7 @@
   	      echo "</div>";
   	      printf("<div class=\"col-sm-9\">%s</div>", $text);
   
-          printf("<div class=\"col-sm-2 text-right\">%s</div>",$this->Date->time_elapsed_string($response["created"]));
+          printf("<div class=\"col-sm-2 text-right\"><span data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" rel=\"tooltip\">%s</span></div>\n",$this->Time->format('M jS, Y g:ia', $response["created"]),$this->Date->time_elapsed_string($response["created"]));
 
   	      echo "</div>\n<hr>";
   	    }
