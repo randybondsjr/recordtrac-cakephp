@@ -383,6 +383,9 @@ class RequestsController extends AppController {
       ));
       $userConditions = array('order' => array('User.id' => 'desc'));
       
+      //clean up email if spaces exist, only used for browsers that can't use email field type
+      $this->request->data["Requester"]["email"] = str_replace(' ', '', $this->request->data["Requester"]["email"]);
+      
       //if the email exists, unset all the form vars and set the user id
 /*
       if(!empty($emailExists)){
