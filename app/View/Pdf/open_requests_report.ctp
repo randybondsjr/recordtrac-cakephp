@@ -92,7 +92,8 @@ $pdf->SetFillColor(255, 255, 200);
 
 
 foreach($requests as $row){
-  $dateReceived = date('M j, y g:ia',strtotime($row["Request"]["date_received"]));
+  $dateReceived = date('M j, Y g:ia',strtotime($row["Request"]["due_date"]));
+  $dateDue = date('M j, Y',strtotime($row["Request"]["date_received"]));
   $details = "Request Details\n\n";
   foreach ($row["Owner"] as $owner){
     if($owner["active"] == 1 && $owner["is_point_person"] == 1){
@@ -104,6 +105,7 @@ foreach($requests as $row){
   
   $details .= "ID: ". $row["Request"]["id"] ."\n";
   $details .= "Received: ". $dateReceived ."\n";
+  $details .= "Due: ". $dateDue ."\n";
   $details .= "Department: ". $row["Department"]["name"] ."\n";
   $details .= "Owner: ". $ownerName ."\n";
   $details .= "Requester: ". $row["Requester"]["alias"] ."\n";
