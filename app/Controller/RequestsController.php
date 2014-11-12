@@ -350,13 +350,6 @@ class RequestsController extends AppController {
       }
       $responseDays = $this->getResponseDays();
 
-      //if request is after five pm, push one more day on to due date
-      if(date('w') < 6){ //(only on weekdays)
-        if(substr($this->request->data["Request"]["date_received"], 11,2) >= 17){
-          $responseDays = $responseDays + 1;
-        }
-      }
-
       $this->request->data["Request"]["due_date"] = $this->BusinessDays->add_business_days($days=$responseDays, $date=$this->request->data["Request"]["date_received"], $format="Y-m-d H:i:s");
       $this->request->data["Subscriber"][0]["should_notify"] = 1;
 

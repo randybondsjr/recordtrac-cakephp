@@ -1,7 +1,7 @@
 <?php 
 class BusinessDaysTask extends Shell {
 
-    public function execute($days=0, $date="TODAY", $format="c") {
+  public function execute($days=0, $date="TODAY", $format="c") {
     // CREATE YOUR ARRAY OF HOLIDAYS
     $holidays  = array();
     $november  = strtotime(date('Y') . '-11-0');
@@ -24,6 +24,18 @@ class BusinessDaysTask extends Shell {
     // print_r($holidays);
     
     // INTERPRET THE INPUTS INTO TIMESTAMPS
+    $originalDate = $date;
+    $date = substr($date, 0, 10) . " 00:00:00";
+    
+    //if the request is after 5pm on a workday, it needs to be pushed an additional day
+    if (!in_array(date('r', strtotime($date)), $holidays)){ // only do this if it's not a holiday
+      if(date('w',strtotime($date)) < 6){ //weekdays
+        if(substr($originalDate, 11,2) >= 17){
+          $days = $days + 1;
+        }
+      }
+    }
+    
     $days = round($days);
     if ($days < 0) return FALSE;
     if (!$current   = strtotime($date)) return FALSE;
@@ -40,7 +52,7 @@ class BusinessDaysTask extends Shell {
     {
       // ASSIGN RFC2822 DATE STRINGS TO EACH TIMESTAMP
       $arr[$timestamp_key] = date('r', $timestamp_key);
-  
+
       // REMOVE THE DAY FROM THE ARRAY IF IT IS A HOLIDAY OR WEEKEND DAY
       if (in_array($arr[$timestamp_key], $holidays)) $arr[$timestamp_key] = 'S';
       if (substr($arr[$timestamp_key],0,1) == 'S') unset($arr[$timestamp_key]);
