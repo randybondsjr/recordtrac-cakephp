@@ -16,6 +16,7 @@ class RequestsController extends AppController {
     $dateQuery = '';
     $dept = '';
     $requester = '';
+    $term = '';
     $userID = $this->Session->read('Auth.User.id');
     
     //if there is a filter submitted (GET), adjust query
@@ -24,9 +25,14 @@ class RequestsController extends AppController {
       $term = filter_var($this->request->query["term"], FILTER_SANITIZE_STRING);
       $dept = filter_var($this->request->query["department_id"], FILTER_VALIDATE_INT);
       
+      if($term != ''){
+        $conditions["and"][] = "Request.Text LIKE '%$term%'";
+        $conditions["or"][] = "Request.id = $term";
+      }
+      
       if(isset($this->request->query["requester"]) && $this->request->query["requester"]!=''){
         $requester = filter_var($this->request->query["requester"], FILTER_SANITIZE_STRING);
-        $requester = "AND Requester.Alias LIKE '%$requester%'";
+        $conditions["and"][] = "Requester.Alias LIKE '%$requester%'";
       }
       
       //iterate through statuses
@@ -41,30 +47,30 @@ class RequestsController extends AppController {
           $status[] =  filter_var($statusID, FILTER_VALIDATE_INT);
         }
         $status = implode(",", $status);
-        $status = "AND Request.Status_id IN ($status)";
+        $conditions["and"][] = "Request.Status_id IN ($status)";
       }
+      
       //change dates so that we can use em
       if(isset($this->request->query["min_date"]) && $this->request->query["min_date"] != ''){
         $minDate = filter_var($this->request->query["min_date"], FILTER_SANITIZE_STRING);
         $cleanMinDate = explode("/",$minDate);
         $cleanMinDate = $cleanMinDate[2]."-".$cleanMinDate[0]."-".$cleanMinDate[1]." 00:00:00";
-        $dateQuery = "AND Request.date_received > '$cleanMinDate'";
+        $conditions["and"][] = "Request.date_received > '$cleanMinDate'";
       }
       if(isset($this->request->query["max_date"]) && $this->request->query["max_date"] != ''){
         $maxDate = filter_var($this->request->query["max_date"], FILTER_SANITIZE_STRING);
         $cleanMaxDate = explode("/",$maxDate);
         $cleanMaxDate = $cleanMaxDate[2]."-".$cleanMaxDate[0]."-".$cleanMaxDate[1]." 00:00:00";
-        $dateQuery = "AND Request.date_received < '$cleanMaxDate'";
+        $conditions["and"][] = "Request.date_received < '$cleanMaxDate'";
       }
       if(isset($cleanMaxDate) && isset($cleanMinDate)){
-        $dateQuery = "AND (Request.date_received BETWEEN '$cleanMinDate' AND '$cleanMaxDate')";
+        $conditions["and"][] = "(Request.date_received BETWEEN '$cleanMinDate' AND '$cleanMaxDate')";
       }
       
       if(isset($dept) && $dept != ''){
-        $dept = "AND Request.Department_id = $dept";
+        $conditions["and"][] = "Request.Department_id = $dept";
       }
-      
-      $conditions = array("Request.Text LIKE '%$term%' $status $dateQuery $dept $requester");
+
     }
     //if there is POST data, that's a direct link to a request
     if (!$query && $this->data) {
