@@ -122,6 +122,25 @@
     </div>
     <?php 
 	    if ($this->Session->read('Auth.User')){
+  	    echo $this->Form->create('Request', array('action' => 'updateTags','class' => 'form-horizontal'));
+        echo $this->Form->input('id',array('type' => 'hidden', 'value' => $request["Request"]["id"]));
+        echo $this->Form->input('tags',
+            array('type' => 'textarea', 
+                  'div' => 'form-group',
+                  'value' => $request["Request"]["tags"],
+                  'label' => array('class' =>'control-label col-sm-3', 'text' => 'Tags <span id="tagsTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Add tags as comma separated values to aide search. These are not visible to the users, they only help make the search more accurate."><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
+                  'class' => 'form-control',
+                  'between' => '<div class="col-sm-9">',
+                  'after' => '</div>',
+                  'rows' => 2));
+        echo $this->Form->submit(
+            'Update Tags', 
+            array('class' => 'btn btn-primary', 
+                  'title' => 'Update Tags',
+                  'div' => 'form-group', 
+                  'before' => '<div class="col-sm-9 col-sm-offset-3">',
+                  'after' => '</div>'));
+        echo $this->Form->end();
         printf("<p><small> Requester's e-mail: %s<br/> Requester's name: %s and phone number: %s</small></p>\n", $requesterEmail, $requesterAlias, $requesterPhone);
       }
     ?>

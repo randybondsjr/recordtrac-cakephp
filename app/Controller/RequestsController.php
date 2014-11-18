@@ -26,8 +26,9 @@ class RequestsController extends AppController {
       $dept = filter_var($this->request->query["department_id"], FILTER_VALIDATE_INT);
       
       if($term != ''){
-        $conditions["and"][] = "Request.Text LIKE '%$term%'";
-        $conditions["or"][] = "Request.id = $term";
+        $conditions["or"][] = "Request.Text LIKE '%$term%'";
+        $conditions["or"][] = "Request.id = '$term'";
+        $conditions["or"][] = "Request.tags LIKE '%$term%'";
       }
       
       if(isset($this->request->query["requester"]) && $this->request->query["requester"]!=''){
@@ -464,7 +465,7 @@ class RequestsController extends AppController {
           if ($this->Session->read('Auth.User')){
             $this->Session->setFlash('<h4>The request has been submitted!</h4><p class="lead">The requester has been notified via email that they can expect to hear a response from the '. $this->getAgencyName() .' in the next ' . $this->getResponseDays() . ' business days. Requester will be automatically contacted with any updates.</p>', 'success');
           }else{
-            $this->Session->setFlash('<h4>Your request has been submitted!</h4><p class="lead">You can expect a response from the  '. $this->getAgencyName() .'  in the next ' . $this->getResponseDays() . ' business days. You will be contacted via email with any updates.</p> <p class="lead">All messages from the   '. $this->getAgencyName() .' and/or the information and documents you requested will be posted to this page. You can access <a href="/requests/view/' . $requestID . '">this page</a> at any time.</p>', 'success');
+            $this->Session->setFlash('<h4>Your request has been submitted!</h4><p class="lead">You can expect a response from the  '. $this->getAgencyName() .'  in the next ' . $this->getResponseDays() . ' business days. If you have provided an email, you will be contacted via email with any updates.</p> <p class="lead">All messages from the   '. $this->getAgencyName() .' and/or the information and documents you requested will be posted to this page. You can access <a href="/requests/view/' . $requestID . '">this page</a> at any time.</p>', 'success');
           }
           $this->redirect(array('action' => 'view', $this->Request->id));
         }
@@ -614,4 +615,14 @@ class RequestsController extends AppController {
       $this->redirect(array('action' => 'view', $this->Request->id)); 
     }
   }
+  
+  public function updateTags() {
+    $this->Request->id = $this->request->data["Request"]["id"];
+    if($this->Request->saveField('tags', $this->request->data["Request"]["tags"])){
+      $this->Session->setFlash('<h4>Tags Added!</h4><p class="lead">Your tags have been added to the request.</p>', 'success');
+    }else{
+      $this->Session->setFlash('<h4>Error</h4><p class="lead">Could not update tags at this time.</p>', 'danger');
+    }
+    $this->redirect(array('action' => 'view', $this->Request->id)); 
+	}
 }
