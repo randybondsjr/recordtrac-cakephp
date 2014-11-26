@@ -79,23 +79,25 @@
 	<div class="col-sm-9">
     
   	<ul class="pagination pull-right">
-	    <li>
-	      <?php echo $this->Paginator->prev(
-            __('Previous'),
+      <li>
+      <?php echo $this->Paginator->first(
+            __('< First'),
             array(),
             null,
-            array('style' => 'display: none')
-          );
-        ?>
+            array('style' => 'display: none'));?>
+      </li>
+
+      <li>
+        <?php echo $this->Paginator->numbers(array('separator' => '', 'modulus' => 4)); ?>
       </li>
       <li>
-        <?php echo $this->Paginator->next(
-            __('Next'),
+
+      <li>
+      <?php echo $this->Paginator->last(
+            __('Last >'),
             array(),
             null,
-            array('style' => 'display: none')
-          );
-        ?>
+            array('style' => 'display: none'));?>
       </li>
     </ul>
     <p><?php echo $this->Paginator->counter('Page {:page} of {:pages}, showing {:current} records out of {:count} total');?></p>
@@ -154,24 +156,26 @@
         ?>
       </tbody>
 	  </table>
-	  <ul class="pagination pull-right">
-	    <li>
-	      <?php echo $this->Paginator->prev(
-            __('Previous'),
+    <ul class="pagination pull-right">
+      <li>
+      <?php echo $this->Paginator->first(
+            __('< First'),
             array(),
             null,
-            array('style' => 'display: none')
-          );
-        ?>
+            array('style' => 'display: none'));?>
+      </li>
+
+      <li>
+        <?php echo $this->Paginator->numbers(array('separator' => '', 'modulus' => 4)); ?>
       </li>
       <li>
-        <?php echo $this->Paginator->next(
-            __('Next'),
+
+      <li>
+      <?php echo $this->Paginator->last(
+            __('Last >'),
             array(),
             null,
-            array('style' => 'display: none')
-          );
-        ?>
+            array('style' => 'display: none'));?>
       </li>
     </ul>
     
