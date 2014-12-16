@@ -175,8 +175,8 @@ class AdminController extends AppController {
       'order' => array('created' => 'DESC')
     );
     
-    $this->loadModel('Requests');
-    $numberOfPosts = $this->Requests->find('all', $params);
+    $this->loadModel('Request');
+    $numberOfPosts = $this->Request->find('all', $params);
     $this->set('months',$numberOfPosts);
   }
   
@@ -184,21 +184,13 @@ class AdminController extends AppController {
     $this->set("title_for_layout","Request by Month Per Department Report - RecordTrac - " . $this->getAgencyName());
 
     $params = array(
-      'joins' => array( 
-        array( 
-            'table' => 'departments', 
-            'alias' => 'Department', 
-            'type' => 'inner', 
-            'foreignKey' => false, 
-            'conditions'=> array('Department.id = Requests.department_id') 
-        )),
-      'fields' => array("COUNT(Requests.id) as 'total'", "DATE_FORMAT(Requests.created, '%Y') as 'year'","DATE_FORMAT(Requests.created, '%M') as 'month', Requests.department_id, Department.name"),
-      'group' => array("department_id, DATE_FORMAT(Requests.created, '%Y%M')"),
-      'order' => array('Requests.created' => 'DESC')
+      'fields' => array("COUNT(Request.id) as 'total'", "DATE_FORMAT(Request.created, '%Y') as 'year'","DATE_FORMAT(Request.created, '%M') as 'month', Request.department_id, Department.name"),
+      'group' => array("Request.department_id, DATE_FORMAT(Request.created, '%Y%M')"),
+      'order' => array('Request.created' => 'DESC')
     );
     
-    $this->loadModel('Requests');
-    $numberOfPosts = $this->Requests->find('all', $params);
+    $this->loadModel('Request');
+    $numberOfPosts = $this->Request->find('all', $params);
     $this->set('months',$numberOfPosts);
   }
   
@@ -212,8 +204,8 @@ class AdminController extends AppController {
       'order' => array('created' => 'DESC')
     );
     
-    $this->loadModel('Requests');
-    $numberOfPosts = $this->Requests->find('all', $params);
+    $this->loadModel('Request');
+    $numberOfPosts = $this->Request->find('all', $params);
     $this->set('months',$numberOfPosts);
   }
   
@@ -221,22 +213,92 @@ class AdminController extends AppController {
     $this->set("title_for_layout","Request by Year Report - RecordTrac - " . $this->getAgencyName());
 
     $params = array(
-      'joins' => array( 
-        array( 
-            'table' => 'departments', 
-            'alias' => 'Department', 
-            'type' => 'inner', 
-            'foreignKey' => false, 
-            'conditions'=> array('Department.id = Requests.department_id') 
-        )),
-      'fields' => array("COUNT(Requests.id) as 'total'", "DATE_FORMAT(Requests.created, '%Y') as 'year', Department.name"),
-      'group' => array("department_id, DATE_FORMAT(Requests.created, '%Y')"),
-      'order' => array('Requests.created' => 'DESC')
+      'fields' => array("COUNT(Request.id) as 'total'", "DATE_FORMAT(Request.created, '%Y') as 'year', Department.name"),
+      'group' => array("Request.department_id, DATE_FORMAT(Request.created, '%Y')"),
+      'order' => array('Request.created' => 'DESC')
     );
     
-    $this->loadModel('Requests');
-    $numberOfPosts = $this->Requests->find('all', $params);
+    $this->loadModel('Request');
+    $numberOfPosts = $this->Request->find('all', $params);
     $this->set('months',$numberOfPosts);
+  }
+  
+  public function allrequestsbystaff(){
+
+    $this->loadModel('User');
+    $this->set('users',$this->User->find('list', array('conditions' => 'User.department_id IS NOT NULL', 'fields' => array('id','alias'))));
+    
+    if(!empty($this->request->data)){
+      
+      
+      $staffID = filter_var($this->request->data["Admin"]["users"], FILTER_VALIDATE_INT);
+      $this->loadModel('Request');
+      $this->Request->Behaviors->attach('Containable');
+      $this->Request->contain(array(
+                              'Owner' => array(
+                                                  'User', 
+                                                  'conditions'=>array(
+                                                                  'Owner.user_id' => $staffID), 
+                                                  ), 'Requester', 'Department'));
+      $requestsUnfiltered = $this->Request->find('all', array('order' => array('Request.created' => 'DESC')));
+      $this->Request->Behaviors->detach('Containable');
+      //pr($requestsUnfiltered);
+      $requests = array();
+      foreach($requestsUnfiltered as $request){
+        if(!empty($request["Owner"])){
+          //pr($request); 
+          $requests[] = $request;
+        }
+      }
+      //echo count($requests);
+      if(count($requests) >0){
+        $this->response->type('application/pdf');
+        $this->set(compact('requests'));
+        $this->layout = '/pdf/default';
+        $this->render('/Pdf/all_requests_by_staff_report');
+      }else{
+        $this->Session->setFlash('No requests found. Please choose another staff member.', 'danger');
+      }
+    }
+  }
+  
+  public function openrequestsbystaff(){
+
+    $this->loadModel('User');
+    $this->set('users',$this->User->find('list', array('conditions' => 'User.department_id IS NOT NULL', 'fields' => array('id','alias'))));
+    
+    if(!empty($this->request->data)){
+      
+      
+      $staffID = filter_var($this->request->data["Admin"]["users"], FILTER_VALIDATE_INT);
+      $this->loadModel('Request');
+      $this->Request->Behaviors->attach('Containable');
+      $this->Request->contain(array(
+                              'Owner' => array(
+                                                  'User', 
+                                                  'conditions'=>array(
+                                                                  'Owner.user_id' => $staffID), 
+                                                  ), 'Requester', 'Department'));
+      $requestsUnfiltered = $this->Request->find('all', array('conditions' => array('Request.Status_id != 2'), 'order' => array('Request.id' => 'desc')));
+      $this->Request->Behaviors->detach('Containable');
+      //pr($requestsUnfiltered);
+      $requests = array();
+      foreach($requestsUnfiltered as $request){
+        if(!empty($request["Owner"])){
+          //pr($request); 
+          $requests[] = $request;
+        }
+      }
+      //echo count($requests);
+      if(count($requests) >0){
+        $this->response->type('application/pdf');
+        $this->set(compact('requests'));
+        $this->layout = '/pdf/default';
+        $this->render('/Pdf/open_requests_by_staff_report');
+      }else{
+        $this->Session->setFlash('No requests found. Please choose another staff member.', 'danger');
+      }
+    }
   }
   
   public function openrequests(){
