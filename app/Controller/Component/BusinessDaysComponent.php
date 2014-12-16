@@ -11,6 +11,11 @@ class BusinessDaysComponent extends Component {
     $february  = strtotime(date('Y') . '-02-0');
     $may       = strtotime(date('Y') . '-05-0');
     $september = strtotime(date('Y') . '-09-0');
+    $november2  = strtotime(date('Y') + 1 . '-11-0');
+    $january2   = strtotime(date('Y') + 1 . '-01-0');
+    $february2  = strtotime(date('Y') + 1 . '-02-0');
+    $may2       = strtotime(date('Y') + 1 . '-05-0');
+    $september2 = strtotime(date('Y') + 1 . '-09-0');
     $nextyear  = mktime(0,0,0, 1, 1, date('Y') + 1);
     $holidays['Dr_M_L_King']  = date('r', strtotime('Third Monday', $january));
     $holidays['Independence'] = date('r', strtotime(date('Y') . '-07-04'));
@@ -22,6 +27,15 @@ class BusinessDaysComponent extends Component {
     $holidays['Memorial']  = date('r', strtotime('last Monday', $february));
     $holidays['Labor']  = date('r', strtotime('First Monday', $september));
     $holidays['Veteran']  = date('r', strtotime(date('Y') . '-11-11'));
+    $holidays['Dr_M_L_King2']  = date('r', strtotime('Third Monday', $january2));
+    $holidays['Independence2'] = date('r', strtotime(date('Y') + 1 . '-07-04'));
+    $holidays['Thanksgiving3'] = date('r', strtotime('Fourth Thursday', $november2));
+    $holidays['Thanksgiving4'] = date('r', strtotime('Fourth Friday', $november2));
+    $holidays['Christmas2']    = date('r', strtotime(date('Y') + 1 . '-12-25'));
+    $holidays['Presidents2']  = date('r', strtotime('Third Monday', $february2));
+    $holidays['Memorial2']  = date('r', strtotime('last Monday', $february2));
+    $holidays['Labor2']  = date('r', strtotime('First Monday', $september2));
+    $holidays['Veteran2']  = date('r', strtotime(date('Y') + 1 . '-11-11'));
     // ACTIVATE THIS TO SEE THE HOLIDAYS
     // print_r($holidays);
     

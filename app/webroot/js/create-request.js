@@ -8,7 +8,7 @@ $(document).ready(function(){
     });
     $("#RequesterEmail").popover({
         html: true,
-        content: "No one will be able to view your email address. We'll use it to send updates about your request.",
+        content: "This email address can be viewed by the public. We'll use it to send updates about your request.",
         placement: "bottom",
         trigger: 'focus'
     });

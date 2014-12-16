@@ -113,9 +113,9 @@
         }
         echo "<hr/>\n";
 	      if(isset($request["Request"]["offline_submission_id"]) && $request["Request"]["offline_submission_id"] != ''){
-  	      printf("<p><small>This request was submitted on behalf of %s by %s</small></p>\n", $requesterAlias, $request["Creator"]["alias"] );
+  	      printf("<p><small>This request was submitted on behalf of %s (%s) by %s</small></p>\n", $requesterAlias, $requesterEmail, $request["Creator"]["alias"]);
 	      }else{
-  	      printf("<p><small>This request was submitted by %s</small></p>\n", $requesterAlias );
+  	      printf("<p><small>This request was submitted by %s (%s)</small></p>\n", $requesterAlias, $requesterEmail );
 	      }
 	    ?>
 	    
