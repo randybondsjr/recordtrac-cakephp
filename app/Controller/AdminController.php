@@ -180,6 +180,28 @@ class AdminController extends AppController {
     $this->set('months',$numberOfPosts);
   }
   
+  public function requestsbymonthdept(){
+    $this->set("title_for_layout","Request by Month Per Department Report - RecordTrac - " . $this->getAgencyName());
+
+    $params = array(
+      'joins' => array( 
+        array( 
+            'table' => 'departments', 
+            'alias' => 'Department', 
+            'type' => 'inner', 
+            'foreignKey' => false, 
+            'conditions'=> array('Department.id = Requests.department_id') 
+        )),
+      'fields' => array("COUNT(Requests.id) as 'total'", "DATE_FORMAT(Requests.created, '%Y') as 'year'","DATE_FORMAT(Requests.created, '%M') as 'month', Requests.department_id, Department.name"),
+      'group' => array("department_id, DATE_FORMAT(Requests.created, '%Y%M')"),
+      'order' => array('Requests.created' => 'DESC')
+    );
+    
+    $this->loadModel('Requests');
+    $numberOfPosts = $this->Requests->find('all', $params);
+    $this->set('months',$numberOfPosts);
+  }
+  
   public function requestsbyyear(){
     $this->set("title_for_layout","Request by Year Report - RecordTrac - " . $this->getAgencyName());
 
@@ -188,6 +210,28 @@ class AdminController extends AppController {
       'fields' => array("COUNT(id) as 'total'", "DATE_FORMAT(created, '%Y') as 'year'"),
       'group' => array("DATE_FORMAT(created, '%Y')"),
       'order' => array('created' => 'DESC')
+    );
+    
+    $this->loadModel('Requests');
+    $numberOfPosts = $this->Requests->find('all', $params);
+    $this->set('months',$numberOfPosts);
+  }
+  
+  public function requestsbyyeardept(){
+    $this->set("title_for_layout","Request by Year Report - RecordTrac - " . $this->getAgencyName());
+
+    $params = array(
+      'joins' => array( 
+        array( 
+            'table' => 'departments', 
+            'alias' => 'Department', 
+            'type' => 'inner', 
+            'foreignKey' => false, 
+            'conditions'=> array('Department.id = Requests.department_id') 
+        )),
+      'fields' => array("COUNT(Requests.id) as 'total'", "DATE_FORMAT(Requests.created, '%Y') as 'year', Department.name"),
+      'group' => array("department_id, DATE_FORMAT(Requests.created, '%Y')"),
+      'order' => array('Requests.created' => 'DESC')
     );
     
     $this->loadModel('Requests');

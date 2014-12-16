@@ -64,7 +64,9 @@
               </a>
             <ul id="reports" class="panel-collapse collapse">
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-file\"></span> Requests by Month","/admin/requestsbymonth",array('escape' => false));?></li>
+              <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-file\"></span> Requests by Month (per Dept)","/admin/requestsbymonthdept",array('escape' => false));?></li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-file\"></span> Requests by Year","/admin/requestsbyyear",array('escape' => false));?></li>
+              <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-file\"></span> Requests by Year (per Dept)","/admin/requestsbyyeardept",array('escape' => false));?></li>
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-file\"></span> Open Requests (pdf)","/admin/openrequests",array('escape' => false));?></li>
             </ul>
           </li> 
