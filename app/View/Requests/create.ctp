@@ -21,6 +21,15 @@
                                     'label' => '<div class="alert alert-info"><span class="glyphicon glyphicon-exclamation-sign glyphicon-info"></span> Everything in this request box will be displayed publicly. <a href="/about#why">Why?</a></div>',
                                     'class' => 'form-control'));
       echo "<div id=\"not_public_record\"></div>";
+      echo "<p class=\"lead\">Select a Date Range for the Request <small class=\"department_optional\">(optional)</small></p>";
+      echo $this->Form->input('request_start',
+                            array('type' => 'text',
+                                  'label' => 'Start', 
+                                  'class' => 'form-control'));
+      echo $this->Form->input('request_end',
+                            array('type' => 'text',
+                                  'label' => 'End', 
+                                  'class' => 'form-control'));
       echo $this->Form->input('department_id',
                               array(
                                     'between' => '<p class="lead">Select a department or document type <small class="department_optional">(optional)</small></p>',

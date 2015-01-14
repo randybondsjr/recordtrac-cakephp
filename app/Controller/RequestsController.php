@@ -355,8 +355,19 @@ class RequestsController extends AppController {
         $today = date("Y-m-d H:i:s");
         $this->request->data["Request"]["date_received"] = $today;
       }
+      
+      //add dates to request if entered for request start and end
+      if((isset($this->data["Request"]["request_start"]) && $this->data["Request"]["request_start"] != '') && (isset($this->data["Request"]["request_end"]) && $this->data["Request"]["request_end"] != '')){
+        $this->request->data["Request"]["text"] = $this->request->data["Request"]["text"]."\r\nFor Date(s): ". $this->data["Request"]["request_start"]." To: ". $this->data["Request"]["request_end"];
+      }else if(isset($this->data["Request"]["request_start"]) && $this->data["Request"]["request_start"] != ''){
+        $this->request->data["Request"]["text"] = $this->request->data["Request"]["text"]."\r\nFor Date(s): From ". $this->data["Request"]["request_start"]." To: ". date("m/d/Y");
+      }else if(isset($this->data["Request"]["request_end"]) && $this->data["Request"]["request_end"] != ''){
+        $this->request->data["Request"]["text"] = $this->request->data["Request"]["text"]."\r\nFor Date(s): Ending ". $this->data["Request"]["request_end"];
+      }
+      pr($this->request->data["Request"]);
+      exit;
+      
       $responseDays = $this->getResponseDays();
-
       $this->request->data["Request"]["due_date"] = $this->BusinessDays->add_business_days($days=$responseDays, $date=$this->request->data["Request"]["date_received"], $format="Y-m-d H:i:s");
       $this->request->data["Subscriber"][0]["should_notify"] = 1;
 

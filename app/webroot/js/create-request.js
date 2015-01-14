@@ -2,7 +2,7 @@ $(document).ready(function(){
     $('.combobox').combobox();
     $("#RequestText").popover({
         html: true,
-        content: " Describe in detail the records you need. This message can be viewed by the public. Don’t reveal personal information about yourself or others.",
+        content: "Describe in detail the records you need. This message can be viewed by the public. Don’t reveal personal information about yourself or others.",
         placement: "bottom",
         trigger: 'focus'
     });
@@ -22,6 +22,18 @@ $(document).ready(function(){
         html: true,
         content: "Only employees will be able to view this information.",
         placement: "bottom",
+        trigger: 'focus'
+    });
+    $("#RequestRequestStart").popover({
+        html: true,
+        content: "Choose a date when the records you are requesting should start. If no end date is chosen, the end date for the request will be today.",
+        placement: "top",
+        trigger: 'focus'
+    });
+    $("#RequestRequestEnd").popover({
+        html: true,
+        content: "Choose a date when the records you are requesting should end. This may not be in the future.",
+        placement: "top",
         trigger: 'focus'
     });
     
