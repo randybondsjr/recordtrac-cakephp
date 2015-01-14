@@ -2,6 +2,9 @@
   $this->Html->script('readmore.min.js', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
   $this->Html->script('bootstrap-select.min', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
   $this->Html->css('bootstrap-select.min', array('inline' => false));
+  $this->Html->script('datepicker', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
+  $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js', array('inline' => false));
+  $this->Html->css('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css', array('inline' => false));
   $this->Html->script('view-request', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
   
   $requesterEmail = "<span class=\"badge\">Not Provided</span>";
@@ -303,11 +306,10 @@
                     echo $this->Form->input('days',
                           array('type' => 'text', 
                                 'div' => 'form-group',
-                                'label' => array('class' =>'control-label col-sm-3', 'text' => 'Days to Extend'), 
-                                'class' => 'form-control',
-                                'value' => '10',
+                                'label' => array('class' =>'control-label col-sm-3', 'text' => 'New Due Date'), 
+                                'class' => 'form-control date-picker',
                                 'between' => '<div class="col-sm-9">',
-                                'after' => '<p class="help-block">Business days to extend from '. $this->Time->format('F jS, Y', $request["Request"]["due_date"]) .' (due date)</p></div>'));
+                                'after' => '<p class="help-block">Request will be extended to the date chosen at 5:00pm</p></div>'));
                   ?>
                   </div>
                   <div class="modal-footer">
@@ -608,7 +610,7 @@
         </tbody>
       </table>
 	  </div>
-	  <p class="text-center muted">Received: <?php printf("<td>%s</td>\n",$this->Time->format('F jS, Y',  $request["Request"]["date_received"])); ?></p> 
+	  <p class="text-center muted">Received: <?php printf("<td>%s</td>\n",$this->Time->format('F jS, Y \a\t g:ia',  $request["Request"]["date_received"])); ?></p> 
 	  <?php 
 	    if ($this->Session->read('Auth.User')){
         printf("<p class=\"text-center\">Due: <span class=\"badge\">%s</span></p>\n", $this->Time->format('F jS, Y', $request["Request"]["due_date"]));
