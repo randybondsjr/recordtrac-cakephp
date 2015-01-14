@@ -364,8 +364,7 @@ class RequestsController extends AppController {
       }else if(isset($this->data["Request"]["request_end"]) && $this->data["Request"]["request_end"] != ''){
         $this->request->data["Request"]["text"] = $this->request->data["Request"]["text"]."\r\nFor Date(s): Ending ". $this->data["Request"]["request_end"];
       }
-      pr($this->request->data["Request"]);
-      exit;
+
       
       $responseDays = $this->getResponseDays();
       $this->request->data["Request"]["due_date"] = $this->BusinessDays->add_business_days($days=$responseDays, $date=$this->request->data["Request"]["date_received"], $format="Y-m-d H:i:s");
