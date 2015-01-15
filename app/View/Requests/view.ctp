@@ -571,12 +571,14 @@
         }
       ?>
 	  </ul>
+	  <p>
 	  <?php
 	    echo $this->Html->tag('a',
               "<span class=\"glyphicon glyphicon-time\"></span> History",
               array('id' => 'historyPopover', 'escape' => false)
             );
 	  ?>
+	  </p>
 	  <div id="history-head" class="hide">
 	    Routing History <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 	  </div>
@@ -610,7 +612,11 @@
         </tbody>
       </table>
 	  </div>
-	  <p class="text-center muted">Received: <?php printf("<td>%s</td>\n",$this->Time->format('F jS, Y \a\t g:ia',  $request["Request"]["date_received"])); ?></p> 
+	  <?php if ($this->Session->read('Auth.User')): ?>
+	  <p class="muted"><?php printf("<strong>%d</strong> staff minutes spent on request.",$timeSpent); ?></p> 
+	  <hr/>
+	  <?php endif; ?>
+	  <p class="text-center muted">Received: <?php printf("%s",$this->Time->format('F jS, Y \a\t g:ia',  $request["Request"]["date_received"])); ?></p> 
 	  <?php 
 	    if ($this->Session->read('Auth.User')){
         printf("<p class=\"text-center\">Due: <span class=\"badge\">%s</span></p>\n", $this->Time->format('F jS, Y', $request["Request"]["due_date"]));

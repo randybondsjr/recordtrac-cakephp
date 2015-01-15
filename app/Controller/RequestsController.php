@@ -271,6 +271,15 @@ class RequestsController extends AppController {
       $upload_mb = min($max_upload, $max_post, $memory_limit);
       $this->set('upload_mb', $upload_mb);
       
+      //show total staff time spent
+      $this->loadModel("Note");
+      $timeSpent = $this->Note->find('first', array('fields' => array('SUM(Note.staff_mins) AS total'), 'conditions' => array('Note.request_id' => $id)));
+      $staffTimeSpent = 0;
+      if($timeSpent[0]["total"] != NULL){
+        $staffTimeSpent = $timeSpent[0]["total"];
+      }
+      $this->set('timeSpent', $staffTimeSpent);
+      
       //list of staff for assigning helpers and point of contact
       $this->loadModel('User');
       $this->set('users',$this->User->find('list', array(
@@ -288,6 +297,7 @@ class RequestsController extends AppController {
         'conditions' => array('department_id IS NOT NULL'),
         'order' => 'User.alias'
       )));
+      
       //extend request reasons
       $this->loadModel("ExtendReason");
       $this->set("extend_reasons",$this->ExtendReason->find('list', array('fields' => array('ExtendReason.reason','ExtendReason.name'))));
