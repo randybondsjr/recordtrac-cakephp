@@ -82,8 +82,9 @@
 	<div class="col-sm-4 col-sm-offset-1">
 	  <div class="well">
 	    <h4>Example</h4>
-	    <p class="lead">I need a copy of all of Mayor Jean Deux’s emails sent to City Manager Kenobi between July 30, 2013-August 8, 2013.</p>
-	    <p class="lead">The emails should contain the words "Art+Soul festival" or "Art + Soul <?php echo $agencyName; ?>."</p>
+	    <p class="lead">I need all records for animal complaints from 3-1-14 through 4-5-14  for the address of 129 N. 2nd St., Yakima, WA 98901.</p>
+	    <p class="lead">I would like to request a police report, case number 10X01234.</p>
+	    <p class="lead">Please provide all applications and permits issued for building, SEPA Checklist/Application packet, compaction reports and inspectors’ notes regarding construction at 7500 Red Apple Lane between 08/02/2014 through 09/03/2014.</p>
 	    <h4>Tips</h4>
 	    <ul>
         <li>Don't reveal personal information, like your social security number or home address.</li>
