@@ -277,6 +277,7 @@ class AdminController extends AppController {
                               'Owner' => array(
                                                   'User', 
                                                   'conditions'=>array(
+                                                                  'Owner.active' => 1,
                                                                   'Owner.user_id' => $staffID), 
                                                   ), 'Requester', 'Department'));
       $requestsUnfiltered = $this->Request->find('all', array('conditions' => array('Request.Status_id != 2'), 'order' => array('Request.id' => 'desc')));

@@ -93,8 +93,8 @@ $pdf->SetFillColor(255, 255, 200);
 
 
 foreach($requests as $row){
-  $dateReceived = date('M j, Y g:ia',strtotime($row["Request"]["due_date"]));
-  $dateDue = date('M j, Y',strtotime($row["Request"]["date_received"]));
+  $dateReceived = date('M j, Y g:ia',strtotime($row["Request"]["date_received"]));
+  $dateDue = date('M j, Y',strtotime($row["Request"]["due_date"]));
   $details = "Request Details\n\n";
   
   $user = $this->User->getUserDetails($row["Owner"][0]["user_id"]);
