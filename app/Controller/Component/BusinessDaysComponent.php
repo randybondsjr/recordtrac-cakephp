@@ -24,7 +24,7 @@ class BusinessDaysComponent extends Component {
     $holidays['Christmas']    = date('r', strtotime(date('Y') . '-12-25'));
     $holidays['NewYear']      = date('r', $nextyear);
     $holidays['Presidents']  = date('r', strtotime('Third Monday', $february));
-    $holidays['Memorial']  = date('r', strtotime('last Monday', $february));
+    $holidays['Memorial']  = date('r', strtotime('Last Monday of May this year'));
     $holidays['Labor']  = date('r', strtotime('First Monday', $september));
     $holidays['Veteran']  = date('r', strtotime(date('Y') . '-11-11'));
     $holidays['Dr_M_L_King2']  = date('r', strtotime('Third Monday', $january2));
@@ -33,7 +33,7 @@ class BusinessDaysComponent extends Component {
     $holidays['Thanksgiving4'] = date('r', strtotime('Fourth Friday', $november2));
     $holidays['Christmas2']    = date('r', strtotime(date('Y') + 1 . '-12-25'));
     $holidays['Presidents2']  = date('r', strtotime('Third Monday', $february2));
-    $holidays['Memorial2']  = date('r', strtotime('last Monday', $february2));
+    $holidays['Memorial2']  = date('r', strtotime('Last Monday of May', $nextyear));
     $holidays['Labor2']  = date('r', strtotime('First Monday', $september2));
     $holidays['Veteran2']  = date('r', strtotime(date('Y') + 1 . '-11-11'));
     // ACTIVATE THIS TO SEE THE HOLIDAYS
@@ -58,7 +58,7 @@ class BusinessDaysComponent extends Component {
     if (!$timestamp = strtotime("$date $days DAYS")) return FALSE;
     
     // PAD THE FUTURE TO ALLOW ROOM FOR THE WEEKENDS
-    $weeks     = $days * 2 + 2;
+    $weeks     = $days * 2 + 4;
     $timestamp = strtotime("$date $weeks DAYS");
     
     // MAKE AN ARRAY OF FUTURE TIMESTAMPS AND RFC2822 DATES
