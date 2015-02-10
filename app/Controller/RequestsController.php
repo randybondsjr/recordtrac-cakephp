@@ -272,12 +272,20 @@ class RequestsController extends AppController {
       $this->set('upload_mb', $upload_mb);
       
       //show total staff time spent
+      //first from note
       $this->loadModel("Note");
       $timeSpent = $this->Note->find('first', array('fields' => array('SUM(Note.staff_mins) AS total'), 'conditions' => array('Note.request_id' => $id)));
       $staffTimeSpent = 0;
       if($timeSpent[0]["total"] != NULL){
         $staffTimeSpent = $timeSpent[0]["total"];
       }
+      //now get it from the records
+      $this->loadModel("Record");
+      $timeSpentRecord = $this->Record->find('first', array('fields' => array('SUM(Record.staff_mins) AS total'), 'conditions' => array('Record.request_id' => $id)));
+      if($timeSpentRecord[0]["total"] != NULL){
+        $staffTimeSpent = $staffTimeSpent + $timeSpentRecord[0]["total"];
+      }
+      //total time spent
       $this->set('timeSpent', $staffTimeSpent);
       
       //list of staff for assigning helpers and point of contact
