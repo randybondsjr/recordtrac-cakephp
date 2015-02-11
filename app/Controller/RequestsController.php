@@ -366,7 +366,7 @@ class RequestsController extends AppController {
       //clean up the date if this is a manual entry
       if(isset($this->data["Request"]["date_received"])){
         $cleanDate = explode("/",$this->data["Request"]["date_received"]);
-        $nowTime = date('h:i:s');
+        $nowTime = date('H:i:s');
         $cleanDate = $cleanDate[2]."-".$cleanDate[0]."-".$cleanDate[1]." ".$nowTime;
         $this->request->data["Request"]["date_received"] = $cleanDate;
       }else{
@@ -589,7 +589,7 @@ class RequestsController extends AppController {
     if ($id != null){
       $this->request->data["Request"]["status_id"] = "1";
       $this->request->data["Request"]["modified_id"] = $this->Session->read('Auth.User.id');
-      $this->request->data["Request"]["status_updated"] = date("Y-m-d h:i:s");
+      $this->request->data["Request"]["status_updated"] = date("Y-m-d H:i:s");
       
       if($this->Request->save($this->request->data)){
         $this->loadModel('Note');
