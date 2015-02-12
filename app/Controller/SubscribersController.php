@@ -1,5 +1,11 @@
 <?php
 class SubscribersController extends AppController {
+  
+  public function beforeFilter(){
+    parent::beforeFilter();
+    $this->Auth->allow('subscribe');
+  }
+  
   public function subscribe() {
     App::uses('CakeEmail', 'Network/Email');
     if (empty($this->request->data)) {
@@ -53,4 +59,5 @@ class SubscribersController extends AppController {
       $this->redirect(array('action' => 'view', 'controller' => 'requests', $this->request->data["Subscriber"]["request_id"]));
     }
 	}
+
 }

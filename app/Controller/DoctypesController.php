@@ -1,9 +1,6 @@
 <?php
 class DoctypesController extends AppController {
-  public function beforeFilter(){
-	  parent::beforeFilter();
-    $this->Auth->deny();
-  }
+
   public function index(){
     $this->set("title_for_layout","Document Types");
     $this->paginate = array(
@@ -13,6 +10,7 @@ class DoctypesController extends AppController {
     $this->Doctype->recursive = 0;
     $this->set('types', $this->paginate());
   }
+  
   public function add(){
     $this->set("title_for_layout","Add Document Type");
     $this->loadModel('Department');
@@ -29,6 +27,7 @@ class DoctypesController extends AppController {
         );
     }
   }
+  
   public function edit($id = null){
     $this->set("title_for_layout","Edit Document Type");
     $this->Doctype->id = $id;
@@ -49,4 +48,5 @@ class DoctypesController extends AppController {
         $this->request->data = $this->Doctype->read(null, $id);
     }
   }
+  
 }

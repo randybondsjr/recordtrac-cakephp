@@ -1,9 +1,6 @@
 <?php
 class ExtendreasonsController extends AppController {
-  public function beforeFilter(){
-	  parent::beforeFilter();
-    $this->Auth->deny();
-  }
+  
   public function index(){
     $this->set("title_for_layout","Extend Reasons");
     $this->paginate = array(
@@ -13,6 +10,7 @@ class ExtendreasonsController extends AppController {
     $this->Extendreason->recursive = 0;
     $this->set('reasons', $this->paginate());
   }
+  
   public function add(){
     $this->set("title_for_layout","Add Extend Reason");
 
@@ -28,6 +26,7 @@ class ExtendreasonsController extends AppController {
         );
     }
   }
+  
   public function edit($id = null){
     $this->set("title_for_layout","Edit Extend Reason");
     $this->Extendreason->id = $id;
@@ -47,4 +46,5 @@ class ExtendreasonsController extends AppController {
         $this->request->data = $this->Extendreason->read(null, $id);
     }
   }
+
 }

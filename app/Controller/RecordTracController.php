@@ -1,7 +1,15 @@
 <?php
 class RecordTracController extends AppController {
+  
+  public function beforeFilter(){
+	  parent::beforeFilter();
+    $this->Auth->allow('index');
+	}
+	
 	public $uses = array();//no model used!
+	
 	public $components = array('HighCharts.HighCharts');
+	
 	private function get_avg_response_time($deptID = null){
   	$response_time = 0;
   	$num_closed = 0;
@@ -168,4 +176,5 @@ class RecordTracController extends AppController {
 
 
   }
+  
 }

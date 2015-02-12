@@ -31,6 +31,8 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+  var $permissions = array();
+   
   public $components = array(
     'Session',
     'Auth' => array(
@@ -54,38 +56,46 @@ class AppController extends Controller {
       'authorize' => array('Controller')
     )
   );
+  
   public function beforeFilter(){
     $this->layout = 'bootstrap';
     $this->set('agencyName', Configure::read('Agency.name'));
     $this->set('agencyTag', Configure::read('Agency.tagline'));
     $this->set('agencyUrl', Configure::read('Agency.url'));
     $this->set('appUrl', Configure::read('App.url'));
-    $this->Auth->allow();
   }
-  public function isAuthorized($user) {
-    // Admin can access every action
+  
+  public function isAuthorized($user){
+    //give admins full access
     if (isset($user['is_admin']) && $user['is_admin'] == 1) {
       return true;
     }
+    //if we've set it in the permissions variable in the controller, staff can go ahead
+    if(!empty($this->permissions)){ 
+        if(in_array($this->action, $this->permissions)) return true; 
+    }
+    //default deny
+    return false;    
+  } 
 
-    // Default deny
-    return false;
-  }
   private $agencyName = ""; 
   public function getAgencyName() { 
     $this->agencyName = Configure::read('Agency.name');
     return $this->agencyName; 
   }
+  
   private $responseDays = ""; 
   public function getResponseDays() { 
     $this->responseDays = Configure::read('Agency.responseDays');
     return $this->responseDays; 
   }
+  
   private $fromEmail = ""; 
   public function getfromEmail() { 
     $this->fromEmail = Configure::read('Agency.fromEmail');
     return $this->fromEmail; 
   }
+  
   private $bccEmail = ""; 
   public function getBccEmail() { 
     $this->bccEmail = Configure::read('Agency.bccEmail');

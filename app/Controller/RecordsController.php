@@ -1,5 +1,7 @@
 <?php
 class RecordsController extends AppController {
+  
+  var $permissions = array('add'); //define allowed action for logged in users (staff)
 
   public $components = array("FileSanitize");
 
@@ -93,4 +95,5 @@ class RecordsController extends AppController {
       $this->redirect(array('action' => 'view', 'controller' => 'requests', $requestID));
     }
 	}
+
 }

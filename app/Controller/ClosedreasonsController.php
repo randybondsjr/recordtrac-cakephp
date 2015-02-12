@@ -1,9 +1,6 @@
 <?php
 class ClosedreasonsController extends AppController {
-  public function beforeFilter(){
-	  parent::beforeFilter();
-    $this->Auth->deny();
-  }
+
   public function index(){
     $this->set("title_for_layout","Closed Reasons");
     $this->paginate = array(
@@ -13,6 +10,7 @@ class ClosedreasonsController extends AppController {
     $this->Closedreason->recursive = 0;
     $this->set('reasons', $this->paginate());
   }
+  
   public function add(){
     $this->set("title_for_layout","Add Closed Reason");
     
@@ -27,6 +25,7 @@ class ClosedreasonsController extends AppController {
         );
     }
   }
+  
   public function edit($id = null){
     $this->set("title_for_layout","Edit Closed Reason");
     $this->Closedreason->id = $id;
@@ -46,4 +45,5 @@ class ClosedreasonsController extends AppController {
         $this->request->data = $this->Closedreason->read(null, $id);
     }
   }
+
 }

@@ -1,6 +1,10 @@
 <?php
 class NotesController extends AppController {
+  
+  var $permissions = array('add','extend','closeRequest'); //define allowed action for logged in users (staff)
+  
   public $components = array("BusinessDays");
+  
   public function add() {
     if (empty($this->request->data)) {
       $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
@@ -54,6 +58,7 @@ class NotesController extends AppController {
       $this->redirect(array('action' => 'view', 'controller' => 'requests', $requestID));
     }
 	}
+	
 	public function extend() {
 	  if (empty($this->request->data)) {
       $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
@@ -126,6 +131,7 @@ class NotesController extends AppController {
       $this->redirect(array('action' => 'view', 'controller' => 'requests', $requestID));
     }
 	}
+	
 	public function closeRequest(){
 	  if (empty($this->request->data)) {
       $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
@@ -185,4 +191,5 @@ class NotesController extends AppController {
       $this->redirect(array('action' => 'view', 'controller' => 'requests', $requestID));
     }
 	} 
+
 }

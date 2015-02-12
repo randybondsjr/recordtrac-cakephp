@@ -1,5 +1,13 @@
 <?php
 class QuestionsController extends AppController {
+  
+  public function beforeFilter(){
+	  parent::beforeFilter();
+    $this->Auth->allow('answer');
+	}
+  
+  var $permissions = array('ask'); //define allowed action for logged in users (staff)
+  
   public function ask() {
     if (empty($this->request->data)) {
       $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
@@ -14,6 +22,7 @@ class QuestionsController extends AppController {
       $this->redirect(array('action' => 'view', 'controller' => 'requests', $requestID));
     }
   }
+  
   public function answer(){
     if (empty($this->request->data)) {
       $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
@@ -28,4 +37,5 @@ class QuestionsController extends AppController {
       $this->redirect(array('action' => 'view', 'controller' => 'requests', $requestID));
     }
   }
+
 }

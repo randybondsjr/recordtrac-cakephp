@@ -1,5 +1,8 @@
 <?php
 class OwnersController extends AppController {
+  
+  var $permissions = array('reassignPoc','addHelper','removeHelper'); //define allowed action for logged in users (staff)
+  
   public function reassignPoc() {
     App::uses('CakeEmail', 'Network/Email');
     //no empty requests to this page
@@ -142,4 +145,5 @@ class OwnersController extends AppController {
       $this->redirect(array('controller' => 'requests', 'action' => 'view', $this->request->data["Owner"]["request_id"]));
     }
 	}
+	
 }

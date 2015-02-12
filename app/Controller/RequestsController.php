@@ -1,14 +1,15 @@
 <?php
 class RequestsController extends AppController {
-
-  public $components = array("BusinessDays","RequestHandler");
   
   public function beforeFilter(){
     parent::beforeFilter();
-    $this->Auth->deny();
     $this->Auth->allow('index','track','dateSort', 'view', 'is_public_record', 'create', 'unsubscribe');
   }
   
+  var $permissions = array('updateTags'); //define allowed action for logged in users (staff)
+  
+  public $components = array("BusinessDays","RequestHandler");
+
   public function index($query = null) {
     //variables
     $conditions = '';
@@ -653,4 +654,5 @@ class RequestsController extends AppController {
     }
     $this->redirect(array('action' => 'view', $this->Request->id)); 
 	}
+
 }

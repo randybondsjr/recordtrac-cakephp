@@ -7,10 +7,6 @@ class AdminController extends AppController {
   */
   public $components = array('HighCharts.HighCharts');
 	public $uses = array();
-	public function beforeFilter(){
-	  parent::beforeFilter();
-    $this->Auth->deny();
-	}
 
   public function index() {
     $thirtyDaysAgo = date("Y-m-d",strtotime("now -30 days") );

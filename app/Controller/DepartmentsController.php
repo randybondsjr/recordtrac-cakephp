@@ -1,9 +1,6 @@
 <?php
 class DepartmentsController extends AppController {
-  public function beforeFilter(){
-	  parent::beforeFilter();
-    $this->Auth->deny();
-  }
+
   public function index(){
     $this->paginate = array(
 			'limit' => 25,
@@ -12,6 +9,7 @@ class DepartmentsController extends AppController {
     $this->Department->recursive = 0;
     $this->set('depts', $this->paginate());
   }
+  
   public function add(){
     $this->loadModel('User');
     $this->set('contacts', $this->User->find('list', array('fields' => 'id, alias', 'conditions' => 'department_id IS NOT NULL', 'order' => 'User.alias')));
@@ -27,6 +25,7 @@ class DepartmentsController extends AppController {
         );
     }
   }
+  
   public function edit($id = null){
     $this->Department->id = $id;
     $this->loadModel('User');
@@ -47,4 +46,5 @@ class DepartmentsController extends AppController {
         $this->request->data = $this->Department->read(null, $id);
     }
   }
+
 }
