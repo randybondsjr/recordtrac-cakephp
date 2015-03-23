@@ -269,6 +269,9 @@ div.tooltip-inner {
 #subscribeHelp{
   margin-left: 10px;
 }
+.add-margin-left{
+  margin-left: 10px;
+}
 /* Tables
 -------------------------------------------------- */
 th a.asc:after {
