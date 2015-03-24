@@ -12,7 +12,7 @@ class RecordsController extends AppController {
     App::uses('CakeEmail', 'Network/Email');
     
     if (!empty($this->request->data)) {
-       $requestID = filter_var($this->request->data["Record"]["request_id"], FILTER_VALIDATE_INT);
+      $requestID = filter_var($this->request->data["Record"]["request_id"], FILTER_VALIDATE_INT);
       if ($this->Record->validates()) {
         //clean filename
         $this->request->data["Record"]["filename"]["name"] = $this->FileSanitize->sanitize($this->request->data["Record"]["filename"]["name"]);
@@ -95,5 +95,40 @@ class RecordsController extends AppController {
       $this->redirect(array('action' => 'view', 'controller' => 'requests', $requestID));
     }
 	}
+  public function remove($id, $requestID){
+    //clean variables
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+    $requestID = filter_var($requestID, FILTER_VALIDATE_INT);
+    
+    //if you don't belong, go 
+    if($id == null || $requestID == null || !$this->Session->read("Auth.User.is_admin")){
+      $this->redirect(array('action' => 'index','controller'=> 'recordtrac'));
+    }
+    
+    //load data 
+    $record = $this->Record->find('first', array('conditions' => array('Record.id' => $id)));
+    
+    //get the subscribers
+    $this->loadModel('Subscriber');
+    $subscribers = $this->Subscriber->find('all', array(
+      'conditions' => array('Subscriber.request_id' => $requestID)
+    ));
 
+    //get the point of contact
+    $this->loadModel('Owner');
+    $owner = $this->Owner->find('first', array(
+      'conditions' => array('Owner.request_id' => $requestID)
+    ));
+    
+    $this->loadModel('Note');
+    $note["Note"]["text"] = "A record entitled \"".$record["Record"]["description"]."\" has been removed for further review.";
+    $note["Note"]["request_id"] = $requestID;
+    $note["Note"]["user_id"] = $this->Session->read("Auth.User.id");
+    $note["Note"]["staff_mins"] = 0;
+    $note["Note"]["type_id"] = 1;
+    
+    $this->Note->save($note);
+    
+    pr($record);
+  }
 }
