@@ -7,7 +7,6 @@ class Record extends AppModel {
           'thumbnails' => false
         )
     )
-    
   );
  	public $validate = array(
     'description' => array(
