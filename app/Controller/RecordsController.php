@@ -96,6 +96,8 @@ class RecordsController extends AppController {
     }
 	}
   public function remove($id, $requestID){
+    App::uses('CakeEmail', 'Network/Email');
+    
     //clean variables
     $id = filter_var($id, FILTER_VALIDATE_INT);
     $requestID = filter_var($requestID, FILTER_VALIDATE_INT);
@@ -129,6 +131,31 @@ class RecordsController extends AppController {
     
     $this->Note->save($note);
     
-    pr($record);
+    if($this->Record->delete($id)){
+      foreach ($subscribers as $subscriber){
+        //make sure they are set to receive notifications, and have a valid email
+        if($subscriber["Subscriber"]["should_notify"] == 1 && $subscriber["User"]["email"] != ''){
+          //email subscriber
+          $Email = new CakeEmail();
+          $Email->template('requestupdated')
+              ->emailFormat('html')
+              ->to($subscriber["User"]["email"])
+              ->from($this->getfromEmail())
+              ->bcc($this->getBccEmail())
+              ->subject($this->getAgencyName().' Public Disclosure Request #' .$requestID ." - Updated")
+              ->viewVars( array(
+                  'agencyName' => $this->getAgencyName(),
+                  'page' => '/requests/view/' . $requestID,
+                  'ownerEmail' => $owner["User"]["email"],
+                  'requestID' => $requestID,
+                  'unsubscribe' =>'/requests/unsubscribe/'.$subscriber["Subscriber"]["id"],
+                  'note' => $note["Note"]["text"]
+              ))
+              ->send();
+        }
+      }
+      $this->Session->setFlash("<h4>Success</h4><p>A file entitled '".$record["Record"]["description"]."' has been removed. Subscribers have been notified.</p>", 'success');
+      $this->redirect(array('action' => 'view', 'controller' => 'requests', $requestID));
+    }
   }
 }
