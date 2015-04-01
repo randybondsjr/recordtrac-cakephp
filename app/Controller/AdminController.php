@@ -1,10 +1,14 @@
 <?php
 class AdminController extends AppController {
-  /**
-  * This controller does not use a model
-  *
-  * @var array
-  */
+  //define allowed action for logged in users (staff)
+  var $permissions = array('index',
+                           'requestsbymonth',
+                           'requestsbymonthdept',
+                           'requestsbyyear',
+                           'requestsbyyeardept',
+                           'allrequestsbystaff',
+                           'openrequestsbystaff',
+                           'openrequests'); 
   public $components = array('HighCharts.HighCharts');
 	public $uses = array();
 

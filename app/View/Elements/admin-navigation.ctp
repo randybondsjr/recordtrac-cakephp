@@ -21,6 +21,7 @@
       <div class="collapse navbar-collapse" id="adminnav">
         <ul class="nav nav-stacked" id="menu-bar">
           <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-dashboard\"></span> Dashboard","/admin",array('escape' => false));?></li>
+          <?php if($this->Session->read('Auth.User.is_admin') == 1): ?>
           <li class="panel dropdown">
             <a data-toggle="collapse" data-parent="#menu-bar" href="#requests">
                 <span class="glyphicon glyphicon-folder-open"></span>&nbsp; Requests <span class="caret"></span>
@@ -58,6 +59,7 @@
               <li><?php echo $this->Html->link("<span class=\"glyphicon glyphicon-search\"></span> Manage All Users","/users",array('escape' => false));?></li>
             </ul>
           </li>
+          <?php endif; ?>
           <li class="panel dropdown">
             <a data-toggle="collapse" data-parent="#menu-bar" href="#reports">
                 <span class="glyphicon glyphicon-tasks"></span> Reports <span class="caret"></span>
