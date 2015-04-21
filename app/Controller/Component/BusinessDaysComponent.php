@@ -45,7 +45,7 @@ class BusinessDaysComponent extends Component {
     
     //if the request is after 5pm on a workday, it needs to be pushed an additional day
     if (!in_array(date('r', strtotime($date)), $holidays)){ // only do this if it's not a holiday
-      if(date('w',strtotime($date)) < 6){ //weekdays
+      if(date('w',strtotime($date)) != 6 && date('w',strtotime($date)) != 0){ //weekends
         if(substr($originalDate, 11,2) >= 17){
           $days = $days + 1;
         }
