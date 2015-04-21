@@ -59,6 +59,7 @@
       echo "<p class=\"lead\">Contact Information</p>";
       echo $this->Form->input('Requester.email',
                               array('type' => 'email', 
+                                    'pattern'=> '[^ @]*@[^ @]*',
                                     'placeholder' => 'name@example.com',
                                     'label' => $labelPerson. ' email', 
                                     'class' => 'form-control'));
