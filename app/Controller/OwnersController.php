@@ -25,7 +25,7 @@ class OwnersController extends AppController {
       // if this is set, it will update rather than insert, but need to set later
       $ownerID = $this->request->data["Owner"]["owner_id"];
       unset($this->request->data["Owner"]["owner_id"]); 
-      
+
       //save the new helper
       if ($this->Owner->save($this->request->data)) {
         //email new POC
@@ -41,10 +41,12 @@ class OwnersController extends AppController {
                 'responseDays' => $this->getResponseDays()
             ))
             ->send();
+        
         //Update prev owner to not active and save reason
         $this->request->data["Owner"]["owner_id"] = $ownerID;
         $this->request->data["Owner"]["reason_unassigned"] = $this->request->data["Owner"]["reason"]; 
         unset($this->request->data["Owner"]["reason"]);
+        unset($this->request->data["Owner"]["user_id"]);
         $this->request->data["Owner"]["active"] = 0;
         $this->Owner->id = $this->request->data["Owner"]["owner_id"];
         //update the prev owner and redirect back to request
