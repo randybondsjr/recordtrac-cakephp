@@ -420,7 +420,17 @@
     	      }elseif(isset($response["url"]) && $response["url"] != '') { 
     	        echo "<span class=\"glyphicon glyphicon-link\"></span>";
     	        $text = sprintf("<a href=\"%s\" target=\"_blank\">%s <span class=\"glyphicon glyphicon-new-window\"></span></a>",$response["url"],$response["description"]);
-              
+              if ($this->Session->read('Auth.User')){
+                $text .= $this->Html->link(
+                                      "<span class=\"glyphicon glyphicon-remove\"></span>",
+                                      array(
+                                        "controller" => "records",
+                                        "action" => "remove/".$response["id"]."/".$request["Request"]["id"]."/"
+                                      ),
+                                      array('escape' => false, 'class' => 'btn btn-danger btn-xs add-margin-left'),
+                                      "Are you sure you wish to remove this record?\nA note will be added to the request."
+                                  );
+              }
     	      }elseif(isset($response["access"]) && $response["access"] != '') { 
               echo "<span class=\"glyphicon glyphicon-book\"></span>";
               $text = sprintf("<span class=\"longdescription\">%s</span>", nl2br($response["description"]));
