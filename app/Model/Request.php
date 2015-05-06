@@ -61,7 +61,6 @@ class Request extends AppModel {
           'message' => 'Please provide more details so that we may complete your request quickly.'
       )
     )
-
   );
 	
 }
