@@ -32,7 +32,7 @@
                                   'class' => 'form-control'));
       echo $this->Form->input('department_id',
                               array(
-                                    'between' => '<p class="lead">Select a department or document type <small class="department_optional">(optional)</small></p>',
+                                    'between' => '<p class="lead">Select a department or document type</p>',
                                     'empty' => '(choose one)', 
                                     'label' => '', 
                                     'class' => 'form-control combobox'));
@@ -65,12 +65,12 @@
       echo $this->Form->input('Requester.alias',
                               array('type' => 'text', 
                                     'placeholder' => $labelPerson. ' Name',
-                                    'label' => $labelPerson. ' Name <small>(optional)</small>', 
+                                    'label' => $labelPerson. ' Name', 
                                     'class' => 'form-control'));
       echo $this->Form->input('Requester.phone',
                               array('type' => 'text', 
                                     'placeholder' => '(509) 555-1234',
-                                    'label' => $labelPerson. ' Phone Number <small>(optional)</small>', 
+                                    'label' => $labelPerson. ' Phone Number', 
                                     'class' => 'form-control'));
       echo $this->Form->submit(
           'Submit My Request', 

@@ -14,9 +14,23 @@ class User extends AppModel {
     'email' => array(
       'rule1' => array(
         'rule'    => 'email',
-        'message' => 'Please enter a valid email address',
+        'message' => 'Please enter a valid email address'/*
+,
         'allowEmpty' => true    // we'll also accept an empty string
+*/
        )
+    ),
+    'alias' => array(
+        'required' => array(
+            'rule' => 'notEmpty',
+            'message' => 'This field is required'
+        )
+    ),
+    'phone' => array(
+        'required' => array(
+            'rule' => 'notEmpty',
+            'message' => 'This field is required'
+        )
     )
   );
   
