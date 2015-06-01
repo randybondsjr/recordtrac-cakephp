@@ -10,7 +10,7 @@
   $requesterEmail = "<span class=\"badge\">Not Provided</span>";
   $requesterAlias = "<span class=\"badge\">Name Not Provided</span>";
   $requesterPhone = "<span class=\"badge\">Not Provided</span>";
-  if($request["Requester"]["email"] != ""){ $requesterEmail = $this->Text->autoLinkEmails($request["Requester"]["email"]); }
+  if($request["Requester"]["email"] != ""){ $requesterEmail = $this->EmailObfuscate->hideEmail($request["Requester"]["email"]); }
   if($request["Requester"]["alias"] != ""){ $requesterAlias = "<strong>".$request["Requester"]["alias"]."</strong>"; }
   if($request["Requester"]["phone"] != ""){ $requesterPhone = "<strong>".$request["Requester"]["phone"]."</strong>"; }
 ?>

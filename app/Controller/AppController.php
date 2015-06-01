@@ -76,7 +76,7 @@ class AppController extends Controller {
     }
     //default deny
     return false;    
-  } 
+  }
 
   private $agencyName = ""; 
   public function getAgencyName() { 
@@ -101,4 +101,5 @@ class AppController extends Controller {
     $this->bccEmail = Configure::read('Agency.bccEmail');
     return $this->bccEmail; 
   }
+  
 }
