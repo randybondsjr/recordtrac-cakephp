@@ -40,6 +40,11 @@ class Request extends AppModel {
           'className' => 'Note',
           'foreignKey' => 'request_id'
     ),
+    'InternalNote' => array(
+          'className' => 'InternalNote',
+          'foreignKey' => 'request_id',
+          'order' => array('InternalNote.created' => 'DESC'),
+    ),
     'Question' => array(
           'className' => 'Question',
           'foreignKey' => 'request_id'

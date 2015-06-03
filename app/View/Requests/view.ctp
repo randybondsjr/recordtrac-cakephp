@@ -53,7 +53,7 @@
                 array('type' => 'textarea', 
                       'div' => 'form-group',
                       'placeholder' => 'Add the requester a question',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Question <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Use this space to ask a question about the request. The question will be posted online to be viewed by the public."><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Question <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="Use this space to ask a question about the request. The question will be posted online to be viewed by the public."><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
                       'class' => 'form-control',
                       'between' => '<div class="col-sm-9">',
                       'after' => '</div>',
@@ -131,7 +131,7 @@
             array('type' => 'textarea', 
                   'div' => 'form-group',
                   'value' => $request["Request"]["tags"],
-                  'label' => array('class' =>'control-label col-sm-3', 'text' => 'Tags <span id="tagsTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Add tags as comma separated values to aide search. These are not visible to the users, they only help make the search more accurate."><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
+                  'label' => array('class' =>'control-label col-sm-3', 'text' => 'Tags <span id="tagsTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="Add tags as comma separated values to aide search. These are not visible to the users, they only help make the search more accurate."><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
                   'class' => 'form-control',
                   'between' => '<div class="col-sm-9">',
                   'after' => '</div>',
@@ -145,6 +145,68 @@
                   'after' => '</div>'));
         echo $this->Form->end();
         printf("<p><small> Requester's e-mail: %s<br/> Requester's name: %s and phone number: %s</small></p>\n", $requesterEmail, $requesterAlias, $requesterPhone);
+        echo "<h3 class=\"control-widget\">Internal Notes</h3>";
+      ?>
+      <div class="rw-container">
+        <div class="rw-controller-container">
+          <div class="rw-controller-btns-container">
+            <div class="rw-btn-wrap" data-target="5">
+              <div class="rw-btn"><span class="glyphicon glyphicon-edit"></span></div><div class="rw-btn-expand">Add Internal Note</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rw-actions-container"> 
+      <!-- Add Internal note -->
+        <div class="target-for" data-target-for="5">
+          <?php
+            echo $this->Form->create('InternalNote', array('action' => 'add', 'class' => 'form-horizontal'));
+            echo $this->Form->input('created_by',array('type' => 'hidden', 'value' => $this->Session->read('Auth.User.id')));
+            echo $this->Form->input('request_id',array('type' => 'hidden', 'value' => $request["Request"]["id"]));
+            echo $this->Form->input('text',
+                array('type' => 'textarea', 
+                      'div' => 'form-group',
+                      'placeholder' => 'Internal Note',
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Internal Note <span rel="tooltip" data-toggle="tooltip" data-placement="right" title="Use this space to add an internal note, this will not be visible to the public."><small><span class="glyphicon glyphicon-exclamation-sign"></span></small></span>'), 
+                      'class' => 'form-control',
+                      'between' => '<div class="col-sm-9">',
+                      'after' => '</div>',
+                      'rows' => 3));
+            echo $this->Form->submit(
+                'Add Internal Note', 
+                array('class' => 'btn btn-primary', 
+                      'title' => 'Add Internal Note',
+                      'div' => 'form-group', 
+                      'before' => '<div class="col-sm-9 col-sm-offset-3">',
+                      'after' => '</div>'));
+            echo $this->Form->end();
+          ?>
+        </div>
+      </div>
+      <?php
+  	    if(!empty($request["InternalNote"])){
+    	    foreach($request["InternalNote"] as $internalNote){
+      	    echo "<div class=\"row\">\n";
+            echo "<div class=\"col-sm-1\">\n";
+      	    echo "<span class=\"glyphicon glyphicon-edit\"></span>\n";
+      	    echo "</div>\n";
+            $text = sprintf("<span class=\"longdescription\">%s</span><br/><small>- %s</small>",nl2br($internalNote["text"]),$internalNote["Creator"]["alias"]);
+            printf("<div class=\"col-sm-8\">%s</div>", $text);
+            printf("<div class=\"col-sm-3 text-right\"><span data-toggle=\"tooltip\" data-placement=\"right\" title=\"%s\" rel=\"tooltip\">%s</span>\n",$this->Time->format('M jS, Y g:ia', $internalNote["created"]),$this->Date->time_elapsed_string($internalNote["created"]));
+                        echo $this->Html->link(
+                                      "<span class=\"glyphicon glyphicon-remove\"></span>",
+                                      array(
+                                        "controller" => "internal_notes",
+                                        "action" => "remove/".$internalNote["id"]."/".$internalNote["request_id"]."/"
+                                      ),
+                                      array('escape' => false, 'class' => 'btn btn-danger btn-xs'),
+                                      "Are you sure you wish to remove this Internal Note?\nTHIS CANNOT BE UNDONE."
+                                  );
+            echo "</div></div>\n<hr>";
+    	    }
+  	    }else{
+    	    echo "<p><em>No internal notes</em></p>";
+  	    }
       }
     ?>
 	  <h3 class="control-widget">Response</h3>
@@ -187,7 +249,7 @@
                 array('type' => 'textarea', 
                       'div' => 'form-group',
                       'placeholder' => 'Add a short explanation of the record',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Name of Record <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Name the record you are about to upload. We’ll post your title online and it can be viewed by the public. "><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Name of Record <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="Name the record you are about to upload. We’ll post your title online and it can be viewed by the public. "><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
                       'class' => 'form-control',
                       'between' => '<div class="col-sm-9">',
                       'after' => '</div>',
@@ -195,14 +257,14 @@
             echo $this->Form->input('filename',
                 array('type' => 'file', 
                       'div' => 'form-group',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Upload a File <span id="recordTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Upload a record stored on your computer. The record will be uploaded and the public will be able to read and download it here."><span class="glyphicon glyphicon-exclamation-sign"></span></span>'), 
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Upload a File <span id="recordTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="Upload a record stored on your computer. The record will be uploaded and the public will be able to read and download it here."><span class="glyphicon glyphicon-exclamation-sign"></span></span>'), 
                       'class' => 'form-control',
                       'between' => '<div class="col-sm-9">',
                       'after' => '<p class="help-block">Maximum Upload File Size: '.$upload_mb.'MB</p></div>'));
             echo $this->Form->input('url',
                 array('type' => 'text', 
                       'div' => 'form-group',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Or Provide a Link to the Record <span rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Provide the web address of where a requester can find the information or documents. The link will be posted online for the public to view."><span class="glyphicon glyphicon-exclamation-sign"></span></span>'), 
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Or Provide a Link to the Record <span rel="tooltip" data-toggle="tooltip" data-placement="right" title="Provide the web address of where a requester can find the information or documents. The link will be posted online for the public to view."><span class="glyphicon glyphicon-exclamation-sign"></span></span>'), 
                       'class' => 'form-control',
                       'between' => '<div class="col-sm-9">',
                       'after' => '</div>'));
@@ -210,7 +272,7 @@
                 array('type' => 'textarea', 
                       'div' => 'form-group',
                       'placeholder' => 'Add a short explanation of the record',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Or indicate how the record can be accessed offline <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="How can the requester get this record?  Ex. Sent via mail on a CD, Print out awaiting requester at City Clerk desk"><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Or indicate how the record can be accessed offline <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="How can the requester get this record?  Ex. Sent via mail on a CD, Print out awaiting requester at City Clerk desk"><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
                       'class' => 'form-control',
                       'placeholder' => 'How can the requester get this record?  Ex. "Sent via mail on a CD", "Print out awaiting requester at City Clerk desk"',
                       'between' => '<div class="col-sm-9">',
@@ -219,7 +281,7 @@
             echo $this->Form->input('staff_mins',
                 array('type' => 'text', 
                       'div' => 'form-group',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Minutes of Staff Time Spent <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Enter the minutes spent by staff on this part of the request"><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Minutes of Staff Time Spent <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="Enter the minutes spent by staff on this part of the request"><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
                       'class' => 'form-control',
                       'between' => '<div class="col-sm-9">',
                       'after' => '</div>'));
@@ -244,7 +306,7 @@
                 array('type' => 'textarea', 
                       'div' => 'form-group',
                       'placeholder' => 'Anything else the requester should know.',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Note <span rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Use this space to provide an update about the request. We\'ll post your question online to be viewed by the public. The requester will be notified via email."><small><span class="glyphicon glyphicon-exclamation-sign"></span></small></span>'), 
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Note <span rel="tooltip" data-toggle="tooltip" data-placement="right" title="Use this space to provide an update about the request. The note will be posted online to be viewed by the public. The requester will be notified via email."><small><span class="glyphicon glyphicon-exclamation-sign"></span></small></span>'), 
                       'class' => 'form-control',
                       'between' => '<div class="col-sm-9">',
                       'after' => '</div>',
@@ -252,7 +314,7 @@
             echo $this->Form->input('staff_mins',
                 array('type' => 'text', 
                       'div' => 'form-group',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Minutes of Staff Time Spent <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Enter the minutes spent by staff on this part of the request"><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Minutes of Staff Time Spent <span id="offlinedocTooltip" rel="tooltip" data-toggle="tooltip" data-placement="right" title="Enter the minutes spent by staff on this part of the request"><span class="glyphicon glyphicon-exclamation-sign"></span>'), 
                       'class' => 'form-control',
                       'between' => '<div class="col-sm-9">',
                       'after' => '</div>'));
@@ -277,7 +339,7 @@
                 array('options' => $extend_reasons,
                       'multiple' => true,
                       'div' => 'form-group',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Reason <span rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Use this feature to indicate you need more time to respond to this request. Your message will be posted online for the public to view."><span class="glyphicon glyphicon-exclamation-sign"></span></span>'), 
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Reason <span rel="tooltip" data-toggle="tooltip" data-placement="right" title="Use this feature to indicate you need more time to respond to this request. Your message will be posted online for the public to view."><span class="glyphicon glyphicon-exclamation-sign"></span></span>'), 
                       'class' => 'form-control selectpicker',
                       'between' => '<div class="col-sm-9">',
                       'after' => '</div>'));
@@ -341,7 +403,7 @@
                 array('options' => $closed_reasons,
                       'multiple' => true,
                       'div' => 'form-group',
-                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Reason <span rel="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Use this feature to close out this request. Your message will be posted online for the public to view."><span class="glyphicon glyphicon-exclamation-sign"></span></span>'), 
+                      'label' => array('class' =>'control-label col-sm-3', 'text' => 'Reason <span rel="tooltip" data-toggle="tooltip" data-placement="right" title="Use this feature to close out this request. Your message will be posted online for the public to view."><span class="glyphicon glyphicon-exclamation-sign"></span></span>'), 
                       'class' => 'form-control selectpicker',
                       'between' => '<div class="col-sm-9">',
                       'after' => '</div>'));
