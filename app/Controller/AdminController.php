@@ -223,6 +223,71 @@ class AdminController extends AppController {
     $this->set('months',$numberOfPosts);
   }
   
+  public function allrequestsbyrequester(){
+    
+    if(!empty($this->request->data)){
+
+      $term = filter_var($this->request->data["Admin"]["term"], FILTER_SANITIZE_STRING);
+      $this->loadModel('Request');
+      //lookup by name
+      $this->Request->Behaviors->attach('Containable');
+      $this->Request->contain(array(
+                              'Owner', 
+                              'Requester' => array(
+                                                
+                                                  'conditions'=>array(
+                                                                  'Requester.alias LIKE \'%'.$term.'%\''), 
+                                                  ), 
+                              'Department'));
+      $requestsUnfiltered = $this->Request->find('all', array('order' => array('Request.created' => 'DESC')));
+      $this->Request->Behaviors->detach('Containable');
+
+      $requests = array();
+      foreach($requestsUnfiltered as $request){
+        if(!empty($request["Requester"]["id"])){
+          $requests[] = $request;
+        }
+      }
+      //look up by email
+      $this->Request->Behaviors->attach('Containable');
+      $this->Request->contain(array(
+                              'Owner', 
+                              'Requester' => array(
+                                                
+                                                  'conditions'=>array(
+                                                                  'Requester.email LIKE \'%'.$term.'%\''), 
+                                                  ), 
+                              'Department'));
+      $requestsEmails = $this->Request->find('all', array('order' => array('Request.created' => 'DESC')));
+      $this->Request->Behaviors->detach('Containable');
+      //cleanup
+      foreach($requestsEmails as $request){
+        if(!empty($request["Requester"]["id"])){
+          $recordExists = false; //check for duplicates
+          foreach($requests as $checkRequest){
+            if($request["Request"]["id"] == $checkRequest["Request"]["id"]){
+              $recordExists = true;
+            }
+          }
+          if($recordExists == false){
+
+          $requests[] = $request;
+          }
+        }
+      }
+
+      if(count($requests) > 0){
+        $this->response->type('application/pdf');
+        $this->set(compact('requests'));
+        $this->set('term',$term);
+        $this->layout = '/pdf/default';
+        $this->render('/Pdf/all_requests_by_requester_report');
+      }else{
+        $this->Session->setFlash('No requests found. Please try searching by another name or email.', 'danger');
+      }
+    }
+  }
+  
   public function allrequestsbystaff(){
 
     $this->loadModel('User');
