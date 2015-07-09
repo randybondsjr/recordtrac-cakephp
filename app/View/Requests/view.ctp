@@ -6,7 +6,7 @@
   $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js', array('inline' => false));
   $this->Html->css('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css', array('inline' => false));
   $this->Html->script('view-request', array('inline' => false)); //this adds js to this page put these files in /app/webroot/js
-  
+
   $requesterEmail = "<span class=\"badge\">Not Provided</span>";
   $requesterAlias = "<span class=\"badge\">Name Not Provided</span>";
   $requesterPhone = "<span class=\"badge\">Not Provided</span>";
