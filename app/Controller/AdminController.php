@@ -8,7 +8,8 @@ class AdminController extends AppController {
                            'requestsbyyeardept',
                            'allrequestsbystaff',
                            'openrequestsbystaff',
-                           'openrequests'); 
+                           'openrequests',
+                           'allrequestsbyrequester'); 
   public $components = array('HighCharts.HighCharts');
 	public $uses = array();
 
@@ -345,7 +346,7 @@ class AdminController extends AppController {
                                                                   'Owner.active' => 1,
                                                                   'Owner.user_id' => $staffID), 
                                                   ), 'Requester', 'Department'));
-      $requestsUnfiltered = $this->Request->find('all', array('conditions' => array('Request.Status_id != 2'), 'order' => array('Request.id' => 'desc')));
+      $requestsUnfiltered = $this->Request->find('all', array('conditions' => array('Request.Status_id != 2'), 'order' => array('Request.due_date' => 'desc')));
       $this->Request->Behaviors->detach('Containable');
       //pr($requestsUnfiltered);
       $requests = array();
