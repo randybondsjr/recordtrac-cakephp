@@ -32,7 +32,7 @@
                                   'class' => 'form-control'));
       echo $this->Form->input('department_id',
                               array(
-                                    'between' => '<p class="lead">Select a department or document type <small class="department_optional">(optional)</small></p>',
+                                    'between' => '<p class="lead">Select a department or document type</p>',
                                     'empty' => '(choose one)', 
                                     'label' => '', 
                                     'class' => 'form-control combobox'));
@@ -58,20 +58,19 @@
       
       echo "<p class=\"lead\">Contact Information</p>";
       echo $this->Form->input('Requester.email',
-                              array('type' => 'email', 
-                                    'pattern'=> '[^ @]*@[^ @]*',
+                              array('type' => 'text',
                                     'placeholder' => 'name@example.com',
                                     'label' => $labelPerson. ' email', 
                                     'class' => 'form-control'));
       echo $this->Form->input('Requester.alias',
                               array('type' => 'text', 
                                     'placeholder' => $labelPerson. ' Name',
-                                    'label' => $labelPerson. ' Name <small>(optional)</small>', 
+                                    'label' => $labelPerson. ' Name', 
                                     'class' => 'form-control'));
       echo $this->Form->input('Requester.phone',
                               array('type' => 'text', 
                                     'placeholder' => '(509) 555-1234',
-                                    'label' => $labelPerson. ' Phone Number <small>(optional)</small>', 
+                                    'label' => $labelPerson. ' Phone Number', 
                                     'class' => 'form-control'));
       echo $this->Form->submit(
           'Submit My Request', 
@@ -81,6 +80,12 @@
     ?>
 	</div>
 	<div class="col-sm-4 col-sm-offset-1">
+  	<div class="alert alert-danger">
+    	<h4>Reminder</h4>
+    	<p class="lead">Making a false or misleading statement to a public servant is a misdemeanor.</p>
+    	<p><strong>RCW 9A.76.175</strong></p>
+    	<p>A person who knowingly makes a false or misleading material statement to a public servant is guilty of a gross misdemeanor. "Material statement" means a written or oral statement reasonably likely to be relied upon by a public servant in the discharge of his or her official powers or duties.</p>
+  	</div>
 	  <div class="well">
 	    <h4>Example</h4>
 	    <p class="lead">I need all records for animal complaints from 3-1-14 through 4-5-14  for the address of 129 N. 2nd St., Yakima, WA 98901.</p>

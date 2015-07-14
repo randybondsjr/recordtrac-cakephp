@@ -40,6 +40,11 @@ class Request extends AppModel {
           'className' => 'Note',
           'foreignKey' => 'request_id'
     ),
+    'InternalNote' => array(
+          'className' => 'InternalNote',
+          'foreignKey' => 'request_id',
+          'order' => array('InternalNote.created' => 'DESC'),
+    ),
     'Question' => array(
           'className' => 'Question',
           'foreignKey' => 'request_id'
@@ -61,7 +66,6 @@ class Request extends AppModel {
           'message' => 'Please provide more details so that we may complete your request quickly.'
       )
     )
-
   );
 	
 }

@@ -230,12 +230,13 @@ class RequestsController extends AppController {
   }
   
   public function view($id = null){
+    $id = filter_var($id, FILTER_VALIDATE_INT);
     $this->Request->id = $id;
     if (!$this->Request->exists()) {
       throw new NotFoundException(__('Invalid Request ID'));
     }
     $this->set("title_for_layout","Request " . $id . " - View a Request - " . $this->getAgencyName());
-    $request = $this->Request->read();
+    $request = $this->Request->find('first', array('conditions' => array('Request.id' => $id), 'recursive' => 2));
     $this->set('request', $request);
 	    
     //organize and count reponses
