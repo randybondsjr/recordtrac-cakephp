@@ -1,23 +1,12 @@
-# ************************************************************
-# Sequel Pro SQL dump
-# Version 4096
-#
-# http://www.sequelpro.com/
-# http://code.google.com/p/sequel-pro/
-#
-# Host: 127.0.0.1 (MySQL 5.6.14)
-# Database: record-trac
-# Generation Time: 2014-08-28 00:22:42 +0000
-# ************************************************************
+# Dump of table calendar
+# ------------------------------------------------------------
 
+DROP TABLE IF EXISTS `calendar`;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE TABLE `calendar` (
+  `datefield` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 # Dump of table closed_reasons
@@ -27,7 +16,7 @@ DROP TABLE IF EXISTS `closed_reasons`;
 
 CREATE TABLE `closed_reasons` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `label` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `reason` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -41,8 +30,8 @@ DROP TABLE IF EXISTS `departments`;
 
 CREATE TABLE `departments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `date_created` datetime DEFAULT NULL,
-  `date_updated` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `contact_id` int(11) DEFAULT NULL,
   `backup_id` int(11) DEFAULT NULL,
@@ -72,8 +61,24 @@ DROP TABLE IF EXISTS `extend_reasons`;
 
 CREATE TABLE `extend_reasons` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `label` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `reason` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table internal_notes
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `internal_notes`;
+
+CREATE TABLE `internal_notes` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `request_id` int(11) DEFAULT NULL,
+  `text` text,
+  `created` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -175,6 +180,7 @@ CREATE TABLE `records` (
   `url` varchar(255) DEFAULT NULL,
   `access` text,
   `staff_mins` int(11) DEFAULT NULL,
+  `pages` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -192,6 +198,7 @@ CREATE TABLE `requests` (
   `extended` tinyint(1) DEFAULT NULL,
   `status_updated` datetime DEFAULT NULL,
   `text` text,
+  `tags` text,
   `status_id` int(11) DEFAULT '1',
   `requester_id` int(11) DEFAULT NULL,
   `creator_id` int(11) DEFAULT NULL COMMENT 'user who created',
