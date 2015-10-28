@@ -452,7 +452,7 @@ class RequestsController extends AppController {
                 ->emailFormat('html')
                 ->to($user["User"]["email"])
                 ->from($this->getfromEmail())
-                ->bcc($this->getBccEmail())
+                ->bcc(array($this->getBccEmail()))
                 ->subject($this->getAgencyName().' Public Disclosure Request #' .$requestID)
                 ->viewVars( array(
                     'agencyName' => $this->getAgencyName(),
